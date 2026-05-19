@@ -22,7 +22,8 @@ python3 -m http.server 8080
 Veja `assets/README.md` para logo, foto da desenvolvedora e galeria.
 
 ## Links da desenvolvedora
-Edite `DEV_LINKS` no início de `script.js`.
+- GitHub: https://github.com/hzy1kk
+- Repositório: https://github.com/hzy1kk/ana-clone
 
 ## Contato (footer)
 - Site: https://colegiopaulodetarso.com.br/

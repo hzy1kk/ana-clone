@@ -7,8 +7,8 @@
 /* Configuração — atualize os links da desenvolvedora quando disponíveis      */
 /* -------------------------------------------------------------------------- */
 const DEV_LINKS = {
-  github: '', // ex: 'https://github.com/seu-usuario'
-  repository: '', // ex: 'https://github.com/seu-usuario/conexao-solidaria'
+  github: 'https://github.com/hzy1kk',
+  repository: 'https://github.com/hzy1kk/ana-clone',
 };
 
 const STORAGE_KEYS = {
