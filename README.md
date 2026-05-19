@@ -1,43 +1,28 @@
 # Conexão Solidária
 
-Landing **premiada** — projeto de voluntariado · Escola Paulo de Tarso.
+Landing premium inspirada no **Wix AI Website Builder** — projeto Escola Paulo de Tarso.
 
-## Narrativa
-
-1. **Contexto** — ONU 2026, escola, comunidade  
-2. **Desafio** — fome, educação, exclusão  
-3. **Solução** — kits, oficinas, acolhimento  
-4. **Resultado** — impacto + galeria clean  
-5. **Convite** — jogo do kit + inscrição  
-
-## Stack
-
-- Front: HTML5, CSS3, JavaScript (vanilla, ES modules)
-- Back: Node.js + Express (`/api/inscricao`, `/api/stats`)
-
-## Rodar com backend (recomendado)
+## Rodar (recomendado — com API)
 
 ```bash
 npm install
 npm start
 ```
 
-Abra: **http://localhost:3000**
+Abra **http://localhost:3000**
 
-## Só front-end estático
+## Só estático
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Inscrições caem no `localStorage` se a API não estiver ativa.
+## Estrutura da apresentação
+
+1. Contexto · 2. Desafio · 3. Solução · 4. Resultado · 5. Convite (+ jogo e formulário)
 
 ## Assets
 
-- Logo oficial: `assets/logo-colegio.png`
-- Galeria: `assets/images/gallery/foto-1.jpg` … `foto-3.jpg`
-- Foto dev (opcional): `assets/dev-ana.jpg`
-
-## GitHub
-
-- https://github.com/hzy1kk/ana-clone
+- `assets/logo-colegio.png` — logo oficial (grande no hero)
+- `assets/images/gallery/foto-1.jpg` … `foto-3.jpg`
+- `assets/dev-ana.jpg` — foto da desenvolvedora (opcional)

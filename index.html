@@ -4,317 +4,335 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Conexão Solidária — Voluntariado que transforma vidas. Escola Paulo de Tarso.">
-  <title>Conexão Solidária | Impacto Real</title>
+  <title>Conexão Solidária | Voluntariado de Impacto</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="assets/logo-colegio.png" type="image/png">
-  <meta name="theme-color" content="#1b4f8a">
+  <link rel="icon" href="assets/logo-colegio.png">
+  <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-  <div class="theme-overlay" id="themeOverlay" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
+  <div class="page-bg" aria-hidden="true">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+  </div>
+  <div class="theme-flash" id="themeFlash" aria-hidden="true"></div>
 
-  <a class="skip-link" href="#main">Ir para o conteúdo</a>
-
-  <header class="nav" id="nav" role="banner">
-    <div class="nav__inner container">
-      <a href="#inicio" class="nav__brand">
-        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" class="nav__logo" width="52" height="52">
-        <span class="nav__brand-text">
+  <header class="header" id="header">
+    <div class="header__bar container">
+      <a href="#topo" class="header__brand">
+        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" class="header__logo" width="96" height="96">
+        <span class="header__name">
           <strong>Conexão Solidária</strong>
-          <small>Paulo de Tarso</small>
+          <em>Colégio Paulo de Tarso</em>
         </span>
       </a>
-
-      <nav class="nav__links" id="navLinks" aria-label="Principal">
-        <a href="#contexto" class="nav__link" data-nav>Contexto</a>
-        <a href="#desafio" class="nav__link" data-nav>Desafio</a>
-        <a href="#solucao" class="nav__link" data-nav>Solução</a>
-        <a href="#resultado" class="nav__link" data-nav>Resultado</a>
-        <a href="#convite" class="nav__link" data-nav>Participe</a>
-        <span class="nav__pill" id="navPill" aria-hidden="true"></span>
+      <nav class="header__nav" id="headerNav">
+        <a href="#contexto">Contexto</a>
+        <a href="#desafio">Desafio</a>
+        <a href="#solucao">Solução</a>
+        <a href="#resultado">Resultado</a>
+        <a href="#participe">Participe</a>
       </nav>
-
-      <div class="nav__actions">
-        <button type="button" class="theme-switch" id="themeToggle" role="switch" aria-checked="false" aria-label="Alternar tema">
-          <span class="theme-switch__track"><span class="theme-switch__thumb"></span></span>
+      <div class="header__tools">
+        <button type="button" class="theme-btn" id="themeBtn" aria-label="Alternar tema">
+          <span class="theme-btn__knob"></span>
         </button>
-        <a href="#convite" class="btn btn--fill btn--sm">Inscrever-se</a>
-        <button type="button" class="nav__burger" id="navBurger" aria-expanded="false" aria-label="Menu"><span></span><span></span></button>
+        <a href="#participe" class="wix-btn wix-btn--primary wix-btn--sm">Inscrever-se</a>
+        <button type="button" class="header__menu" id="headerMenu" aria-label="Menu"><i></i><i></i></button>
       </div>
     </div>
   </header>
 
-  <main id="main">
-    <!-- HERO -->
-    <section class="hero" id="inicio">
-      <div class="hero__scene" id="heroScene" aria-hidden="true">
-        <div class="hero__orb hero__orb--blue"></div>
-        <div class="hero__orb hero__orb--orange"></div>
-        <canvas id="heroCanvas"></canvas>
-      </div>
-
-      <div class="container hero__layout">
-        <div class="hero__copy">
-          <div class="hero__badge reveal">
-            <img src="assets/logo-colegio.png" alt="" class="hero__badge-logo" width="36" height="36">
-            <span>Escola Paulo de Tarso · 2026</span>
-          </div>
-
-          <h1 class="hero__title reveal" data-delay="1">
-            <span class="line-mask"><span class="line-inner">Solidariedade</span></span>
-            <span class="line-mask"><span class="line-inner line-inner--accent">que transforma</span></span>
-            <span class="line-mask"><span class="line-inner">vidas reais</span></span>
-          </h1>
-
-          <p class="hero__lead reveal" data-delay="2">
-            Conexão Solidária — combate à fome com educação no Centro Comunitário Esperança Viva.
-          </p>
-
-          <div class="hero__cta reveal" data-delay="3">
-            <a href="#convite" class="btn btn--fill btn--lg magnetic" data-magnetic>Inscreva-se</a>
-            <a href="#contexto" class="btn btn--line btn--lg magnetic" data-magnetic>Ver a jornada</a>
-          </div>
+  <main id="topo">
+    <!-- HERO WIX -->
+    <section class="wix-hero">
+      <div class="container wix-hero__inner">
+        <div class="wix-hero__logo-wrap reveal">
+          <img src="assets/logo-colegio.png" alt="Logo Colégio Paulo de Tarso" class="wix-hero__logo" width="220" height="220">
         </div>
-
-        <div class="hero__stage reveal" data-delay="2">
-          <div class="hero__card-3d" id="heroCard3d">
-            <div class="hero__card-face hero__card-face--front">
-              <span class="hero__card-num">CS</span>
-              <p>17 OUT 2026</p>
-              <strong>08h – 13h</strong>
-            </div>
-            <div class="hero__card-face hero__card-face--back"></div>
+        <p class="wix-hero__eyebrow reveal">Projeto de Voluntariado · 2026</p>
+        <h1 class="wix-hero__title reveal">
+          Transforme vidas com<br>
+          <span class="gradient-text">solidariedade real</span>
+        </h1>
+        <p class="wix-hero__sub reveal">
+          Combate à fome e apoio educacional para crianças em vulnerabilidade —
+          uma experiência completa no Centro Comunitário Esperança Viva.
+        </p>
+        <div class="wix-hero__cta reveal">
+          <a href="#participe" class="wix-btn wix-btn--primary wix-btn--xl">Participar agora</a>
+          <a href="#contexto" class="wix-btn wix-btn--ghost wix-btn--xl">Conhecer a jornada</a>
+        </div>
+        <ul class="wix-hero__meta reveal">
+          <li><strong>17 OUT</strong> 2026</li>
+          <li><strong>08h–13h</strong></li>
+          <li><strong>Esperança Viva</strong></li>
+        </ul>
+      </div>
+      <div class="wix-hero__preview reveal" aria-hidden="true">
+        <div class="browser-mock">
+          <div class="browser-mock__bar"><span></span><span></span><span></span></div>
+          <div class="browser-mock__body">
+            <div class="mock-stat"><span id="heroStat">0</span><small>inscritos</small></div>
+            <p>Solidariedade que transforma vidas</p>
           </div>
         </div>
       </div>
-
-      <div class="kinetic-bar" aria-hidden="true">
-        <div class="kinetic-bar__track">
-          <span>CONEXÃO SOLIDÁRIA</span><span>·</span><span>EDUCAÇÃO</span><span>·</span><span>COMUNIDADE</span><span>·</span><span>ESPERANÇA VIVA</span><span>·</span>
-          <span>CONEXÃO SOLIDÁRIA</span><span>·</span><span>EDUCAÇÃO</span><span>·</span><span>COMUNIDADE</span><span>·</span><span>ESPERANÇA VIVA</span><span>·</span>
-        </div>
-      </div>
-
-      <div class="hero__scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
     </section>
 
-    <!-- CONTEXTO -->
-    <section class="story" id="contexto" data-chapter="01">
-      <div class="container story__grid">
-        <div class="story__sticky">
-          <span class="chapter">01</span>
-          <h2 class="story__title split-reveal">Contexto</h2>
-          <p class="story__tag">Por que existimos</p>
+    <!-- FEATURE STRIP -->
+    <section class="wix-strip">
+      <div class="container">
+        <h2 class="wix-strip__title reveal">Suas ações entram.<br>Um impacto incrível sai.</h2>
+        <p class="wix-strip__sub reveal">Interaja com o projeto e veja como pequenos gestos constroem futuros inteiros.</p>
+      </div>
+    </section>
+
+    <!-- 01 CONTEXTO -->
+    <section class="wix-block" id="contexto">
+      <div class="container wix-block__grid">
+        <div class="wix-block__visual reveal">
+          <div class="feature-card feature-card--blue">
+            <span class="feature-card__num">01</span>
+            <h3>Contexto</h3>
+            <p>Ano Internacional dos Voluntários · ODS · Paulo de Tarso</p>
+          </div>
         </div>
-        <div class="story__body">
-          <p class="story__lead reveal">
-            Em 2026, o mundo celebra o <strong>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</strong>.
-            Na Escola Paulo de Tarso, acreditamos que educar é também formar quem <em>age</em>.
+        <div class="wix-block__copy reveal">
+          <span class="wix-label">Capítulo 01</span>
+          <h2>Por que o voluntariado importa em 2026</h2>
+          <p class="wix-lead">
+            A ONU declarou 2026 como o <strong>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</strong>.
+            Na nossa escola, educar é formar quem age com empatia e responsabilidade.
           </p>
-          <p class="reveal">
-            O voluntariado não é um gesto isolado — é presença, escuta e construção coletiva.
-            O projeto <strong>Conexão Solidária</strong> nasce para unir alunos, famílias e comunidade
-            em torno de crianças em vulnerabilidade social.
+          <p>
+            O <strong>Conexão Solidária</strong> conecta alunos, famílias e comunidade em uma ação concreta
+            de combate à fome com suporte educacional.
           </p>
-          <ul class="story__stats reveal">
+          <ul class="wix-metrics">
             <li><strong data-count="970">0</strong><span>M+ voluntários no mundo</span></li>
             <li><strong data-count="17">0</strong><span>ODS alinhados</span></li>
-            <li><strong>2026</strong><span>Ano internacional ONU</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- DESAFIO -->
-    <section class="story story--dark" id="desafio" data-chapter="02">
-      <div class="container story__grid">
-        <div class="story__sticky">
-          <span class="chapter">02</span>
-          <h2 class="story__title split-reveal">Desafio</h2>
-          <p class="story__tag">O que precisamos enfrentar</p>
-        </div>
-        <div class="story__body">
-          <p class="story__lead reveal">
-            Milhares de crianças convivem com <strong>insegurança alimentar</strong> e barreiras ao aprendizado.
-            Sem nutrição e acolhimento, o futuro fica mais distante.
+    <!-- 02 DESAFIO -->
+    <section class="wix-block wix-block--alt" id="desafio">
+      <div class="container wix-block__grid wix-block__grid--reverse">
+        <div class="wix-block__copy reveal">
+          <span class="wix-label">Capítulo 02</span>
+          <h2>O desafio que enfrentamos juntos</h2>
+          <p class="wix-lead">
+            Crianças em vulnerabilidade social convivem com fome, baixa autoestima e barreiras ao aprendizado.
           </p>
-          <div class="challenge-cards reveal">
-            <article class="challenge-card" data-tilt>
-              <span class="challenge-card__icon">33%</span>
-              <h3>Fome &amp; nutrição</h3>
-              <p>Famílias com crianças em risco alimentar no Brasil.*</p>
+          <div class="wix-cards">
+            <article class="wix-mini-card">
+              <span>33%</span>
+              <p>Famílias com insegurança alimentar*</p>
             </article>
-            <article class="challenge-card" data-tilt>
-              <span class="challenge-card__icon">1:4</span>
-              <h3>Educação</h3>
-              <p>Crianças em áreas vulneráveis com risco de evasão.*</p>
+            <article class="wix-mini-card">
+              <span>1 em 4</span>
+              <p>Risco nutricional em áreas vulneráveis*</p>
             </article>
-            <article class="challenge-card" data-tilt>
-              <span class="challenge-card__icon">∞</span>
-              <h3>Exclusão</h3>
-              <p>Falta de vínculos comunitários que protegem e inspiram.</p>
+            <article class="wix-mini-card">
+              <span>∞</span>
+              <p>Necessidade de vínculos comunitários</p>
             </article>
           </div>
-          <p class="footnote reveal">*Dados ilustrativos para fins educativos do projeto.</p>
+          <p class="wix-note">*Dados ilustrativos — projeto acadêmico.</p>
+        </div>
+        <div class="wix-block__visual reveal">
+          <div class="feature-card feature-card--orange">
+            <span class="feature-card__num">02</span>
+            <h3>Desafio</h3>
+            <p>Fome · Educação · Exclusão social</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SOLUÇÃO -->
-    <section class="story" id="solucao" data-chapter="03">
+    <!-- 03 SOLUÇÃO -->
+    <section class="wix-block" id="solucao">
       <div class="container">
-        <div class="story__head reveal">
-          <span class="chapter">03</span>
-          <h2 class="story__title">Solução</h2>
-          <p class="story__tag">Conexão Solidária em ação</p>
+        <div class="wix-center reveal">
+          <span class="wix-label">Capítulo 03</span>
+          <h2>Liberdade para impactar.<br>Ajuste sua participação.</h2>
+          <p class="wix-lead wix-lead--center">Organize, distribua, ensine e acolha — cada etapa do projeto foi pensada para transformar.</p>
         </div>
-
-        <div class="solution-track">
-          <article class="solution-card reveal" data-tilt>
-            <span class="solution-card__n">01</span>
+        <div class="wix-features">
+          <article class="wix-feature reveal">
+            <div class="wix-feature__icon">01</div>
             <h3>Kits alimentares</h3>
             <p>Organização e distribuição de alimentos essenciais.</p>
           </article>
-          <article class="solution-card reveal" data-tilt data-delay="1">
-            <span class="solution-card__n">02</span>
+          <article class="wix-feature reveal" data-d="1">
+            <div class="wix-feature__icon">02</div>
             <h3>Oficinas educativas</h3>
-            <p>Aprendizado lúdico que desperta curiosidade e autoestima.</p>
+            <p>Aprendizado lúdico que desperta curiosidade.</p>
           </article>
-          <article class="solution-card reveal" data-tilt data-delay="2">
-            <span class="solution-card__n">03</span>
+          <article class="wix-feature reveal" data-d="2">
+            <div class="wix-feature__icon">03</div>
             <h3>Acolhimento</h3>
-            <p>Presença humana, escuta e atividades recreativas pedagógicas.</p>
+            <p>Atividades recreativas e suporte emocional.</p>
           </article>
         </div>
-
-        <div class="solution-meta reveal">
-          <div class="meta-chip"><strong>Local</strong> Centro Comunitário Esperança Viva</div>
-          <div class="meta-chip"><strong>Data</strong> 17 de outubro de 2026</div>
-          <div class="meta-chip"><strong>Horário</strong> 08h às 13h</div>
+        <div class="wix-chips reveal">
+          <span class="wix-chip"><b>Local</b> Centro Esperança Viva</span>
+          <span class="wix-chip"><b>Data</b> 17/10/2026</span>
+          <span class="wix-chip"><b>Horário</b> 08h – 13h</span>
         </div>
       </div>
     </section>
 
-    <!-- RESULTADO -->
-    <section class="story story--impact" id="resultado" data-chapter="04">
+    <!-- 04 RESULTADO -->
+    <section class="wix-block wix-block--gradient" id="resultado">
       <div class="container">
-        <div class="story__head reveal">
-          <span class="chapter">04</span>
-          <h2 class="story__title">Resultado</h2>
-          <p class="story__tag">Impacto que planejamos gerar</p>
+        <div class="wix-center reveal">
+          <span class="wix-label">Capítulo 04</span>
+          <h2>Resultados que planejamos alcançar</h2>
         </div>
-
-        <div class="impact-ring reveal">
-          <div class="impact-ring__center">
-            <span class="impact-ring__value" id="liveCounter">0</span>
-            <span class="impact-ring__label">voluntários inscritos</span>
-          </div>
-          <div class="impact-ring__orbit">
-            <span>Nutrição</span><span>Educação</span><span>Comunidade</span><span>Esperança</span>
-          </div>
+        <div class="wix-counter reveal">
+          <span class="wix-counter__n" id="liveCount">0</span>
+          <span class="wix-counter__label">voluntários inscritos</span>
         </div>
-
-        <!-- Galeria clean -->
-        <div class="gallery-clean reveal">
-          <figure class="gallery-clean__item">
-            <img src="assets/images/gallery/foto-1.jpg" alt="Crianças em atividade educativa" loading="lazy" width="800" height="600">
+        <div class="wix-gallery">
+          <figure class="wix-gallery__item reveal">
+            <img src="assets/images/gallery/foto-1.jpg" alt="Educação" loading="lazy" decoding="async">
             <figcaption>Educação</figcaption>
           </figure>
-          <figure class="gallery-clean__item gallery-clean__item--accent">
-            <img src="assets/images/gallery/foto-2.jpg" alt="Voluntários em ação solidária" loading="lazy" width="800" height="600">
+          <figure class="wix-gallery__item wix-gallery__item--main reveal" data-d="1">
+            <img src="assets/images/gallery/foto-2.jpg" alt="Solidariedade" loading="lazy" decoding="async">
             <figcaption>Solidariedade</figcaption>
           </figure>
-          <figure class="gallery-clean__item">
-            <img src="assets/images/gallery/foto-3.jpg" alt="Entrega de alimentos" loading="lazy" width="800" height="600">
+          <figure class="wix-gallery__item reveal" data-d="2">
+            <img src="assets/images/gallery/foto-3.jpg" alt="Alimentos" loading="lazy" decoding="async">
             <figcaption>Alimentos</figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- CONVITE + JOGO + FORM -->
-    <section class="story story--cta" id="convite" data-chapter="05">
-      <div class="container cta__grid">
-        <div class="cta__intro reveal">
-          <span class="chapter">05</span>
-          <h2 class="story__title">Convite à ação</h2>
-          <p class="story__lead">
-            Sua presença importa. Inscreva-se e experimente montar um kit solidário no mini-jogo abaixo.
-          </p>
+    <!-- 05 PARTICIPE -->
+    <section class="wix-block" id="participe">
+      <div class="container">
+        <div class="wix-center reveal">
+          <span class="wix-label">Capítulo 05</span>
+          <h2>Convite à ação</h2>
+          <p class="wix-lead wix-lead--center">Inscreva-se e monte seu kit solidário no mini-jogo interativo.</p>
         </div>
 
-        <div class="game reveal" id="gameKit" aria-label="Mini-jogo: monte o kit solidário">
-          <div class="game__header">
+        <div class="wix-split">
+          <div class="wix-game reveal" id="wixGame">
             <h3>Monte o Kit Solidário</h3>
-            <p>Clique nos itens para adicionar ao kit. Meta: 5 itens.</p>
-            <div class="game__score">Impacto: <strong id="gameScore">0</strong>%</div>
+            <p>Selecione 5 itens. Impacto: <strong id="gamePct">0%</strong></p>
+            <div class="wix-game__items">
+              <button type="button" data-g="arroz">🍚 Arroz</button>
+              <button type="button" data-g="feijao">🫘 Feijão</button>
+              <button type="button" data-g="livro">📚 Livro</button>
+              <button type="button" data-g="fruta">🍎 Fruta</button>
+              <button type="button" data-g="brinquedo">🧸 Brinquedo</button>
+              <button type="button" data-g="carinho">💛 Acolhimento</button>
+            </div>
+            <div class="wix-game__box" id="gameBox">Seu kit aparece aqui</div>
+            <button type="button" class="wix-btn wix-btn--ghost wix-btn--sm" id="gameReset">Reiniciar</button>
           </div>
-          <div class="game__items" id="gameItems">
-            <button type="button" class="game__item" data-item="arroz">🍚 Arroz</button>
-            <button type="button" class="game__item" data-item="feijao">🫘 Feijão</button>
-            <button type="button" class="game__item" data-item="livro">📚 Livro</button>
-            <button type="button" class="game__item" data-item="brinquedo">🧸 Brinquedo</button>
-            <button type="button" class="game__item" data-item="fruta">🍎 Fruta</button>
-            <button type="button" class="game__item" data-item="carinho">💛 Acolhimento</button>
-          </div>
-          <div class="game__box" id="gameBox" aria-live="polite">
-            <span class="game__box-placeholder">Seu kit aparece aqui</span>
-          </div>
-          <button type="button" class="btn btn--line btn--sm" id="gameReset">Reiniciar kit</button>
+
+          <form class="wix-form reveal" id="wixForm" novalidate>
+            <h3>Inscrição voluntária</h3>
+            <label>Nome completo<input name="nome" id="fNome" required minlength="3" autocomplete="name"></label>
+            <span class="wix-err" id="eNome"></span>
+            <div class="wix-form__row">
+              <div>
+                <label>Idade<input type="number" name="idade" id="fIdade" min="14" max="120" required></label>
+                <span class="wix-err" id="eIdade"></span>
+              </div>
+              <div>
+                <label>E-mail<input type="email" name="email" id="fEmail" required autocomplete="email"></label>
+                <span class="wix-err" id="eEmail"></span>
+              </div>
+            </div>
+            <label>Por que deseja participar?<textarea name="motivo" id="fMotivo" rows="3" required minlength="20"></textarea></label>
+            <span class="wix-err" id="eMotivo"></span>
+            <button type="submit" class="wix-btn wix-btn--primary wix-btn--full">Confirmar inscrição</button>
+            <p class="wix-form__msg" id="fMsg" role="status"></p>
+          </form>
         </div>
 
-        <form class="form reveal" id="formInscricao" novalidate>
-          <h3 class="form__title">Inscrição voluntária</h3>
-          <div class="form__row">
-            <label for="nome">Nome completo</label>
-            <input id="nome" name="nome" required minlength="3" autocomplete="name" placeholder="Seu nome">
-            <span class="form__err" id="err-nome"></span>
-          </div>
-          <div class="form__row form__row--half">
-            <div>
-              <label for="idade">Idade</label>
-              <input type="number" id="idade" name="idade" min="14" max="120" required placeholder="14+">
-              <span class="form__err" id="err-idade"></span>
-            </div>
-            <div>
-              <label for="email">E-mail</label>
-              <input type="email" id="email" name="email" required autocomplete="email" placeholder="seu@email.com">
-              <span class="form__err" id="err-email"></span>
-            </div>
-          </div>
-          <div class="form__row">
-            <label for="motivo">Por que deseja participar?</label>
-            <textarea id="motivo" name="motivo" rows="3" required minlength="20" placeholder="Sua motivação..."></textarea>
-            <span class="form__err" id="err-motivo"></span>
-          </div>
-          <button type="submit" class="btn btn--fill btn--full" id="formSubmit">
-            <span>Confirmar inscrição</span>
-          </button>
-          <p class="form__feedback" id="formFeedback" role="status"></p>
-        </form>
-
-        <div class="success-panel is-hidden" id="successPanel" role="status">
-          <div class="success-panel__icon">✓</div>
+        <div class="wix-success is-hidden" id="wixSuccess" role="status">
+          <div class="wix-success__icon">✓</div>
           <h3>Inscrição confirmada!</h3>
-          <p id="successText"></p>
+          <p id="wixSuccessText"></p>
         </div>
       </div>
     </section>
 
-    <!-- DEV -->
-    <section class="dev" id="desenvolvedora">
-      <div class="container dev__grid reveal">
-        <div class="dev__avatar" id="devAvatar">
-          <span>AF</span>
+    <!-- COMO FUNCIONA (WIX STEPS) -->
+    <section class="wix-steps">
+      <div class="container">
+        <h2 class="wix-center reveal">Como participar em 4 passos</h2>
+        <div class="wix-steps__grid">
+          <article class="wix-step reveal">
+            <span>1</span>
+            <h3>Inscreva-se</h3>
+            <p>Preencha o formulário com seus dados.</p>
+          </article>
+          <article class="wix-step reveal" data-d="1">
+            <span>2</span>
+            <h3>Monte o kit</h3>
+            <p>Experimente o jogo e entenda o impacto.</p>
+          </article>
+          <article class="wix-step reveal" data-d="2">
+            <span>3</span>
+            <h3>Compareça</h3>
+            <p>17/10/2026 · 08h às 13h · Esperança Viva.</p>
+          </article>
+          <article class="wix-step reveal" data-d="3">
+            <span>4</span>
+            <h3>Transforme</h3>
+            <p>Aja com propósito ao lado da comunidade.</p>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="wix-faq">
+      <div class="container wix-faq__wrap">
+        <h2 class="reveal">Perguntas frequentes</h2>
+        <details class="wix-faq__item reveal">
+          <summary>Quem pode participar?</summary>
+          <p>Voluntários a partir de 14 anos, especialmente da comunidade escolar e convidados.</p>
+        </details>
+        <details class="wix-faq__item reveal">
+          <summary>Preciso de experiência prévia?</summary>
+          <p>Não. O acolhimento e as orientações serão feitos no dia do evento.</p>
+        </details>
+        <details class="wix-faq__item reveal">
+          <summary>Os dados da inscrição são salvos?</summary>
+          <p>Sim — no servidor do projeto (ou localmente se estiver em modo estático).</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="wix-cta-band">
+      <div class="container wix-cta-band__inner reveal">
+        <img src="assets/logo-colegio.png" alt="" class="wix-cta-band__logo" width="120" height="120">
+        <h2>É assim que se transforma uma comunidade.</h2>
+        <a href="#participe" class="wix-btn wix-btn--white wix-btn--xl">Quero participar</a>
+      </div>
+    </section>
+
+    <!-- DEV -->
+    <section class="wix-dev" id="desenvolvedora">
+      <div class="container wix-dev__inner reveal">
+        <div class="wix-dev__avatar" id="devAv">AF</div>
         <div>
-          <span class="chapter">Dev</span>
           <h2>Ana Flávia</h2>
-          <p class="dev__role">Projeto Acadêmico · Escola Paulo de Tarso</p>
-          <p>Experiência front-end premium em HTML, CSS e JavaScript — com backend Node.js para inscrições reais e animações de alto nível.</p>
-          <div class="dev__tags"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Node.js</span></div>
-          <div class="dev__links">
+          <p class="wix-dev__role">Desenvolvedora · Projeto Acadêmico</p>
+          <p>Site premium em HTML, CSS, JavaScript e Node.js — UI inspirada em builders modernos, com narrativa, jogo e API de inscrições.</p>
+          <div class="wix-dev__links">
             <a href="https://github.com/hzy1kk" target="_blank" rel="noopener">GitHub</a>
             <a href="https://github.com/hzy1kk/ana-clone" target="_blank" rel="noopener">Repositório</a>
           </div>
@@ -323,27 +341,27 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__grid">
+  <footer class="wix-footer">
+    <div class="container wix-footer__grid">
       <div>
-        <img src="assets/logo-colegio.png" alt="" class="footer__logo" width="64" height="64">
-        <p class="footer__quote">Solidariedade que transforma vidas.</p>
+        <img src="assets/logo-colegio.png" alt="Paulo de Tarso" width="72" height="72">
+        <p>Conexão Solidária · Escola Paulo de Tarso</p>
       </div>
       <div>
-        <h4>Colégio Paulo de Tarso</h4>
+        <h4>Contato</h4>
         <a href="https://colegiopaulodetarso.com.br/" target="_blank" rel="noopener">colegiopaulodetarso.com.br</a>
         <a href="tel:+551137297060">(11) 3729-7060</a>
         <a href="https://api.whatsapp.com/send/?phone=5511975750697" target="_blank" rel="noopener">WhatsApp</a>
       </div>
-      <p class="footer__copy">&copy; <span id="year"></span> Conexão Solidária</p>
+      <p class="wix-footer__copy">&copy; <span id="yr"></span> Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <dialog class="modal" id="modalDup">
-    <div class="modal__box">
+  <dialog class="wix-modal" id="wixModal">
+    <div class="wix-modal__box">
       <h3>Você já está inscrito(a)</h3>
-      <p>Esta ação voluntária já possui sua inscrição registrada.</p>
-      <button type="button" class="btn btn--fill" id="modalClose">Entendi</button>
+      <p>Você já está inscrito(a) nesta ação voluntária.</p>
+      <button type="button" class="wix-btn wix-btn--primary" id="wixModalClose">Entendi</button>
     </div>
   </dialog>
 
