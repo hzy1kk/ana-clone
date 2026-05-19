@@ -1,31 +1,43 @@
 # Conexão Solidária
 
-Landing page institucional premium — projeto acadêmico de voluntariado (Escola Paulo de Tarso).
+Landing **premiada** — projeto de voluntariado · Escola Paulo de Tarso.
+
+## Narrativa
+
+1. **Contexto** — ONU 2026, escola, comunidade  
+2. **Desafio** — fome, educação, exclusão  
+3. **Solução** — kits, oficinas, acolhimento  
+4. **Resultado** — impacto + galeria clean  
+5. **Convite** — jogo do kit + inscrição  
 
 ## Stack
-- HTML5, CSS3, JavaScript (vanilla)
-- Sem frameworks ou bibliotecas externas
 
-## Arquivos
-- `index.html` — estrutura
-- `style.css` — estilos, tema claro/escuro, responsivo
-- `script.js` — animações, formulário, `localStorage`
+- Front: HTML5, CSS3, JavaScript (vanilla, ES modules)
+- Back: Node.js + Express (`/api/inscricao`, `/api/stats`)
 
-## Como abrir
-Abra `index.html` no navegador ou use um servidor local:
+## Rodar com backend (recomendado)
+
+```bash
+npm install
+npm start
+```
+
+Abra: **http://localhost:3000**
+
+## Só front-end estático
 
 ```bash
 python3 -m http.server 8080
 ```
 
+Inscrições caem no `localStorage` se a API não estiver ativa.
+
 ## Assets
-Veja `assets/README.md` para logo, foto da desenvolvedora e galeria.
 
-## Links da desenvolvedora
-- GitHub: https://github.com/hzy1kk
-- Repositório: https://github.com/hzy1kk/ana-clone
+- Logo oficial: `assets/logo-colegio.png`
+- Galeria: `assets/images/gallery/foto-1.jpg` … `foto-3.jpg`
+- Foto dev (opcional): `assets/dev-ana.jpg`
 
-## Contato (footer)
-- Site: https://colegiopaulodetarso.com.br/
-- Telefone: (11) 3729-7060
-- WhatsApp: link no rodapé
+## GitHub
+
+- https://github.com/hzy1kk/ana-clone

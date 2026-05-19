@@ -1,0 +1,4 @@
+node_modules/
+data/inscricoes.json
+.DS_Store
+*.log

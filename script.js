@@ -1,562 +1,487 @@
 /**
- * Conexão Solidária — Application logic
- * Vanilla JS · localStorage · animations · form validation
+ * Conexão Solidária — Front-end premium
+ * Animações · jogo · API + fallback localStorage
  */
 
-/* -------------------------------------------------------------------------- */
-/* Configuração — atualize os links da desenvolvedora quando disponíveis      */
-/* -------------------------------------------------------------------------- */
-const DEV_LINKS = {
-  github: 'https://github.com/hzy1kk',
-  repository: 'https://github.com/hzy1kk/ana-clone',
+const API = {
+  stats: '/api/stats',
+  inscricao: '/api/inscricao',
+  check: (email) => `/api/inscricao/check?email=${encodeURIComponent(email)}`,
 };
 
-const STORAGE_KEYS = {
-  registration: 'conexaoSolidaria_inscricao',
-  counter: 'conexaoSolidaria_contador',
-  theme: 'conexaoSolidaria_tema',
+const STORAGE = {
+  reg: 'cs_inscricao_v2',
+  theme: 'cs_theme_v2',
 };
 
 const MIN_AGE = 14;
+const GAME_GOAL = 5;
 
-/* -------------------------------------------------------------------------- */
-/* DOM references                                                             */
-/* -------------------------------------------------------------------------- */
-const navbar = document.getElementById('navbar');
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-link');
-const themeToggle = document.getElementById('themeToggle');
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
 const html = document.documentElement;
-const form = document.getElementById('inscricaoForm');
-const volunteerCountEl = document.getElementById('volunteerCount');
-const successCard = document.getElementById('successCard');
-const successMessage = document.getElementById('successMessage');
-const formFeedback = document.getElementById('formFeedback');
-const submitBtn = document.getElementById('submitBtn');
-const modal = document.getElementById('alreadyRegisteredModal');
-const modalClose = document.getElementById('modalClose');
-const modalOk = document.getElementById('modalOk');
-const yearEl = document.getElementById('year');
-const githubLink = document.getElementById('githubLink');
-const repoLink = document.getElementById('repoLink');
-const devPhotoFrame = document.getElementById('devPhotoFrame');
-const themeOverlay = document.getElementById('themeOverlay');
-const navIndicator = document.getElementById('navIndicator');
-const navList = document.querySelector('.nav-list');
-const heroCounterEl = document.getElementById('heroCounter');
+const nav = $('#nav');
+const navPill = $('#navPill');
+const navLinks = $$('[data-nav]');
+const themeToggle = $('#themeToggle');
+const themeOverlay = $('#themeOverlay');
+const cursorGlow = $('#cursorGlow');
+const heroCard3d = $('#heroCard3d');
+const heroScene = $('#heroScene');
+const heroCanvas = $('#heroCanvas');
+const liveCounter = $('#liveCounter');
+const form = $('#formInscricao');
+const formFeedback = $('#formFeedback');
+const successPanel = $('#successPanel');
+const successText = $('#successText');
+const modalDup = $('#modalDup');
+const modalClose = $('#modalClose');
+const yearEl = $('#year');
+const devAvatar = $('#devAvatar');
 
-/* -------------------------------------------------------------------------- */
-/* Init                                                                       */
-/* -------------------------------------------------------------------------- */
+/* ── Init ── */
 function init() {
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
+  yearEl && (yearEl.textContent = new Date().getFullYear());
   initTheme();
-  initDevLinks();
-  initNavbar();
-  initNavIndicator();
-  initMobileMenu();
-  initTabs();
-  initSmoothScroll();
+  initCursor();
+  initNav();
+  initMobileNav();
   initScrollReveal();
+  initSplitReveal();
+  initCounters();
+  initTilt();
+  initMagnetic();
+  initHero3d();
+  initHeroCanvas();
   initParallax();
-  initParticles();
-  initStatsCounter();
-  initProgressBars();
-  initGallerySlots();
+  initGame();
   initForm();
-  syncUIWithStorage();
+  initDevPhoto();
+  syncStats();
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('is-in'), 200 + i * 100);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);
 
-/* -------------------------------------------------------------------------- */
-/* Theme                                                                      */
-/* -------------------------------------------------------------------------- */
+/* ── Theme ── */
 function initTheme() {
-  const saved = localStorage.getItem(STORAGE_KEYS.theme);
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = saved || (prefersDark ? 'dark' : 'light');
-  setTheme(theme, { animate: false });
+  const saved = localStorage.getItem(STORAGE.theme);
+  const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+  setTheme(saved || (prefersDark ? 'dark' : 'light'), false);
 
   themeToggle?.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    setTheme(next, { animate: true });
-    localStorage.setItem(STORAGE_KEYS.theme, next);
+    setTheme(next, true);
+    localStorage.setItem(STORAGE.theme, next);
   });
 }
 
-function setTheme(theme, { animate = true } = {}) {
+function setTheme(theme, animate = true) {
   const apply = () => {
     html.setAttribute('data-theme', theme);
-    themeToggle?.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute(
-      'content',
-      theme === 'dark' ? '#080c12' : '#1b4f8a'
-    );
+    themeToggle?.setAttribute('aria-checked', theme === 'dark');
+    $('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#080c12' : '#1b4f8a');
   };
 
-  if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!animate || matchMedia('(prefers-reduced-motion: reduce)').matches) {
     apply();
     return;
   }
 
-  const runOverlay = () => {
-    if (!themeOverlay) {
-      apply();
+  const fade = () => {
+    themeOverlay?.classList.add('is-active');
+    setTimeout(() => {
+      if (document.startViewTransition) document.startViewTransition(() => apply());
+      else apply();
+      setTimeout(() => themeOverlay?.classList.remove('is-active'), 350);
+    }, 180);
+  };
+  fade();
+}
+
+/* ── Cursor glow ── */
+function initCursor() {
+  if (!cursorGlow || matchMedia('(pointer: coarse)').matches) return;
+  let x = 0;
+  let y = 0;
+  let cx = 0;
+  let cy = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    x = e.clientX;
+    y = e.clientY;
+    html.style.setProperty('--cursor-x', `${x}px`);
+    html.style.setProperty('--cursor-y', `${y}px`);
+    html.style.setProperty('--cursor-opacity', '1');
+  });
+
+  const tick = () => {
+    cx += (x - cx) * 0.12;
+    cy += (y - cy) * 0.12;
+    cursorGlow.style.transform = `translate(${cx - 150}px, ${cy - 150}px)`;
+    requestAnimationFrame(tick);
+  };
+  tick();
+
+  document.addEventListener('mouseleave', () => html.style.setProperty('--cursor-opacity', '0'));
+}
+
+/* ── Nav pill + scroll spy ── */
+function initNav() {
+  const movePill = (link) => {
+    if (!navPill || !link || innerWidth < 900) {
+      navPill && (navPill.style.opacity = '0');
       return;
     }
-    themeOverlay.classList.add('is-active');
-    window.setTimeout(() => {
-      apply();
-      window.setTimeout(() => themeOverlay.classList.remove('is-active'), 280);
-    }, 220);
+    const parent = link.parentElement?.parentElement || link.closest('.nav__links');
+    if (!parent) return;
+    const pr = parent.getBoundingClientRect();
+    const lr = link.getBoundingClientRect();
+    navPill.style.opacity = '1';
+    navPill.style.width = `${lr.width}px`;
+    navPill.style.transform = `translateX(${lr.left - pr.left}px)`;
   };
 
-  if (typeof document.startViewTransition === 'function') {
-    document.startViewTransition(() => {
-      apply();
-    });
-    runOverlay();
-  } else {
-    runOverlay();
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/* Tabs (Voluntariado)                                                        */
-/* -------------------------------------------------------------------------- */
-function initTabs() {
-  document.querySelectorAll('[data-tabs]').forEach((root) => {
-    const buttons = root.querySelectorAll('.tab-btn');
-    const panels = root.querySelectorAll('.tab-panel');
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.tab;
-        buttons.forEach((b) => {
-          const active = b === btn;
-          b.classList.toggle('is-active', active);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        panels.forEach((panel) => {
-          const active = panel.dataset.panel === id;
-          panel.classList.toggle('is-active', active);
-          panel.hidden = !active;
-        });
-      });
-    });
-  });
-}
-
-/* -------------------------------------------------------------------------- */
-/* Nav sliding indicator                                                      */
-/* -------------------------------------------------------------------------- */
-function initNavIndicator() {
-  if (!navIndicator || !navList) return;
-
-  const moveIndicator = (link) => {
-    if (!link || window.innerWidth < 769) {
-      navIndicator.style.opacity = '0';
-      return;
-    }
-    const listRect = navList.getBoundingClientRect();
-    const rect = link.getBoundingClientRect();
-    navIndicator.style.opacity = '1';
-    navIndicator.style.width = `${rect.width}px`;
-    navIndicator.style.transform = `translateX(${rect.left - listRect.left}px)`;
-  };
-
-  const active = document.querySelector('.nav-link.is-active');
-  if (active) moveIndicator(active);
-
-  navLinks.forEach((link) => {
-    link.addEventListener('mouseenter', () => moveIndicator(link));
-  });
-
-  navList.addEventListener('mouseleave', () => {
-    const current = document.querySelector('.nav-link.is-active');
-    moveIndicator(current);
-  });
-
-  window.addEventListener('resize', () => {
-    const current = document.querySelector('.nav-link.is-active');
-    moveIndicator(current);
-  });
-}
-
-/* -------------------------------------------------------------------------- */
-/* Developer links & photo slot                                                 */
-/* -------------------------------------------------------------------------- */
-function initDevLinks() {
-  if (DEV_LINKS.github && githubLink) {
-    githubLink.href = DEV_LINKS.github;
-    githubLink.removeAttribute('data-placeholder');
-  }
-  if (DEV_LINKS.repository && repoLink) {
-    repoLink.href = DEV_LINKS.repository;
-    repoLink.removeAttribute('data-placeholder');
-  }
-
-  // Carrega foto da desenvolvedora se existir em assets/dev-ana.jpg
-  const img = new Image();
-  img.src = 'assets/dev-ana.jpg';
-  img.alt = 'Ana Flávia';
-  img.onload = () => {
-    if (!devPhotoFrame) return;
-    devPhotoFrame.querySelector('.dev-initials')?.remove();
-    devPhotoFrame.querySelector('.dev-photo-hint')?.remove();
-    devPhotoFrame.appendChild(img);
-  };
-}
-
-/* -------------------------------------------------------------------------- */
-/* Navbar                                                                     */
-/* -------------------------------------------------------------------------- */
-function initNavbar() {
+  const sections = ['contexto', 'desafio', 'solucao', 'resultado', 'convite'];
   const onScroll = () => {
-    navbar?.classList.toggle('is-scrolled', window.scrollY > 40);
-    updateActiveNavLink();
+    nav?.classList.toggle('nav--scrolled', scrollY > 24);
+    const pos = scrollY + 120;
+    let current = 'contexto';
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= pos) current = id;
+    });
+    navLinks.forEach((l) => {
+      const active = l.getAttribute('href') === `#${current}`;
+      l.classList.toggle('is-active', active);
+      if (active) movePill(l);
+    });
   };
 
+  navLinks.forEach((l) => {
+    l.addEventListener('mouseenter', () => movePill(l));
+    l.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = l.getAttribute('href')?.slice(1);
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  $('#navLinks')?.addEventListener('mouseleave', onScroll);
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
 }
 
-function updateActiveNavLink() {
-  const sections = ['inicio', 'voluntariado', 'causa', 'projeto', 'inscricao', 'desenvolvedora'];
-  const scrollPos = window.scrollY + 120;
-
-  let current = 'inicio';
-  sections.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el && el.offsetTop <= scrollPos) current = id;
+function initMobileNav() {
+  const burger = $('#navBurger');
+  const links = $('#navLinks');
+  burger?.addEventListener('click', () => {
+    const open = links?.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
-
-  navLinks.forEach((link) => {
-    const href = link.getAttribute('href')?.replace('#', '');
-    link.classList.toggle('is-active', href === current);
-  });
+  navLinks.forEach((l) => l.addEventListener('click', () => links?.classList.remove('is-open')));
 }
 
-function initMobileMenu() {
-  navToggle?.addEventListener('click', () => {
-    const open = navMenu?.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      navMenu?.classList.remove('is-open');
-      navToggle?.setAttribute('aria-expanded', 'false');
-    });
-  });
-}
-
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
-      const id = anchor.getAttribute('href');
-      if (!id || id === '#') return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 70;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-}
-
-/* -------------------------------------------------------------------------- */
-/* Scroll reveal & stagger                                                      */
-/* -------------------------------------------------------------------------- */
+/* ── Scroll reveal ── */
 function initScrollReveal() {
-  const reveals = document.querySelectorAll('.reveal');
-
-  const observer = new IntersectionObserver(
+  const io = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const delay = Number(el.dataset.delay || 0) * 100;
-        setTimeout(() => el.classList.add('is-visible'), delay);
-        observer.unobserve(el);
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const d = Number(e.target.dataset.delay || 0) * 90;
+        setTimeout(() => e.target.classList.add('is-in'), d);
+        io.unobserve(e.target);
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
   );
+  $$('.reveal').forEach((el) => io.observe(el));
+}
 
-  reveals.forEach((el) => observer.observe(el));
-
-  // Hero: animar imediatamente
-  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-    setTimeout(() => el.classList.add('is-visible'), 150 + i * 120);
+function initSplitReveal() {
+  $$('.split-reveal').forEach((el) => {
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.classList.add('is-in');
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
   });
 }
 
-/* -------------------------------------------------------------------------- */
-/* Parallax                                                                   */
-/* -------------------------------------------------------------------------- */
-function initParallax() {
-  const heroVisual = document.querySelector('.hero-visual');
-  if (!heroVisual) return;
+/* ── Counters ── */
+function initCounters() {
+  $$('[data-count]').forEach((el) => {
+    const target = Number(el.dataset.count);
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        animateNum(el, 0, target, 1600);
+        io.disconnect();
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+  });
+}
 
+function animateNum(el, from, to, ms) {
+  const t0 = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - t0) / ms, 1);
+    const eased = 1 - (1 - p) ** 3;
+    el.textContent = Math.floor(from + (to - from) * eased);
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = to;
+  };
+  requestAnimationFrame(step);
+}
+
+/* ── 3D tilt cards ── */
+function initTilt() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  $$('[data-tilt]').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.setProperty('--tilt-x', `${-y * 12}deg`);
+      card.style.setProperty('--tilt-y', `${x * 12}deg`);
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+}
+
+function initHero3d() {
+  if (!heroCard3d || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  heroCard3d.addEventListener('mousemove', (e) => {
+    const r = heroCard3d.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    heroCard3d.style.setProperty('--tilt-x', `${-y * 18}deg`);
+    heroCard3d.style.setProperty('--tilt-y', `${x * 18}deg`);
+  });
+  heroCard3d.addEventListener('mouseleave', () => {
+    heroCard3d.style.setProperty('--tilt-x', '0deg');
+    heroCard3d.style.setProperty('--tilt-y', '0deg');
+  });
+}
+
+/* ── Magnetic buttons ── */
+function initMagnetic() {
+  if (matchMedia('(pointer: coarse)').matches) return;
+  $$('[data-magnetic]').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.setProperty('--magnetic-x', `${x * 0.2}px`);
+      btn.style.setProperty('--magnetic-y', `${y * 0.2}px`);
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.setProperty('--magnetic-x', '0px');
+      btn.style.setProperty('--magnetic-y', '0px');
+    });
+  });
+}
+
+/* ── Parallax orbs ── */
+function initParallax() {
+  if (!heroScene) return;
   window.addEventListener(
     'scroll',
     () => {
-      const y = window.scrollY;
-      if (y > window.innerHeight) return;
-      heroVisual.style.transform = `translateY(${y * 0.25}px)`;
+      const y = Math.min(scrollY, innerHeight);
+      heroScene.style.setProperty('--orb-blue-y', `${y * 0.15}px`);
+      heroScene.style.setProperty('--orb-orange-y', `${y * 0.08}px`);
     },
     { passive: true }
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Particles (canvas)                                                         */
-/* -------------------------------------------------------------------------- */
-function initParticles() {
-  const canvas = document.getElementById('particles');
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let animationId;
+/* ── Hero canvas particles ── */
+function initHeroCanvas() {
+  if (!heroCanvas) return;
+  const ctx = heroCanvas.getContext('2d');
+  let pts = [];
+  let raf;
 
   const resize = () => {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  };
-
-  const createParticles = () => {
-    const count = Math.min(60, Math.floor(canvas.width / 25));
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
+    heroCanvas.width = heroCanvas.offsetWidth;
+    heroCanvas.height = heroCanvas.offsetHeight;
+    const n = Math.min(80, Math.floor(heroCanvas.width / 18));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * heroCanvas.width,
+      y: Math.random() * heroCanvas.height,
       r: Math.random() * 2 + 0.5,
-      speedY: Math.random() * 0.4 + 0.1,
-      speedX: (Math.random() - 0.5) * 0.2,
-      opacity: Math.random() * 0.4 + 0.1,
+      vy: Math.random() * 0.35 + 0.08,
+      vx: (Math.random() - 0.5) * 0.15,
+      a: Math.random() * 0.35 + 0.08,
     }));
   };
 
   const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p) => {
+    ctx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+    pts.forEach((p) => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+      ctx.fillStyle = `rgba(255,255,255,${p.a})`;
       ctx.fill();
-      p.y -= p.speedY;
-      p.x += p.speedX;
+      p.y -= p.vy;
+      p.x += p.vx;
       if (p.y < 0) {
-        p.y = canvas.height;
-        p.x = Math.random() * canvas.width;
+        p.y = heroCanvas.height;
+        p.x = Math.random() * heroCanvas.width;
       }
     });
-    animationId = requestAnimationFrame(draw);
+    raf = requestAnimationFrame(draw);
   };
 
   resize();
-  createParticles();
   draw();
-
-  window.addEventListener('resize', () => {
-    resize();
-    createParticles();
-  });
-
-  return () => cancelAnimationFrame(animationId);
+  window.addEventListener('resize', resize);
 }
 
-/* -------------------------------------------------------------------------- */
-/* Stats counter animation                                                    */
-/* -------------------------------------------------------------------------- */
-function initStatsCounter() {
-  const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+/* ── Game: Kit Solidário ── */
+function initGame() {
+  const items = $$('.game__item');
+  const box = $('#gameBox');
+  const scoreEl = $('#gameScore');
+  const resetBtn = $('#gameReset');
+  const picked = new Set();
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = Number(el.dataset.count);
-        animateNumber(el, 0, target, 1800);
-        observer.unobserve(el);
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  statNumbers.forEach((el) => observer.observe(el));
-}
-
-function animateNumber(el, start, end, duration) {
-  const startTime = performance.now();
-  const step = (now) => {
-    const progress = Math.min((now - startTime) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.floor(start + (end - start) * eased);
-    if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = end;
+  const labels = {
+    arroz: '🍚 Arroz',
+    feijao: '🫘 Feijão',
+    livro: '📚 Livro',
+    brinquedo: '🧸 Brinquedo',
+    fruta: '🍎 Fruta',
+    carinho: '💛 Acolhimento',
   };
-  requestAnimationFrame(step);
-}
 
-/* -------------------------------------------------------------------------- */
-/* Progress bars                                                              */
-/* -------------------------------------------------------------------------- */
-function initProgressBars() {
-  const cards = document.querySelectorAll('.glass-card');
+  const update = () => {
+    const n = picked.size;
+    const score = Math.min(100, Math.round((n / GAME_GOAL) * 100));
+    scoreEl.textContent = score;
+    if (!box) return;
+    if (n === 0) {
+      box.innerHTML = '<span class="game__box-placeholder">Seu kit aparece aqui</span>';
+      return;
+    }
+    box.innerHTML = [...picked]
+      .map((k) => `<span class="game__chip">${labels[k]}</span>`)
+      .join('');
+    if (n >= GAME_GOAL) {
+      box.insertAdjacentHTML('beforeend', '<p class="game__win">Kit completo! Você está pronto para o dia da ação. 🎉</p>');
+    }
+  };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('.progress-fill').forEach((bar) => {
-          const w = bar.dataset.width || '0';
-          bar.style.width = `${w}%`;
-        });
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.3 }
-  );
+  items.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.item;
+      if (picked.has(key)) {
+        picked.delete(key);
+        btn.classList.remove('is-picked');
+      } else {
+        picked.add(key);
+        btn.classList.add('is-picked');
+        btn.animate(
+          [{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }],
+          { duration: 280 }
+        );
+      }
+      update();
+    });
+  });
 
-  cards.forEach((card) => observer.observe(card));
-}
-
-/* -------------------------------------------------------------------------- */
-/* Gallery photo slots                                                        */
-/* -------------------------------------------------------------------------- */
-function initGallerySlots() {
-  document.querySelectorAll('.photo-slot').forEach((slot) => {
-    const src = slot.dataset.image;
-    if (!src) return;
-
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      slot.style.backgroundImage = `url('${src}')`;
-      slot.classList.add('has-image');
-    };
+  resetBtn?.addEventListener('click', () => {
+    picked.clear();
+    items.forEach((b) => b.classList.remove('is-picked'));
+    update();
   });
 }
 
-/* -------------------------------------------------------------------------- */
-/* localStorage — counter & registration                                      */
-/* -------------------------------------------------------------------------- */
-function getCounter() {
-  const raw = localStorage.getItem(STORAGE_KEYS.counter);
-  const n = parseInt(raw, 10);
-  return Number.isFinite(n) && n >= 0 ? n : 0;
-}
-
-function setCounter(value) {
-  localStorage.setItem(STORAGE_KEYS.counter, String(value));
-  updateCounterDisplay(value);
-}
-
-function updateCounterDisplay(value) {
-  if (volunteerCountEl) volunteerCountEl.textContent = value;
-  if (heroCounterEl) heroCounterEl.textContent = value;
-}
-
-function getRegistration() {
+/* ── API + Form ── */
+async function apiAvailable() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEYS.registration);
-    return raw ? JSON.parse(raw) : null;
+    const res = await fetch('/api/health', { method: 'GET' });
+    return res.ok;
   } catch {
-    return null;
+    return false;
   }
 }
 
-function saveRegistration(data) {
-  localStorage.setItem(STORAGE_KEYS.registration, JSON.stringify(data));
-}
+async function syncStats() {
+  let count = 0;
+  const hasApi = await apiAvailable();
+  if (hasApi) {
+    try {
+      const res = await fetch(API.stats);
+      const data = await res.json();
+      count = data.contador ?? 0;
+    } catch { /* fallback */ }
+  }
+  if (!count) {
+    const legacy = Number(localStorage.getItem('conexaoSolidaria_contador') || 0);
+    count = legacy;
+    if (localStorage.getItem(STORAGE.reg)) count = Math.max(count, 1);
+  }
+  if (liveCounter) liveCounter.textContent = count;
 
-function syncUIWithStorage() {
-  updateCounterDisplay(getCounter());
-
-  const reg = getRegistration();
-  if (reg) {
-    showSuccessState(reg, false);
-    disableFormFields(true);
+  const saved = localStorage.getItem(STORAGE.reg);
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      showSuccess(data, false);
+      form?.classList.add('is-disabled');
+    } catch { /* */ }
   }
 }
 
-function disableFormFields(disabled) {
-  form?.querySelectorAll('input, textarea, button[type="submit"]').forEach((el) => {
-    el.disabled = disabled;
-  });
+function showSuccess(data, scroll = true) {
+  successPanel?.classList.remove('is-hidden');
+  form?.classList.add('is-hidden');
+  const name = data.nome?.split(' ')[0] || 'Voluntário(a)';
+  successText.textContent = `Obrigado, ${name}! Sua inscrição foi registrada. Nos vemos em 17/10/2026 no Centro Esperança Viva.`;
+  if (scroll) successPanel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function showSuccessState(data, animate = true) {
-  if (!successCard) return;
-  successCard.classList.remove('is-hidden');
-  if (successMessage) {
-    successMessage.textContent = `Obrigado, ${data.nome.split(' ')[0]}! Sua inscrição foi salva neste navegador. Nos vemos em 17/10/2026.`;
-  }
-  if (animate) {
-    successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-}
-
-function openAlreadyRegisteredModal() {
-  if (!modal) return;
-  if (typeof modal.showModal === 'function') {
-    modal.showModal();
-  } else {
-    modal.setAttribute('open', '');
-  }
-}
-
-function closeModal() {
-  modal?.close?.();
-  modal?.removeAttribute('open');
-}
-
-modalClose?.addEventListener('click', closeModal);
-modalOk?.addEventListener('click', closeModal);
-modal?.addEventListener('click', (e) => {
-  if (e.target === modal) closeModal();
-});
-
-/* -------------------------------------------------------------------------- */
-/* Form validation & submit                                                   */
-/* -------------------------------------------------------------------------- */
 function initForm() {
   if (!form) return;
 
   const fields = {
-    nome: document.getElementById('nome'),
-    idade: document.getElementById('idade'),
-    email: document.getElementById('email'),
-    motivo: document.getElementById('motivo'),
+    nome: $('#nome'),
+    idade: $('#idade'),
+    email: $('#email'),
+    motivo: $('#motivo'),
   };
 
   Object.entries(fields).forEach(([key, input]) => {
-    input?.addEventListener('blur', () => validateField(key, input));
+    input?.addEventListener('blur', () => validate(key, input));
     input?.addEventListener('input', () => {
-      if (input.classList.contains('is-invalid')) validateField(key, input);
+      if (input.classList.contains('is-invalid')) validate(key, input);
     });
   });
 
+  modalClose?.addEventListener('click', () => modalDup?.close());
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    if (getRegistration()) {
-      openAlreadyRegisteredModal();
-      return;
-    }
-
-    const valid = ['nome', 'idade', 'email', 'motivo'].every((key) =>
-      validateField(key, fields[key])
-    );
-
+    const valid = Object.entries(fields).every(([k, inp]) => validate(k, inp));
     if (!valid) {
-      setFormFeedback('Revise os campos destacados antes de enviar.', false);
+      setFeedback('Revise os campos destacados.', false);
       return;
     }
 
@@ -565,76 +490,97 @@ function initForm() {
       idade: Number(fields.idade.value),
       email: fields.email.value.trim().toLowerCase(),
       motivo: fields.motivo.value.trim(),
-      inscritoEm: new Date().toISOString(),
     };
 
-    submitBtn?.classList.add('is-loading');
-    submitBtn.disabled = true;
+    const btn = $('#formSubmit');
+    btn.disabled = true;
+    setFeedback('Enviando inscrição...', true);
 
-    await delay(800);
-
-    saveRegistration(payload);
-    const newCount = getCounter() + 1;
-    setCounter(newCount);
-
-    showSuccessState(payload, true);
-    disableFormFields(true);
-
-    setFormFeedback(
-      'Inscrição registrada com sucesso! Seus dados foram salvos no localStorage deste navegador.',
-      true
-    );
-
-    submitBtn?.classList.remove('is-loading');
-    form.reset();
+    const hasApi = await apiAvailable();
+    try {
+      if (hasApi) {
+        const res = await fetch(API.inscricao, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.status === 409) {
+          modalDup?.showModal();
+          setFeedback(data.error || 'Inscrição já existente.', false);
+          return;
+        }
+        if (!res.ok) throw new Error(data.error || 'Erro ao inscrever.');
+        localStorage.setItem(STORAGE.reg, JSON.stringify({ ...payload, inscritoEm: new Date().toISOString() }));
+        if (liveCounter) liveCounter.textContent = data.contador;
+        setFeedback(data.message + ' (salvo no servidor)', true);
+        showSuccess(payload);
+      } else {
+        if (localStorage.getItem(STORAGE.reg)) {
+          modalDup?.showModal();
+          setFeedback('Você já está inscrito(a) nesta ação.', false);
+          return;
+        }
+        localStorage.setItem(STORAGE.reg, JSON.stringify({ ...payload, inscritoEm: new Date().toISOString() }));
+        const c = Number(localStorage.getItem('conexaoSolidaria_contador') || 0) + 1;
+        localStorage.setItem('conexaoSolidaria_contador', String(c));
+        if (liveCounter) liveCounter.textContent = c;
+        setFeedback('Inscrição salva localmente (inicie o servidor para API).', true);
+        showSuccess(payload);
+      }
+    } catch (err) {
+      setFeedback(err.message || 'Falha ao enviar. Tente novamente.', false);
+    } finally {
+      btn.disabled = false;
+    }
   });
 }
 
-function validateField(name, input) {
-  if (!input) return false;
-  const errorEl = document.getElementById(`error-${name}`);
-  let message = '';
+function validate(key, input) {
+  const err = $(`#err-${key}`);
+  let msg = '';
+  const v = input?.value?.trim() ?? '';
 
-  const value = input.value.trim();
-
-  switch (name) {
+  switch (key) {
     case 'nome':
-      if (value.length < 3) message = 'Informe seu nome completo (mín. 3 caracteres).';
-      else if (!/^[\p{L}\s'-]+$/u.test(value)) message = 'Use apenas letras no nome.';
+      if (v.length < 3) msg = 'Nome completo obrigatório.';
       break;
     case 'idade': {
-      const age = Number(value);
-      if (!value) message = 'Informe sua idade.';
-      else if (!Number.isInteger(age)) message = 'Idade deve ser um número inteiro.';
-      else if (age < MIN_AGE) message = `É necessário ter pelo menos ${MIN_AGE} anos para participar.`;
-      else if (age > 120) message = 'Informe uma idade válida.';
+      const n = Number(v);
+      if (!v) msg = 'Informe a idade.';
+      else if (n < MIN_AGE) msg = `Mínimo ${MIN_AGE} anos.`;
+      else if (n > 120) msg = 'Idade inválida.';
       break;
     }
     case 'email':
-      if (!value) message = 'Informe seu e-mail.';
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) message = 'E-mail inválido.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = 'E-mail inválido.';
       break;
     case 'motivo':
-      if (value.length < 20) message = 'Conte um pouco mais sobre sua motivação (mín. 20 caracteres).';
+      if (v.length < 20) msg = 'Mínimo 20 caracteres.';
       break;
     default:
       break;
   }
 
-  const valid = !message;
-  input.classList.toggle('is-invalid', !valid);
-  input.classList.toggle('is-valid', valid && value.length > 0);
-  if (errorEl) errorEl.textContent = message;
-
-  return valid;
+  input?.classList.toggle('is-invalid', !!msg);
+  input?.classList.toggle('is-valid', !msg && v.length > 0);
+  if (err) err.textContent = msg;
+  return !msg;
 }
 
-function setFormFeedback(text, success) {
+function setFeedback(text, ok) {
   if (!formFeedback) return;
   formFeedback.textContent = text;
-  formFeedback.classList.toggle('is-success', Boolean(success));
+  formFeedback.classList.toggle('is-ok', ok);
 }
 
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+function initDevPhoto() {
+  const img = new Image();
+  img.src = 'assets/dev-ana.jpg';
+  img.alt = 'Ana Flávia';
+  img.onload = () => {
+    if (!devAvatar) return;
+    devAvatar.innerHTML = '';
+    devAvatar.appendChild(img);
+  };
 }
