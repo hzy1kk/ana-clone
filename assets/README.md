@@ -1,8 +1,10 @@
 # Assets — Conexão Solidária
 
 ## Logo do colégio
-Salve a imagem oficial como:
-`assets/logo-colegio.png`
+Incluído: `assets/logo-colegio.svg` (versão vetorial inspirada na identidade oficial).
+
+Para substituir pela arte oficial em PNG:
+`assets/logo-colegio.png` — e altere o `src` no `index.html` se preferir.
 
 ## Foto da desenvolvedora (opcional)
 Salve como:
@@ -10,10 +12,10 @@ Salve como:
 
 O site carrega automaticamente quando o arquivo existir.
 
-## Galeria — fotos substituíveis
-Coloque suas fotos em:
-- `assets/images/gallery/foto-1.jpg`
-- `assets/images/gallery/foto-2.jpg`
-- `assets/images/gallery/foto-3.jpg`
+## Galeria
+Fotos institucionais incluídas:
+- `assets/images/gallery/foto-1.jpg` — educação
+- `assets/images/gallery/foto-2.jpg` — solidariedade
+- `assets/images/gallery/foto-3.jpg` — alimentos
 
-Formatos suportados: JPG, PNG, WebP.
+Substitua pelos seus arquivos mantendo os mesmos nomes, se desejar.
