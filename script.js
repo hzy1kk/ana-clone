@@ -41,6 +41,10 @@ const yearEl = document.getElementById('year');
 const githubLink = document.getElementById('githubLink');
 const repoLink = document.getElementById('repoLink');
 const devPhotoFrame = document.getElementById('devPhotoFrame');
+const themeOverlay = document.getElementById('themeOverlay');
+const navIndicator = document.getElementById('navIndicator');
+const navList = document.querySelector('.nav-list');
+const heroCounterEl = document.getElementById('heroCounter');
 
 /* -------------------------------------------------------------------------- */
 /* Init                                                                       */
@@ -51,7 +55,9 @@ function init() {
   initTheme();
   initDevLinks();
   initNavbar();
+  initNavIndicator();
   initMobileMenu();
+  initTabs();
   initSmoothScroll();
   initScrollReveal();
   initParallax();
@@ -72,17 +78,112 @@ function initTheme() {
   const saved = localStorage.getItem(STORAGE_KEYS.theme);
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const theme = saved || (prefersDark ? 'dark' : 'light');
-  setTheme(theme);
+  setTheme(theme, { animate: false });
 
   themeToggle?.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    setTheme(next);
+    setTheme(next, { animate: true });
     localStorage.setItem(STORAGE_KEYS.theme, next);
   });
 }
 
-function setTheme(theme) {
-  html.setAttribute('data-theme', theme);
+function setTheme(theme, { animate = true } = {}) {
+  const apply = () => {
+    html.setAttribute('data-theme', theme);
+    themeToggle?.setAttribute('aria-checked', theme === 'dark' ? 'true' : 'false');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      theme === 'dark' ? '#080c12' : '#1b4f8a'
+    );
+  };
+
+  if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    apply();
+    return;
+  }
+
+  const runOverlay = () => {
+    if (!themeOverlay) {
+      apply();
+      return;
+    }
+    themeOverlay.classList.add('is-active');
+    window.setTimeout(() => {
+      apply();
+      window.setTimeout(() => themeOverlay.classList.remove('is-active'), 280);
+    }, 220);
+  };
+
+  if (typeof document.startViewTransition === 'function') {
+    document.startViewTransition(() => {
+      apply();
+    });
+    runOverlay();
+  } else {
+    runOverlay();
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tabs (Voluntariado)                                                        */
+/* -------------------------------------------------------------------------- */
+function initTabs() {
+  document.querySelectorAll('[data-tabs]').forEach((root) => {
+    const buttons = root.querySelectorAll('.tab-btn');
+    const panels = root.querySelectorAll('.tab-panel');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.tab;
+        buttons.forEach((b) => {
+          const active = b === btn;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        panels.forEach((panel) => {
+          const active = panel.dataset.panel === id;
+          panel.classList.toggle('is-active', active);
+          panel.hidden = !active;
+        });
+      });
+    });
+  });
+}
+
+/* -------------------------------------------------------------------------- */
+/* Nav sliding indicator                                                      */
+/* -------------------------------------------------------------------------- */
+function initNavIndicator() {
+  if (!navIndicator || !navList) return;
+
+  const moveIndicator = (link) => {
+    if (!link || window.innerWidth < 769) {
+      navIndicator.style.opacity = '0';
+      return;
+    }
+    const listRect = navList.getBoundingClientRect();
+    const rect = link.getBoundingClientRect();
+    navIndicator.style.opacity = '1';
+    navIndicator.style.width = `${rect.width}px`;
+    navIndicator.style.transform = `translateX(${rect.left - listRect.left}px)`;
+  };
+
+  const active = document.querySelector('.nav-link.is-active');
+  if (active) moveIndicator(active);
+
+  navLinks.forEach((link) => {
+    link.addEventListener('mouseenter', () => moveIndicator(link));
+  });
+
+  navList.addEventListener('mouseleave', () => {
+    const current = document.querySelector('.nav-link.is-active');
+    moveIndicator(current);
+  });
+
+  window.addEventListener('resize', () => {
+    const current = document.querySelector('.nav-link.is-active');
+    moveIndicator(current);
+  });
 }
 
 /* -------------------------------------------------------------------------- */
@@ -359,6 +460,7 @@ function setCounter(value) {
 
 function updateCounterDisplay(value) {
   if (volunteerCountEl) volunteerCountEl.textContent = value;
+  if (heroCounterEl) heroCounterEl.textContent = value;
 }
 
 function getRegistration() {
