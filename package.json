@@ -1,0 +1,17 @@
+{
+  "name": "conexao-solidaria",
+  "version": "2.0.0",
+  "description": "Landing premium + API — Conexão Solidária · Escola Paulo de Tarso",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
