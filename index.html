@@ -6,8 +6,10 @@
   <meta name="description" content="Conexão Solidária — Voluntariado e impacto social. Combate à fome com apoio educacional. Escola Paulo de Tarso.">
   <title>Conexão Solidária | Voluntariado que Transforma</title>
   <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#1b4f8a">
 </head>
 <body>
+  <div class="theme-overlay" id="themeOverlay" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Ir para o conteúdo</a>
 
   <header class="navbar" id="navbar" role="banner">
@@ -35,20 +37,26 @@
       </button>
 
       <nav class="nav-menu" id="navMenu" aria-label="Principal">
-        <ul>
+        <ul class="nav-list">
           <li><a href="#inicio" class="nav-link">Início</a></li>
           <li><a href="#voluntariado" class="nav-link">Voluntariado</a></li>
           <li><a href="#causa" class="nav-link">Causa</a></li>
           <li><a href="#projeto" class="nav-link">Projeto</a></li>
           <li><a href="#inscricao" class="nav-link">Inscrição</a></li>
           <li><a href="#desenvolvedora" class="nav-link">Desenvolvedora</a></li>
+          <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
         </ul>
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro e escuro">
-          <span class="theme-icon theme-icon--sun" aria-hidden="true"></span>
-          <span class="theme-icon theme-icon--moon" aria-hidden="true"></span>
+        <button type="button" class="theme-switch" id="themeToggle" role="switch" aria-checked="false" aria-label="Alternar tema claro e escuro">
+          <span class="theme-switch-track">
+            <span class="theme-switch-icons" aria-hidden="true">
+              <svg class="icon-sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" width="14" height="14"><path d="M21 14.5A8.5 8.5 0 1112.5 3a6.5 6.5 0 108.5 11.5z" fill="currentColor"/></svg>
+            </span>
+            <span class="theme-switch-thumb"></span>
+          </span>
         </button>
         <a href="#inscricao" class="btn btn--sm btn--primary nav-cta">Participar</a>
       </div>
@@ -58,73 +66,129 @@
   <main id="main">
     <section class="hero" id="inicio" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true">
+        <div class="hero-mesh"></div>
         <div class="hero-visual">
           <div class="hero-shape hero-shape--blue"></div>
           <div class="hero-shape hero-shape--orange"></div>
           <div class="hero-arc"></div>
-          <div class="hero-gradient"></div>
         </div>
         <canvas id="particles" class="hero-particles"></canvas>
       </div>
       <div class="hero-overlay" aria-hidden="true"></div>
 
-      <div class="container hero-content">
-        <p class="hero-eyebrow reveal" data-delay="0">Projeto de Voluntariado · Escola Paulo de Tarso</p>
-        <h1 class="hero-title reveal" id="hero-title" data-delay="1">Conexão Solidária</h1>
-        <p class="hero-subtitle reveal" data-delay="2">Solidariedade que transforma vidas</p>
-        <p class="hero-text reveal" data-delay="3">
-          Unimos corações e mãos para combater a fome e fortalecer a educação de crianças em
-          vulnerabilidade social. Uma ação concreta, humana e transformadora no Centro Comunitário
-          Esperança Viva.
-        </p>
-        <div class="hero-actions reveal" data-delay="4">
-          <a href="#inscricao" class="btn btn--primary btn--lg">Participar</a>
-          <a href="#projeto" class="btn btn--outline btn--lg">Conhecer Projeto</a>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="hero-kicker reveal" data-delay="0">
+            <span class="kicker-dot"></span>
+            Uma abordagem integral ao impacto social
+          </p>
+          <h1 class="hero-title reveal" id="hero-title" data-delay="1">
+            <span class="hero-title-line">Conexão</span>
+            <span class="hero-title-line hero-title-line--accent">Solidária</span>
+          </h1>
+          <p class="hero-subtitle reveal" data-delay="2">Solidariedade que transforma vidas</p>
+          <p class="hero-text reveal" data-delay="3">
+            Combate à fome com apoio educacional no Centro Comunitário Esperança Viva.
+            Voluntariado real, presença humana e transformação comunitária — Escola Paulo de Tarso.
+          </p>
+          <div class="hero-actions reveal" data-delay="4">
+            <a href="#inscricao" class="btn btn--primary btn--lg">
+              <span>Participar agora</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="#projeto" class="btn btn--ghost btn--lg">Conhecer o projeto</a>
+          </div>
+          <div class="hero-trust reveal" data-delay="5">
+            <span>17 out 2026</span>
+            <span class="hero-trust-divider"></span>
+            <span>08h – 13h</span>
+            <span class="hero-trust-divider"></span>
+            <span>Esperança Viva</span>
+          </div>
         </div>
-        <div class="hero-scroll reveal" data-delay="5" aria-hidden="true">
-          <span>Explorar</span>
-          <span class="scroll-indicator"></span>
+
+        <aside class="hero-panel reveal" data-delay="2" aria-label="Destaques do projeto">
+          <div class="hero-card hero-card--primary">
+            <span class="hero-card-num">01</span>
+            <h2>Agir com propósito</h2>
+            <p>Kits alimentares, oficinas educativas e acolhimento para crianças em vulnerabilidade.</p>
+          </div>
+          <div class="hero-card">
+            <span class="hero-card-num">2026</span>
+            <p>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</p>
+          </div>
+          <div class="hero-card hero-card--counter">
+            <span class="hero-card-label">Inscritos</span>
+            <span class="hero-card-stat" id="heroCounter">0</span>
+            <span class="hero-card-label">voluntários</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Solidariedade</span><span>·</span><span>Educação</span><span>·</span><span>Comunidade</span><span>·</span><span>Paulo de Tarso</span><span>·</span>
+          <span>Solidariedade</span><span>·</span><span>Educação</span><span>·</span><span>Comunidade</span><span>·</span><span>Paulo de Tarso</span><span>·</span>
         </div>
       </div>
     </section>
 
     <section class="section section--voluntariado" id="voluntariado" aria-labelledby="voluntariado-title">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Ano Internacional do Voluntariado</span>
-          <h2 class="section-title" id="voluntariado-title">O poder de servir com propósito</h2>
+        <div class="section-head reveal">
+          <span class="section-num">02</span>
+          <div class="section-head-text">
+            <span class="section-label">Voluntariado</span>
+            <h2 class="section-title" id="voluntariado-title">Servir com propósito muda o mundo</h2>
+            <p class="section-lead">Descubra o que é voluntariado, por que importa e como 2026 amplifica nosso impacto coletivo.</p>
+          </div>
         </div>
 
-        <div class="editorial-grid">
-          <article class="editorial-copy reveal">
-            <p class="lead">
-              Voluntariado é o compromisso voluntário de dedicar tempo, talento e presença para
-              construir um mundo mais justo — sem esperar recompensa, apenas movidos pela empatia.
-            </p>
-            <p>
-              Quando nos unimos em prol do outro, fortalecemos comunidades, inspiramos novas gerações
-              e demonstramos que a solidariedade é uma força capaz de mudar realidades. Cada gesto
-              conta; cada hora doada reverbera além do que podemos ver.
-            </p>
-            <p>
-              Na Escola Paulo de Tarso, acreditamos que educar também é formar cidadãos conscientes,
-              capazes de olhar para além de si e agir com responsabilidade social.
-            </p>
-          </article>
+        <div class="tabs" data-tabs>
+          <div class="tabs-list" role="tablist" aria-label="Conteúdo sobre voluntariado">
+            <button type="button" class="tab-btn is-active" role="tab" id="tab-oque" aria-selected="true" aria-controls="panel-oque" data-tab="oque">O que é</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-porque" aria-selected="false" aria-controls="panel-porque" data-tab="porque">Por que importa</button>
+            <button type="button" class="tab-btn" role="tab" id="tab-onu" aria-selected="false" aria-controls="panel-onu" data-tab="onu">ONU 2026</button>
+          </div>
 
-          <aside class="editorial-highlight reveal" data-delay="1">
-            <div class="highlight-card">
-              <span class="highlight-year">2026</span>
-              <h3>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</h3>
-              <p>
-                A ONU reconhece o voluntariado como motor essencial dos Objetivos de Desenvolvimento
-                Sustentável. Este é o momento de amplificar vozes, ações e impacto coletivo.
-              </p>
+          <div class="tabs-panels">
+            <div class="tab-panel is-active" role="tabpanel" id="panel-oque" aria-labelledby="tab-oque" data-panel="oque">
+              <div class="tab-panel-grid">
+                <div class="tab-copy">
+                  <p class="lead">Voluntariado é dedicar tempo, talento e presença para construir um mundo mais justo — movidos pela empatia, não por recompensa.</p>
+                  <p>Na Escola Paulo de Tarso, formamos cidadãos que olham além de si e agem com responsabilidade social.</p>
+                </div>
+                <ul class="checklist">
+                  <li>Compromisso voluntário e consciente</li>
+                  <li>Impacto direto na comunidade</li>
+                  <li>Formação de valores e empatia</li>
+                </ul>
+              </div>
             </div>
-          </aside>
+            <div class="tab-panel" role="tabpanel" id="panel-porque" aria-labelledby="tab-porque" data-panel="porque" hidden>
+              <div class="tab-panel-grid">
+                <div class="tab-copy">
+                  <p class="lead">Cada gesto fortalece comunidades, inspira novas gerações e prova que a solidariedade transforma realidades.</p>
+                  <p>Horas doadas reverberam além do que vemos — em famílias, escolas e bairros inteiros.</p>
+                </div>
+                <ul class="checklist">
+                  <li>Fortalece vínculos comunitários</li>
+                  <li>Inspira novas gerações</li>
+                  <li>Responde a necessidades reais</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tab-panel" role="tabpanel" id="panel-onu" aria-labelledby="tab-onu" data-panel="onu" hidden>
+              <div class="highlight-card highlight-card--inline">
+                <span class="highlight-year">2026</span>
+                <h3>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</h3>
+                <p>A ONU reconhece o voluntariado como motor dos ODS. É hora de amplificar vozes, ações e impacto coletivo.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="stats-row reveal" data-delay="2">
+        <div class="stats-row reveal" data-delay="1">
           <div class="stat-card">
             <span class="stat-number" data-count="970">0</span>
             <span class="stat-suffix">M+</span>
@@ -146,76 +210,57 @@
 
     <section class="section section--causa" id="causa" aria-labelledby="causa-title">
       <div class="container">
-        <div class="section-header section-header--center reveal">
-          <span class="section-label">Causa Social</span>
-          <h2 class="section-title" id="causa-title">Fome, educação e esperança</h2>
-          <p class="section-desc">
-            Combate à fome com apoio educacional para crianças em situação de vulnerabilidade social.
-            Público atendido: crianças em vulnerabilidade social.
-          </p>
+        <div class="section-head section-head--center reveal">
+          <span class="section-num">03</span>
+          <div class="section-head-text">
+            <span class="section-label">Causa Social</span>
+            <h2 class="section-title" id="causa-title">Fome, educação e esperança</h2>
+            <p class="section-lead">Combate à fome com apoio educacional para crianças em vulnerabilidade social.</p>
+          </div>
         </div>
 
-        <div class="glass-grid">
-          <article class="glass-card reveal">
-            <div class="glass-icon glass-icon--problem" aria-hidden="true"></div>
-            <h3>Problema social</h3>
-            <p>
-              Milhões de crianças enfrentam insegurança alimentar e barreiras ao aprendizado,
-              comprometendo saúde, desenvolvimento e futuro.
-            </p>
-            <div class="mini-stat">
-              <span class="mini-stat-value">33%</span>
-              <span class="mini-stat-text">das famílias com crianças relatam algum grau de insegurança alimentar no Brasil*</span>
+        <div class="showcase">
+          <article class="showcase-item reveal">
+            <span class="showcase-num">01</span>
+            <div class="showcase-body">
+              <h3>Problema social</h3>
+              <p>Milhões de crianças enfrentam insegurança alimentar e barreiras ao aprendizado.</p>
+              <ul class="checklist">
+                <li>33% das famílias com crianças relatam insegurança alimentar*</li>
+                <li>Saúde e desenvolvimento comprometidos</li>
+              </ul>
             </div>
           </article>
-
-          <article class="glass-card reveal" data-delay="1">
-            <div class="glass-icon glass-icon--impact" aria-hidden="true"></div>
-            <h3>Impacto</h3>
-            <p>
-              Alimentação adequada e atividades pedagógicas aumentam concentração, autoestima e
-              vínculos comunitários positivos.
-            </p>
-            <div class="progress-bars">
-              <div class="progress-item">
-                <span>Nutrição</span>
-                <div class="progress-track"><div class="progress-fill" data-width="92"></div></div>
-              </div>
-              <div class="progress-item">
-                <span>Educação</span>
-                <div class="progress-track"><div class="progress-fill" data-width="88"></div></div>
-              </div>
-              <div class="progress-item">
-                <span>Acolhimento</span>
-                <div class="progress-track"><div class="progress-fill" data-width="95"></div></div>
+          <article class="showcase-item reveal" data-delay="1">
+            <span class="showcase-num">02</span>
+            <div class="showcase-body">
+              <h3>Impacto</h3>
+              <p>Alimentação e pedagogia elevam concentração, autoestima e vínculos positivos.</p>
+              <div class="progress-bars">
+                <div class="progress-item"><span>Nutrição</span><div class="progress-track"><div class="progress-fill" data-width="92"></div></div></div>
+                <div class="progress-item"><span>Educação</span><div class="progress-track"><div class="progress-fill" data-width="88"></div></div></div>
+                <div class="progress-item"><span>Acolhimento</span><div class="progress-track"><div class="progress-fill" data-width="95"></div></div></div>
               </div>
             </div>
           </article>
-
-          <article class="glass-card reveal" data-delay="2">
-            <div class="glass-icon glass-icon--data" aria-hidden="true"></div>
-            <h3>Dados</h3>
-            <p>
-              Ações integradas de alimentação e educação reduzem evasão escolar e ampliam
-              oportunidades de desenvolvimento infantil.
-            </p>
-            <ul class="data-list">
-              <li><strong>1 em 4</strong> crianças em risco nutricional em áreas vulneráveis*</li>
-              <li><strong>+40%</strong> engajamento com oficinas lúdicas*</li>
-            </ul>
-            <p class="footnote">*Dados ilustrativos para fins educativos do projeto.</p>
+          <article class="showcase-item reveal" data-delay="2">
+            <span class="showcase-num">03</span>
+            <div class="showcase-body">
+              <h3>Dados</h3>
+              <p>Ações integradas reduzem evasão e ampliam oportunidades infantis.</p>
+              <ul class="checklist">
+                <li><strong>1 em 4</strong> crianças em risco nutricional*</li>
+                <li><strong>+40%</strong> engajamento em oficinas lúdicas*</li>
+              </ul>
+              <p class="footnote">*Dados ilustrativos para fins educativos.</p>
+            </div>
           </article>
-
-          <article class="glass-card reveal" data-delay="3">
-            <div class="glass-icon glass-icon--transform" aria-hidden="true"></div>
-            <h3>Transformação</h3>
-            <p>
-              Cada kit entregue, cada oficina e cada sorriso reforçam que a mudança começa quando
-              a comunidade se organiza em torno do cuidado.
-            </p>
-            <blockquote class="glass-quote">
-              “Solidariedade não é um gesto isolado — é uma corrente que transforma vidas.”
-            </blockquote>
+          <article class="showcase-item reveal" data-delay="3">
+            <span class="showcase-num">04</span>
+            <div class="showcase-body">
+              <h3>Transformação</h3>
+              <blockquote class="glass-quote">“Solidariedade não é um gesto isolado — é uma corrente que transforma vidas.”</blockquote>
+            </div>
           </article>
         </div>
       </div>
@@ -223,72 +268,71 @@
 
     <section class="section section--projeto" id="projeto" aria-labelledby="projeto-title">
       <div class="container">
-        <div class="section-header reveal">
-          <span class="section-label">Projeto Concreto</span>
-          <h2 class="section-title" id="projeto-title">Conexão Solidária em ação</h2>
+        <div class="section-head reveal">
+          <span class="section-num">04</span>
+          <div class="section-head-text">
+            <span class="section-label">Projeto Concreto</span>
+            <h2 class="section-title" id="projeto-title">Conexão Solidária em ação</h2>
+            <p class="section-lead">Tudo o que você precisa saber para participar desta jornada de impacto.</p>
+          </div>
         </div>
 
-        <div class="timeline">
-          <div class="timeline-item reveal">
-            <div class="timeline-icon timeline-icon--name" aria-hidden="true"></div>
-            <div class="timeline-content">
+        <div class="showcase showcase--projeto">
+          <article class="showcase-item reveal">
+            <span class="showcase-num">01</span>
+            <div class="showcase-body">
               <h3>Nome do projeto</h3>
-              <p><strong>Conexão Solidária</strong></p>
+              <p><strong>Conexão Solidária</strong> — voluntariado e impacto social.</p>
             </div>
-          </div>
-
-          <div class="timeline-item reveal" data-delay="1">
-            <div class="timeline-icon timeline-icon--goal" aria-hidden="true"></div>
-            <div class="timeline-content">
-              <h3>Objetivo</h3>
-              <p>
-                Organizar kits alimentares, distribuir alimentos, conduzir oficinas educativas,
-                realizar atividades recreativas pedagógicas e oferecer acolhimento às crianças
-                atendidas.
-              </p>
+          </article>
+          <article class="showcase-item reveal" data-delay="1">
+            <span class="showcase-num">02</span>
+            <div class="showcase-body">
+              <h3>Ação prática</h3>
+              <ul class="checklist">
+                <li>Organizar kits alimentares</li>
+                <li>Distribuir alimentos</li>
+                <li>Conduzir oficinas educativas</li>
+                <li>Atividades recreativas pedagógicas</li>
+                <li>Acolhimento e suporte às crianças</li>
+              </ul>
             </div>
-          </div>
-
-          <div class="timeline-item reveal" data-delay="2">
-            <div class="timeline-icon timeline-icon--place" aria-hidden="true"></div>
-            <div class="timeline-content">
+          </article>
+          <article class="showcase-item reveal" data-delay="2">
+            <span class="showcase-num">03</span>
+            <div class="showcase-body">
               <h3>Local</h3>
-              <p>Centro Comunitário Esperança Viva</p>
+              <p>Centro Comunitário <strong>Esperança Viva</strong></p>
             </div>
-          </div>
-
-          <div class="timeline-item reveal" data-delay="3">
-            <div class="timeline-icon timeline-icon--date" aria-hidden="true"></div>
-            <div class="timeline-content">
+          </article>
+          <article class="showcase-item reveal" data-delay="3">
+            <span class="showcase-num">04</span>
+            <div class="showcase-body">
               <h3>Data e horário</h3>
-              <p><strong>17 de outubro de 2026</strong> · das 08h às 13h</p>
+              <p><strong>17 de outubro de 2026</strong> · 08h às 13h</p>
             </div>
-          </div>
-
-          <div class="timeline-item reveal" data-delay="4">
-            <div class="timeline-icon timeline-icon--join" aria-hidden="true"></div>
-            <div class="timeline-content">
+          </article>
+          <article class="showcase-item showcase-item--cta reveal" data-delay="4">
+            <span class="showcase-num">05</span>
+            <div class="showcase-body">
               <h3>Participação</h3>
-              <p>
-                Voluntários da comunidade escolar e convidados. Inscrição obrigatória para
-                organização logística e segurança do evento.
-              </p>
-              <a href="#inscricao" class="link-arrow">Fazer inscrição</a>
+              <p>Inscrição obrigatória para organização e segurança do evento.</p>
+              <a href="#inscricao" class="btn btn--primary">Fazer inscrição</a>
             </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
     <section class="section section--galeria" id="galeria" aria-labelledby="galeria-title">
       <div class="container">
-        <div class="section-header section-header--center reveal">
-          <span class="section-label">Galeria</span>
-          <h2 class="section-title" id="galeria-title">Impacto em imagens</h2>
-          <p class="section-desc">
-            Momentos de estudo, solidariedade e entrega de alimentos. Substitua as imagens em
-            <code>assets/images/gallery/</code> mantendo os mesmos nomes de arquivo.
-          </p>
+        <div class="section-head section-head--center reveal">
+          <span class="section-num">05</span>
+          <div class="section-head-text">
+            <span class="section-label">Galeria</span>
+            <h2 class="section-title" id="galeria-title">Impacto em imagens</h2>
+            <p class="section-lead">Educação, solidariedade e entrega de alimentos em cena.</p>
+          </div>
         </div>
 
         <div class="masonry">
@@ -341,6 +385,7 @@
       <div class="container">
         <div class="inscricao-grid">
           <div class="inscricao-info reveal">
+            <span class="section-num">06</span>
             <span class="section-label">Inscrição</span>
             <h2 class="section-title" id="inscricao-title">Faça parte da transformação</h2>
             <p>
@@ -407,6 +452,7 @@
           </div>
 
           <div class="dev-content">
+            <span class="section-num">07</span>
             <span class="section-label">Desenvolvedora</span>
             <h2 class="section-title" id="dev-title">Ana Flávia</h2>
             <p class="dev-role">Projeto Acadêmico · Escola Paulo de Tarso</p>
