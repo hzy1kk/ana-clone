@@ -21,8 +21,13 @@ function init() {
   $('#yr').textContent = new Date().getFullYear();
   initTheme();
   initHeader();
+  initScrollProgress();
   initReveal();
   initCounters();
+  initTilt3D();
+  initMagnetic();
+  initLogoParallax();
+  initBrandGeoParallax();
   initGame();
   initForm();
   initDevImg();
@@ -46,7 +51,7 @@ function initTheme() {
 function applyTheme(theme, anim) {
   const go = () => {
     html.dataset.theme = theme;
-    $('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0a0e14' : '#ffffff');
+    $('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0a0e14' : '#002080');
   };
   if (!anim || matchMedia('(prefers-reduced-motion: reduce)').matches) {
     go();
@@ -57,6 +62,79 @@ function applyTheme(theme, anim) {
   if (document.startViewTransition) document.startViewTransition(go);
   else go();
   setTimeout(() => flash?.classList.remove('is-on'), 400);
+}
+
+/* Scroll progress */
+function initScrollProgress() {
+  const bar = $('#scrollProgress');
+  if (!bar) return;
+  const onScroll = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const p = h > 0 ? (scrollY / h) * 100 : 0;
+    bar.style.width = `${p}%`;
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+/* 3D tilt */
+function initTilt3D() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  $$('[data-tilt]').forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty('--tilt-x', `${-y * 10}deg`);
+      el.style.setProperty('--tilt-y', `${x * 10}deg`);
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.setProperty('--tilt-x', '0deg');
+      el.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+}
+
+/* Magnetic buttons */
+function initMagnetic() {
+  if (matchMedia('(pointer: coarse)').matches) return;
+  $$('[data-magnetic]').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--magnetic-x', `${(e.clientX - r.left - r.width / 2) * 0.15}px`);
+      btn.style.setProperty('--magnetic-y', `${(e.clientY - r.top - r.height / 2) * 0.15}px`);
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.setProperty('--magnetic-x', '0px');
+      btn.style.setProperty('--magnetic-y', '0px');
+    });
+  });
+}
+
+/* Logo pedestal parallax */
+function initLogoParallax() {
+  const pedestal = $('#logoPedestal');
+  const logo3d = pedestal?.querySelector('.logo-3d');
+  if (!logo3d || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / innerWidth - 0.5) * 14;
+    const y = (e.clientY / innerHeight - 0.5) * 14;
+    logo3d.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${-y}deg)`;
+  });
+}
+
+function initBrandGeoParallax() {
+  const geo = $('#brandGeo');
+  if (!geo || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  addEventListener(
+    'scroll',
+    () => {
+      const y = scrollY * 0.06;
+      geo.style.transform = `translate3d(0, ${y}px, 0) rotateZ(${scrollY * 0.01}deg)`;
+    },
+    { passive: true }
+  );
 }
 
 /* Header */

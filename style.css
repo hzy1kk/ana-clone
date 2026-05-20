@@ -17,21 +17,22 @@
 /* Design tokens                                                              */
 /* -------------------------------------------------------------------------- */
 :root {
-  --orange: #e85d04;
-  --orange-hover: #cf5203;
-  --orange-soft: rgba(232, 93, 4, 0.12);
-  --orange-glow: rgba(232, 93, 4, 0.28);
-  --blue: #1b4f8a;
-  --blue-deep: #123a66;
-  --blue-hover: #164278;
-  --blue-soft: rgba(27, 79, 138, 0.1);
+  /* Cores oficiais Colégio Paulo de Tarso */
+  --orange: #d97b30;
+  --orange-hover: #c26a24;
+  --orange-soft: rgba(217, 123, 48, 0.1);
+  --orange-glow: rgba(217, 123, 48, 0.28);
+  --blue: #002080;
+  --blue-deep: #001454;
+  --blue-hover: #002999;
+  --blue-soft: rgba(0, 32, 128, 0.08);
   --white: #ffffff;
   --black: #0a0f14;
 
-  --bg: #fafbfc;
+  --bg: #ffffff;
   --bg-elevated: #ffffff;
-  --bg-subtle: #f0f3f7;
-  --bg-muted: #e8ecf2;
+  --bg-subtle: #f7f8fc;
+  --bg-muted: #eef1f8;
   --text: #121820;
   --text-muted: #5a6575;
   --text-faint: #8b95a5;
@@ -92,9 +93,9 @@
   --shadow-sm: 0 4px 24px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 16px 48px rgba(0, 0, 0, 0.42);
   --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.52);
-  --blue-soft: rgba(27, 79, 138, 0.28);
-  --orange-soft: rgba(232, 93, 4, 0.16);
-  --orange-glow: rgba(232, 93, 4, 0.22);
+  --blue-soft: rgba(0, 80, 200, 0.22);
+  --orange-soft: rgba(217, 123, 48, 0.14);
+  --orange-glow: rgba(217, 123, 48, 0.2);
   --success-soft: rgba(31, 122, 69, 0.18);
   --error-soft: rgba(192, 57, 43, 0.18);
   --theme-flash: #0a0f14;
@@ -334,8 +335,8 @@ button {
 }
 
 .header__logo {
-  width: 96px;
-  height: 96px;
+  width: 104px;
+  height: 104px;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -612,8 +613,8 @@ button {
 }
 
 .wix-hero__logo {
-  width: clamp(140px, 18vw, 220px);
-  height: clamp(140px, 18vw, 220px);
+  width: clamp(160px, 20vw, 240px);
+  height: clamp(160px, 20vw, 240px);
   object-fit: contain;
   filter: drop-shadow(var(--shadow-sm));
 }
@@ -1829,6 +1830,276 @@ button {
   .wix-gallery__item--main {
     aspect-ratio: 16 / 10;
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Clean layout + brand 3D (logo oficial)                                     */
+/* -------------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  z-index: 2000;
+  background: linear-gradient(90deg, var(--blue), var(--orange));
+  transition: width 0.12s linear;
+}
+
+.page-bg--clean .blob {
+  opacity: 0.35;
+  filter: blur(90px);
+}
+
+.page-bg--clean .blob--3 {
+  display: none;
+}
+
+.brand-geo {
+  position: fixed;
+  top: 12%;
+  right: 8%;
+  width: min(380px, 40vw);
+  height: min(380px, 40vw);
+  pointer-events: none;
+  z-index: 0;
+  transform-style: preserve-3d;
+  perspective: 900px;
+}
+
+.brand-geo__trap {
+  position: absolute;
+  width: 55%;
+  height: 38%;
+  top: 8%;
+  clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
+  opacity: 0.14;
+  transform: translateZ(40px);
+  animation: floatTrap 14s ease-in-out infinite;
+}
+
+.brand-geo__trap--blue {
+  left: 5%;
+  background: var(--blue);
+}
+
+.brand-geo__trap--orange {
+  right: 5%;
+  background: var(--orange);
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+  animation-delay: -5s;
+}
+
+.brand-geo__arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--orange);
+  opacity: 0.2;
+  transform: rotate(-24deg);
+}
+
+.arc-draw {
+  stroke-dasharray: 553;
+  stroke-dashoffset: 553;
+  animation: drawArc 3s var(--ease-out) 0.5s forwards;
+}
+
+@keyframes drawArc {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes floatTrap {
+  0%, 100% { transform: translate3d(0, 0, 40px) rotateX(0deg); }
+  50% { transform: translate3d(0, -16px, 60px) rotateX(8deg); }
+}
+
+/* Logo 3D pedestal */
+.logo-3d {
+  position: relative;
+  display: inline-block;
+  transform-style: preserve-3d;
+  transition: transform 0.35s var(--ease);
+}
+
+.logo-3d__shine {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.9), transparent 55%),
+    conic-gradient(from 200deg, var(--blue-soft), var(--orange-soft), transparent);
+  filter: blur(8px);
+  z-index: 0;
+  animation: pulseShine 6s ease-in-out infinite;
+}
+
+.logo-3d .wix-hero__logo {
+  position: relative;
+  z-index: 2;
+  border-radius: 24px;
+  background: var(--white);
+  padding: 1rem;
+  box-shadow:
+    0 4px 0 rgba(0, 32, 128, 0.06),
+    0 24px 60px rgba(0, 32, 128, 0.12),
+    0 0 0 1px rgba(0, 32, 128, 0.06);
+}
+
+.logo-3d__caption {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+@keyframes pulseShine {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+/* Cleaner sections */
+.wix-strip {
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  border-block: 1px solid var(--border);
+  background: var(--bg-subtle);
+}
+
+.wix-block {
+  padding-block: var(--section-pad);
+}
+
+.wix-block--alt {
+  background: var(--bg-subtle);
+}
+
+.wix-block--gradient {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-subtle) 50%, var(--bg) 100%);
+}
+
+.feature-card,
+.wix-feature,
+.browser-mock,
+.wix-mini-card,
+.wix-step {
+  transform-style: preserve-3d;
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  will-change: transform;
+}
+
+[data-tilt] {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+
+.wix-feature:hover,
+.wix-mini-card:hover,
+.feature-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+[data-magnetic] {
+  --magnetic-x: 0px;
+  --magnetic-y: 0px;
+  transform: translate(var(--magnetic-x), var(--magnetic-y));
+  transition: transform 0.2s var(--ease);
+}
+
+/* Cleaner gallery */
+.wix-gallery {
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.wix-gallery__item {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+}
+
+.wix-gallery__item--main {
+  box-shadow: var(--shadow-md);
+}
+
+/* Hero cleaner grid */
+.wix-hero {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-subtle) 100%);
+  min-height: min(92vh, 900px);
+}
+
+.wix-hero__title {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, var(--blue) 0%, #0036b8 35%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.browser-mock {
+  transform-style: preserve-3d;
+  box-shadow:
+    0 32px 64px rgba(0, 32, 128, 0.14),
+    0 0 0 1px var(--border);
+}
+
+.wix-btn--primary {
+  background: var(--blue);
+  box-shadow: 0 8px 28px rgba(0, 32, 128, 0.25);
+}
+
+.wix-btn--primary:hover {
+  background: var(--blue-hover);
+}
+
+.wix-btn--ghost {
+  border-color: var(--border-strong);
+}
+
+.header--fixed {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="dark"] .header--fixed {
+  background: rgba(8, 12, 18, 0.88);
+}
+
+.wix-cta-band {
+  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue) 55%, #0030a8 100%);
+}
+
+.wix-cta-band__logo {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  background: var(--white);
+  padding: 0.75rem;
+  border-radius: 20px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+}
+
+/* Click ripple feel */
+.wix-btn,
+.wix-game__items button {
+  position: relative;
+  overflow: hidden;
+}
+
+.wix-btn:active {
+  transform: scale(0.98);
 }
 
 /* -------------------------------------------------------------------------- */
