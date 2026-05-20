@@ -7,20 +7,28 @@
   <title>Conexão Solidária | Voluntariado de Impacto</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/logo-colegio.png">
-  <meta name="theme-color" content="#ffffff">
+  <link rel="preload" href="assets/logo-colegio.png" as="image">
+  <meta name="theme-color" content="#002080">
 </head>
 <body>
-  <div class="page-bg" aria-hidden="true">
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="page-bg page-bg--clean" aria-hidden="true">
+    <div class="brand-geo" id="brandGeo">
+      <div class="brand-geo__trap brand-geo__trap--blue"></div>
+      <div class="brand-geo__trap brand-geo__trap--orange"></div>
+      <svg class="brand-geo__arc" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="currentColor" stroke-width="3" class="arc-draw"/>
+      </svg>
+    </div>
     <div class="blob blob--1"></div>
     <div class="blob blob--2"></div>
-    <div class="blob blob--3"></div>
   </div>
   <div class="theme-flash" id="themeFlash" aria-hidden="true"></div>
 
   <header class="header" id="header">
     <div class="header__bar container">
       <a href="#topo" class="header__brand">
-        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" class="header__logo" width="96" height="96">
+        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" class="header__logo" width="104" height="104">
         <span class="header__name">
           <strong>Conexão Solidária</strong>
           <em>Colégio Paulo de Tarso</em>
@@ -47,8 +55,12 @@
     <!-- HERO WIX -->
     <section class="wix-hero">
       <div class="container wix-hero__inner">
-        <div class="wix-hero__logo-wrap reveal">
-          <img src="assets/logo-colegio.png" alt="Logo Colégio Paulo de Tarso" class="wix-hero__logo" width="220" height="220">
+        <div class="wix-hero__logo-wrap reveal" id="logoPedestal">
+          <div class="logo-3d">
+            <div class="logo-3d__shine" aria-hidden="true"></div>
+            <img src="assets/logo-colegio.png" alt="Logo oficial Colégio Paulo de Tarso" class="wix-hero__logo" width="240" height="240">
+          </div>
+          <span class="logo-3d__caption">Colégio Paulo de Tarso</span>
         </div>
         <p class="wix-hero__eyebrow reveal">Projeto de Voluntariado · 2026</p>
         <h1 class="wix-hero__title reveal">
@@ -60,8 +72,8 @@
           uma experiência completa no Centro Comunitário Esperança Viva.
         </p>
         <div class="wix-hero__cta reveal">
-          <a href="#participe" class="wix-btn wix-btn--primary wix-btn--xl">Participar agora</a>
-          <a href="#contexto" class="wix-btn wix-btn--ghost wix-btn--xl">Conhecer a jornada</a>
+          <a href="#participe" class="wix-btn wix-btn--primary wix-btn--xl" data-magnetic>Participar agora</a>
+          <a href="#contexto" class="wix-btn wix-btn--ghost wix-btn--xl" data-magnetic>Conhecer a jornada</a>
         </div>
         <ul class="wix-hero__meta reveal">
           <li><strong>17 OUT</strong> 2026</li>
@@ -70,7 +82,7 @@
         </ul>
       </div>
       <div class="wix-hero__preview reveal" aria-hidden="true">
-        <div class="browser-mock">
+        <div class="browser-mock" id="browserMock" data-tilt>
           <div class="browser-mock__bar"><span></span><span></span><span></span></div>
           <div class="browser-mock__body">
             <div class="mock-stat"><span id="heroStat">0</span><small>inscritos</small></div>
@@ -92,7 +104,7 @@
     <section class="wix-block" id="contexto">
       <div class="container wix-block__grid">
         <div class="wix-block__visual reveal">
-          <div class="feature-card feature-card--blue">
+          <div class="feature-card feature-card--blue" data-tilt>
             <span class="feature-card__num">01</span>
             <h3>Contexto</h3>
             <p>Ano Internacional dos Voluntários · ODS · Paulo de Tarso</p>
@@ -143,7 +155,7 @@
           <p class="wix-note">*Dados ilustrativos — projeto acadêmico.</p>
         </div>
         <div class="wix-block__visual reveal">
-          <div class="feature-card feature-card--orange">
+          <div class="feature-card feature-card--orange" data-tilt>
             <span class="feature-card__num">02</span>
             <h3>Desafio</h3>
             <p>Fome · Educação · Exclusão social</p>
@@ -161,17 +173,17 @@
           <p class="wix-lead wix-lead--center">Organize, distribua, ensine e acolha — cada etapa do projeto foi pensada para transformar.</p>
         </div>
         <div class="wix-features">
-          <article class="wix-feature reveal">
+          <article class="wix-feature reveal" data-tilt>
             <div class="wix-feature__icon">01</div>
             <h3>Kits alimentares</h3>
             <p>Organização e distribuição de alimentos essenciais.</p>
           </article>
-          <article class="wix-feature reveal" data-d="1">
+          <article class="wix-feature reveal" data-tilt data-d="1">
             <div class="wix-feature__icon">02</div>
             <h3>Oficinas educativas</h3>
             <p>Aprendizado lúdico que desperta curiosidade.</p>
           </article>
-          <article class="wix-feature reveal" data-d="2">
+          <article class="wix-feature reveal" data-tilt data-d="2">
             <div class="wix-feature__icon">03</div>
             <h3>Acolhimento</h3>
             <p>Atividades recreativas e suporte emocional.</p>
@@ -318,7 +330,7 @@
     <!-- CTA FINAL -->
     <section class="wix-cta-band">
       <div class="container wix-cta-band__inner reveal">
-        <img src="assets/logo-colegio.png" alt="" class="wix-cta-band__logo" width="120" height="120">
+        <img src="assets/logo-colegio.png" alt="" class="wix-cta-band__logo" width="140" height="140">
         <h2>É assim que se transforma uma comunidade.</h2>
         <a href="#participe" class="wix-btn wix-btn--white wix-btn--xl">Quero participar</a>
       </div>
@@ -344,7 +356,7 @@
   <footer class="wix-footer">
     <div class="container wix-footer__grid">
       <div>
-        <img src="assets/logo-colegio.png" alt="Paulo de Tarso" width="72" height="72">
+        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" width="88" height="88">
         <p>Conexão Solidária · Escola Paulo de Tarso</p>
       </div>
       <div>

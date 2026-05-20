@@ -1,10 +1,13 @@
 # Assets — Conexão Solidária
 
-## Logo do colégio
-Incluído: `assets/logo-colegio.svg` (versão vetorial inspirada na identidade oficial).
+## Logo oficial do colégio
+Arquivo: `assets/logo-colegio.png`
 
-Para substituir pela arte oficial em PNG:
-`assets/logo-colegio.png` — e altere o `src` no `index.html` se preferir.
+Cores da marca:
+- Azul `#002080`
+- Laranja `#D97B30`
+
+Substitua o PNG mantendo o mesmo nome para atualizar em todo o site.
 
 ## Foto da desenvolvedora (opcional)
 Salve como:
