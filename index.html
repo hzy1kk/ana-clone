@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Conexão Solidária — Voluntariado que transforma vidas. Escola Paulo de Tarso.">
-  <title>Conexão Solidária | Voluntariado de Impacto</title>
+  <meta name="description" content="Conexão Solidária — Parceria contínua entre o Colégio Paulo de Tarso e escolas em vulnerabilidade social. Apoio educacional, emocional e humano para crianças que merecem ser vistas.">
+  <title>Conexão Solidária | Colégio Paulo de Tarso</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/logo-colegio.png">
   <link rel="preload" href="assets/logo-colegio.png" as="image">
   <meta name="theme-color" content="#002060">
 </head>
 <body>
+
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
   <div class="page-bg page-bg--clean" aria-hidden="true">
     <div class="brand-geo" id="brandGeo">
       <div class="brand-geo__trap brand-geo__trap--blue"></div>
@@ -23,8 +25,10 @@
     <div class="blob blob--1"></div>
     <div class="blob blob--2"></div>
   </div>
+
   <div class="theme-flash" id="themeFlash" aria-hidden="true"></div>
 
+  <!-- NAVBAR -->
   <header class="header" id="header">
     <div class="header__bar container">
       <a href="#topo" class="header__brand">
@@ -34,346 +38,653 @@
           <em>Colégio Paulo de Tarso</em>
         </span>
       </a>
-      <nav class="header__nav" id="headerNav">
+
+      <nav class="header__nav" id="headerNav" aria-label="Principal">
         <a href="#contexto">Contexto</a>
         <a href="#desafio">Desafio</a>
         <a href="#solucao">Solução</a>
-        <a href="#resultado">Resultado</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#suporte">Suporte</a>
         <a href="#participe">Participe</a>
       </nav>
+
       <div class="header__tools">
-        <button type="button" class="theme-btn" id="themeBtn" aria-label="Alternar tema">
+        <button type="button" class="theme-btn" id="themeBtn" aria-label="Alternar tema claro/escuro">
           <span class="theme-btn__knob"></span>
         </button>
         <a href="#participe" class="wix-btn wix-btn--primary wix-btn--sm">Inscrever-se</a>
-        <button type="button" class="header__menu" id="headerMenu" aria-label="Menu"><i></i><i></i></button>
+        <button type="button" class="header__menu" id="headerMenu" aria-expanded="false" aria-label="Abrir menu">
+          <i></i><i></i>
+        </button>
       </div>
     </div>
   </header>
 
   <main id="topo">
-    <!-- HERO WIX -->
-    <section class="wix-hero">
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="wix-hero" aria-labelledby="heroTitle">
       <div class="container wix-hero__inner">
-        <div class="wix-hero__logo-wrap reveal" id="logoPedestal">
-          <div class="logo-3d">
-            <div class="logo-3d__shine" aria-hidden="true"></div>
-            <img src="assets/logo-colegio.png" alt="Logo oficial Colégio Paulo de Tarso" class="wix-hero__logo" width="240" height="240">
+
+        <div class="wix-hero__copy">
+          <div class="wix-hero__logo-wrap reveal" id="logoPedestal">
+            <div class="logo-3d">
+              <div class="logo-3d__shine" aria-hidden="true"></div>
+              <img src="assets/logo-colegio.png"
+                   alt="Logo oficial Colégio Paulo de Tarso"
+                   class="wix-hero__logo"
+                   width="240" height="240">
+            </div>
+            <span class="logo-3d__caption">Colégio Paulo de Tarso</span>
           </div>
-          <span class="logo-3d__caption">Colégio Paulo de Tarso</span>
+
+          <p class="wix-hero__eyebrow reveal" data-d="1">Projeto de Voluntariado · 2026</p>
+
+          <h1 class="wix-hero__title reveal" id="heroTitle" data-d="2">
+            Conexão que<br>
+            <span class="gradient-text">transforma vidas</span>
+          </h1>
+
+          <p class="wix-hero__sub reveal" data-d="3">
+            Uma parceria contínua entre o Colégio Paulo de Tarso e escolas em vulnerabilidade social —
+            não uma doação pontual, mas um vínculo real, humano e transformador.
+          </p>
+
+          <div class="wix-hero__cta reveal" data-d="4">
+            <a href="#participe" class="wix-btn wix-btn--primary wix-btn--xl" data-magnetic>Quero participar</a>
+            <a href="#contexto" class="wix-btn wix-btn--ghost wix-btn--xl" data-magnetic>Entender o projeto</a>
+          </div>
+
+          <ul class="wix-hero__meta reveal" data-d="5" aria-label="Informações do evento">
+            <li><strong>9º Ano</strong> ao 3º Médio</li>
+            <li><strong>14+ anos</strong></li>
+            <li><strong>08h – 13h</strong></li>
+          </ul>
         </div>
-        <p class="wix-hero__eyebrow reveal">Projeto de Voluntariado · 2026</p>
-        <h1 class="wix-hero__title reveal">
-          Transforme vidas com<br>
-          <span class="gradient-text">solidariedade real</span>
-        </h1>
-        <p class="wix-hero__sub reveal">
-          Combate à fome e apoio educacional para crianças em vulnerabilidade —
-          uma experiência completa no Centro Comunitário Esperança Viva.
-        </p>
-        <div class="wix-hero__cta reveal">
-          <a href="#participe" class="wix-btn wix-btn--primary wix-btn--xl" data-magnetic>Participar agora</a>
-          <a href="#contexto" class="wix-btn wix-btn--ghost wix-btn--xl" data-magnetic>Conhecer a jornada</a>
+
+        <div class="wix-hero__preview reveal" data-d="3" aria-hidden="true">
+          <div class="browser-mock" id="browserMock" data-tilt>
+            <div class="browser-mock__bar">
+              <span class="dot dot--red"></span>
+              <span class="dot dot--yellow"></span>
+              <span class="dot dot--green"></span>
+            </div>
+            <div class="browser-mock__body">
+              <div class="browser-mock__tag">Impacto real</div>
+              <div class="mock-stat">
+                <span id="heroStat">0</span>
+                <small>voluntários inscritos</small>
+              </div>
+              <div class="mock-pills">
+                <span>Educação</span>
+                <span>Empatia</span>
+                <span>Acolhimento</span>
+              </div>
+              <p class="mock-quote">"Crianças que se sentem vistas, mudam de vida."</p>
+            </div>
+          </div>
         </div>
-        <ul class="wix-hero__meta reveal">
-          <li><strong>17 OUT</strong> 2026</li>
-          <li><strong>08h–13h</strong></li>
-          <li><strong>Esperança Viva</strong></li>
-        </ul>
+
       </div>
-      <div class="wix-hero__preview reveal" aria-hidden="true">
-        <div class="browser-mock" id="browserMock" data-tilt>
-          <div class="browser-mock__bar"><span></span><span></span><span></span></div>
-          <div class="browser-mock__body">
-            <div class="mock-stat"><span id="heroStat">0</span><small>inscritos</small></div>
-            <p>Solidariedade que transforma vidas</p>
-          </div>
+
+      <div class="kinetic-bar" aria-hidden="true">
+        <div class="kinetic-bar__track">
+          <span>CONEXÃO SOLIDÁRIA</span><span aria-hidden="true">·</span>
+          <span>PARCERIA CONTÍNUA</span><span aria-hidden="true">·</span>
+          <span>COLÉGIO PAULO DE TARSO</span><span aria-hidden="true">·</span>
+          <span>EDUCAÇÃO &amp; EMPATIA</span><span aria-hidden="true">·</span>
+          <span>CONEXÃO SOLIDÁRIA</span><span aria-hidden="true">·</span>
+          <span>PARCERIA CONTÍNUA</span><span aria-hidden="true">·</span>
+          <span>COLÉGIO PAULO DE TARSO</span><span aria-hidden="true">·</span>
+          <span>EDUCAÇÃO &amp; EMPATIA</span><span aria-hidden="true">·</span>
         </div>
       </div>
     </section>
 
-    <!-- FEATURE STRIP -->
+    <!-- ═══════════ FAIXA DESTAQUE ═══════════ -->
     <section class="wix-strip">
       <div class="container">
-        <h2 class="wix-strip__title reveal">Suas ações entram.<br>Um impacto incrível sai.</h2>
-        <p class="wix-strip__sub reveal">Interaja com o projeto e veja como pequenos gestos constroem futuros inteiros.</p>
+        <h2 class="wix-strip__title reveal">
+          Não é doação. É conexão.
+        </h2>
+        <p class="wix-strip__sub reveal">
+          O Conexão Solidária constrói pontes duradouras entre estudantes do Paulo de Tarso
+          e crianças em vulnerabilidade social — transformando os dois lados dessa experiência.
+        </p>
       </div>
     </section>
 
-    <!-- 01 CONTEXTO -->
-    <section class="wix-block" id="contexto">
+    <!-- ═══════════ 01 CONTEXTO ═══════════ -->
+    <section class="wix-block" id="contexto" aria-labelledby="h2-contexto">
       <div class="container wix-block__grid">
+
         <div class="wix-block__visual reveal">
           <div class="feature-card feature-card--blue" data-tilt>
             <span class="feature-card__num">01</span>
             <h3>Contexto</h3>
-            <p>Ano Internacional dos Voluntários · ODS · Paulo de Tarso</p>
+            <p>Uma parceria verdadeira entre escolas para além da caridade momentânea.</p>
+            <div class="feature-card__dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
           </div>
         </div>
-        <div class="wix-block__copy reveal">
+
+        <div class="wix-block__copy reveal" data-d="1">
           <span class="wix-label">Capítulo 01</span>
-          <h2>Por que o voluntariado importa em 2026</h2>
+          <h2 id="h2-contexto">Uma parceria que vai além de uma visita</h2>
           <p class="wix-lead">
-            A ONU declarou 2026 como o <strong>Ano Internacional dos Voluntários para o Desenvolvimento Sustentável</strong>.
-            Na nossa escola, educar é formar quem age com empatia e responsabilidade.
+            O Conexão Solidária não é uma ação pontual de caridade. É uma <strong>parceria contínua</strong>
+            entre o Colégio Paulo de Tarso e escolas públicas em situação de vulnerabilidade social,
+            construída com presença, afeto e compromisso real.
           </p>
           <p>
-            O <strong>Conexão Solidária</strong> conecta alunos, famílias e comunidade em uma ação concreta
-            de combate à fome com suporte educacional.
+            A proposta é criar vínculos humanos genuínos entre estudantes, promovendo acolhimento,
+            empatia e transformação social — porque crianças que se sentem vistas e valorizadas
+            acreditam em si mesmas.
+          </p>
+          <p>
+            Alunos do <strong>9º ano do Ensino Fundamental II ao 3º ano do Ensino Médio</strong>,
+            juntamente com professores e orientadores, realizam visitas anuais às escolas parceiras.
           </p>
           <ul class="wix-metrics">
-            <li><strong data-count="970">0</strong><span>M+ voluntários no mundo</span></li>
-            <li><strong data-count="17">0</strong><span>ODS alinhados</span></li>
+            <li><strong data-count="14">0</strong><span>anos — idade mínima</span></li>
+            <li><strong data-count="5">0</strong><span>horas de atividades por visita</span></li>
           </ul>
         </div>
+
       </div>
     </section>
 
-    <!-- 02 DESAFIO -->
-    <section class="wix-block wix-block--alt" id="desafio">
+    <!-- ═══════════ 02 DESAFIO ═══════════ -->
+    <section class="wix-block wix-block--alt" id="desafio" aria-labelledby="h2-desafio">
       <div class="container wix-block__grid wix-block__grid--reverse">
+
         <div class="wix-block__copy reveal">
           <span class="wix-label">Capítulo 02</span>
-          <h2>O desafio que enfrentamos juntos</h2>
+          <h2 id="h2-desafio">O que essas crianças enfrentam todos os dias</h2>
           <p class="wix-lead">
-            Crianças em vulnerabilidade social convivem com fome, baixa autoestima e barreiras ao aprendizado.
+            Crianças em vulnerabilidade social convivem não só com dificuldades materiais,
+            mas com a invisibilidade — a sensação de que ninguém as vê ou se importa.
+          </p>
+          <p>
+            Sem vínculos positivos, autoestima fragilizada e barreiras ao aprendizado,
+            o futuro parece distante. O projeto Conexão Solidária existe para mudar isso.
           </p>
           <div class="wix-cards">
             <article class="wix-mini-card">
-              <span>33%</span>
-              <p>Famílias com insegurança alimentar*</p>
+              <span>Fome</span>
+              <p>Insegurança alimentar que compromete saúde e aprendizado.</p>
             </article>
             <article class="wix-mini-card">
-              <span>1 em 4</span>
-              <p>Risco nutricional em áreas vulneráveis*</p>
+              <span>Baixa autoestima</span>
+              <p>Crianças que acreditam que não são importantes ou capazes.</p>
             </article>
             <article class="wix-mini-card">
-              <span>∞</span>
-              <p>Necessidade de vínculos comunitários</p>
+              <span>Exclusão</span>
+              <p>Falta de vínculos comunitários que protegem e inspiram.</p>
             </article>
           </div>
-          <p class="wix-note">*Dados ilustrativos — projeto acadêmico.</p>
         </div>
-        <div class="wix-block__visual reveal">
+
+        <div class="wix-block__visual reveal" data-d="1">
           <div class="feature-card feature-card--orange" data-tilt>
             <span class="feature-card__num">02</span>
             <h3>Desafio</h3>
-            <p>Fome · Educação · Exclusão social</p>
+            <p>Invisibilidade · Exclusão · Falta de pertencimento</p>
+            <div class="feature-card__dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- 03 SOLUÇÃO -->
-    <section class="wix-block" id="solucao">
+    <!-- ═══════════ 03 SOLUÇÃO ═══════════ -->
+    <section class="wix-block" id="solucao" aria-labelledby="h2-solucao">
       <div class="container">
+
         <div class="wix-center reveal">
           <span class="wix-label">Capítulo 03</span>
-          <h2>Liberdade para impactar.<br>Ajuste sua participação.</h2>
-          <p class="wix-lead wix-lead--center">Organize, distribua, ensine e acolha — cada etapa do projeto foi pensada para transformar.</p>
+          <h2 id="h2-solucao">Como o projeto funciona na prática</h2>
+          <p class="wix-lead wix-lead--center">
+            Visitas anuais das 08h às 13h repletas de atividades que unem, ensinam e acolhem —
+            organizadas com cuidado para deixar marcas positivas duradouras.
+          </p>
         </div>
-        <div class="wix-features">
-          <article class="wix-feature reveal" data-tilt>
-            <div class="wix-feature__icon">01</div>
-            <h3>Kits alimentares</h3>
-            <p>Organização e distribuição de alimentos essenciais.</p>
+
+        <div class="activities-grid reveal" data-d="1">
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">🎲</span>
+            <h3>Jogos em grupo</h3>
+            <p>Dinâmicas que desenvolvem raciocínio lógico, trabalho em equipe e criatividade.</p>
           </article>
-          <article class="wix-feature reveal" data-tilt data-d="1">
-            <div class="wix-feature__icon">02</div>
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">🎨</span>
+            <h3>Atividades artísticas</h3>
+            <p>Expressão livre por meio de arte, criatividade e construção coletiva.</p>
+          </article>
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">💬</span>
+            <h3>Rodas de conversa</h3>
+            <p>Espaço seguro para expressão emocional, escuta e construção de vínculos.</p>
+          </article>
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">📚</span>
             <h3>Oficinas educativas</h3>
-            <p>Aprendizado lúdico que desperta curiosidade.</p>
+            <p>Aprendizado lúdico que desperta curiosidade e motivação escolar.</p>
           </article>
-          <article class="wix-feature reveal" data-tilt data-d="2">
-            <div class="wix-feature__icon">03</div>
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">🤸</span>
+            <h3>Atividades recreativas</h3>
+            <p>Momentos de alegria, integração e expressão corporal pedagógica.</p>
+          </article>
+          <article class="activity-card" data-tilt>
+            <span class="activity-card__icon" aria-hidden="true">💛</span>
             <h3>Acolhimento</h3>
-            <p>Atividades recreativas e suporte emocional.</p>
+            <p>Presença humana e atenção genuína que diz: você importa.</p>
           </article>
         </div>
-        <div class="wix-chips reveal">
-          <span class="wix-chip"><b>Local</b> Centro Esperança Viva</span>
-          <span class="wix-chip"><b>Data</b> 17/10/2026</span>
-          <span class="wix-chip"><b>Horário</b> 08h – 13h</span>
+
+        <div class="wix-chips reveal" data-d="2">
+          <span class="wix-chip"><b>Quem</b> 9º ano ao 3º Médio + professores</span>
+          <span class="wix-chip"><b>Idade</b> a partir de 14 anos</span>
+          <span class="wix-chip"><b>Quando</b> Visitas anuais</span>
+          <span class="wix-chip"><b>Horário</b> 08h às 13h</span>
         </div>
+
       </div>
     </section>
 
-    <!-- 04 RESULTADO -->
-    <section class="wix-block wix-block--gradient" id="resultado">
+    <!-- ═══════════ 04 IMPACTO ═══════════ -->
+    <section class="wix-block wix-block--alt" id="impacto" aria-labelledby="h2-impacto">
       <div class="container">
+
         <div class="wix-center reveal">
           <span class="wix-label">Capítulo 04</span>
-          <h2>Resultados que planejamos alcançar</h2>
+          <h2 id="h2-impacto">O impacto acontece nos dois lados</h2>
+          <p class="wix-lead wix-lead--center">
+            O projeto transforma tanto as crianças atendidas quanto os estudantes do Paulo de Tarso
+            que participam — cada um aprende algo que nenhuma sala de aula consegue ensinar sozinha.
+          </p>
         </div>
-        <div class="wix-counter reveal">
-          <span class="wix-counter__n" id="liveCount">0</span>
-          <span class="wix-counter__label">voluntários inscritos</span>
+
+        <div class="impact-split reveal" data-d="1">
+
+          <div class="impact-side impact-side--blue">
+            <h3>Para os alunos do Paulo de Tarso</h3>
+            <ul class="impact-list">
+              <li>
+                <span aria-hidden="true">↗</span>
+                <span>Desenvolvimento da empatia e consciência social</span>
+              </li>
+              <li>
+                <span aria-hidden="true">↗</span>
+                <span>Compreensão prática das desigualdades sociais</span>
+              </li>
+              <li>
+                <span aria-hidden="true">↗</span>
+                <span>Senso de responsabilidade coletiva</span>
+              </li>
+              <li>
+                <span aria-hidden="true">↗</span>
+                <span>Valorização de atitudes de solidariedade e respeito</span>
+              </li>
+              <li>
+                <span aria-hidden="true">↗</span>
+                <span>Formação cidadã que vai além do currículo</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="impact-divider" aria-hidden="true"></div>
+
+          <div class="impact-side impact-side--orange">
+            <h3>Para as crianças atendidas</h3>
+            <ul class="impact-list">
+              <li>
+                <span aria-hidden="true">✦</span>
+                <span>Sensação de reconhecimento e acolhimento real</span>
+              </li>
+              <li>
+                <span aria-hidden="true">✦</span>
+                <span>Fortalecimento emocional e autoestima elevada</span>
+              </li>
+              <li>
+                <span aria-hidden="true">✦</span>
+                <span>Maior motivação e engajamento escolar</span>
+              </li>
+              <li>
+                <span aria-hidden="true">✦</span>
+                <span>Desenvolvimento de confiança em si mesmas</span>
+              </li>
+              <li>
+                <span aria-hidden="true">✦</span>
+                <span>Criação de memórias positivas e afetivas duradouras</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
-        <div class="wix-gallery">
-          <figure class="wix-gallery__item reveal">
-            <img src="assets/images/gallery/foto-1.jpg" alt="Educação" loading="lazy" decoding="async">
+
+        <blockquote class="project-quote reveal" data-d="2">
+          <p>"O diferencial do projeto é criar vínculos reais e humanos, mostrando às crianças
+          que elas são importantes, valorizadas e capazes."</p>
+          <cite>— Proposta Conexão Solidária · Colégio Paulo de Tarso</cite>
+        </blockquote>
+
+        <!-- Galeria -->
+        <div class="wix-gallery reveal" data-d="2">
+          <figure class="wix-gallery__item">
+            <img src="assets/images/gallery/foto-1.jpg"
+                 alt="Crianças em atividade educativa com voluntários"
+                 loading="lazy" decoding="async">
             <figcaption>Educação</figcaption>
           </figure>
-          <figure class="wix-gallery__item wix-gallery__item--main reveal" data-d="1">
-            <img src="assets/images/gallery/foto-2.jpg" alt="Solidariedade" loading="lazy" decoding="async">
-            <figcaption>Solidariedade</figcaption>
+          <figure class="wix-gallery__item wix-gallery__item--main">
+            <img src="assets/images/gallery/foto-2.jpg"
+                 alt="Momento de acolhimento e conexão humana"
+                 loading="lazy" decoding="async">
+            <figcaption>Conexão</figcaption>
           </figure>
-          <figure class="wix-gallery__item reveal" data-d="2">
-            <img src="assets/images/gallery/foto-3.jpg" alt="Alimentos" loading="lazy" decoding="async">
-            <figcaption>Alimentos</figcaption>
+          <figure class="wix-gallery__item">
+            <img src="assets/images/gallery/foto-3.jpg"
+                 alt="Distribuição de materiais e apoio à comunidade"
+                 loading="lazy" decoding="async">
+            <figcaption>Suporte</figcaption>
           </figure>
         </div>
+
+        <!-- Contador -->
+        <div class="wix-counter reveal" data-d="3">
+          <span class="wix-counter__n" id="liveCount">0</span>
+          <span class="wix-counter__label">voluntários já inscritos</span>
+        </div>
+
       </div>
     </section>
 
-    <!-- 05 PARTICIPE -->
-    <section class="wix-block" id="participe">
+    <!-- ═══════════ 05 SUPORTE CONTÍNUO ═══════════ -->
+    <section class="wix-block" id="suporte" aria-labelledby="h2-suporte">
       <div class="container">
+
         <div class="wix-center reveal">
           <span class="wix-label">Capítulo 05</span>
-          <h2>Convite à ação</h2>
-          <p class="wix-lead wix-lead--center">Inscreva-se e monte seu kit solidário no mini-jogo interativo.</p>
+          <h2 id="h2-suporte">Suporte contínuo além das visitas</h2>
+          <p class="wix-lead wix-lead--center">
+            Mensal ou trimestralmente, o Colégio Paulo de Tarso realiza campanhas solidárias
+            para manter as escolas parceiras apoiadas o ano inteiro.
+          </p>
+        </div>
+
+        <div class="donations-grid reveal" data-d="1">
+          <article class="donation-card">
+            <span aria-hidden="true">📓</span>
+            <h3>Materiais escolares</h3>
+            <p>Cadernos, lápis, estojos, mochilas, materiais de arte e muito mais.</p>
+          </article>
+          <article class="donation-card">
+            <span aria-hidden="true">🥫</span>
+            <h3>Alimentos</h3>
+            <p>Cestas básicas e itens essenciais para garantir nutrição e bem-estar.</p>
+          </article>
+          <article class="donation-card">
+            <span aria-hidden="true">👕</span>
+            <h3>Roupas</h3>
+            <p>Peças em bom estado para crianças e famílias em situação de vulnerabilidade.</p>
+          </article>
+          <article class="donation-card">
+            <span aria-hidden="true">🧴</span>
+            <h3>Produtos de higiene</h3>
+            <p>Itens de higiene pessoal essenciais para a dignidade e saúde das crianças.</p>
+          </article>
+          <article class="donation-card">
+            <span aria-hidden="true">🧸</span>
+            <h3>Brinquedos</h3>
+            <p>Presentes que estimulam criatividade, alegria e desenvolvimento infantil.</p>
+          </article>
+          <article class="donation-card">
+            <span aria-hidden="true">📖</span>
+            <h3>Livros</h3>
+            <p>Livros didáticos e infantis que abrem portas para o conhecimento e a imaginação.</p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════ 06 PARTICIPE ═══════════ -->
+    <section class="wix-block wix-block--gradient" id="participe" aria-labelledby="h2-participe">
+      <div class="container">
+
+        <div class="wix-center reveal">
+          <span class="wix-label">Capítulo 06 · Convite</span>
+          <h2 id="h2-participe">Faça parte dessa conexão</h2>
+          <p class="wix-lead wix-lead--center">
+            Inscreva-se para participar da próxima visita, monte seu kit solidário
+            e ajude a construir uma rede de apoio que transforma escolas inteiras.
+          </p>
         </div>
 
         <div class="wix-split">
-          <div class="wix-game reveal" id="wixGame">
-            <h3>Monte o Kit Solidário</h3>
-            <p>Selecione 5 itens. Impacto: <strong id="gamePct">0%</strong></p>
-            <div class="wix-game__items">
-              <button type="button" data-g="arroz">🍚 Arroz</button>
-              <button type="button" data-g="feijao">🫘 Feijão</button>
+
+          <!-- JOGO -->
+          <div class="wix-game reveal" id="wixGame" aria-label="Monte o kit de doação">
+            <h3>Monte o Kit de Doação</h3>
+            <p>Selecione o que você levaria na visita. Meta: <strong id="gamePct">0%</strong></p>
+            <div class="wix-game__items" role="group" aria-label="Itens do kit">
+              <button type="button" data-g="caderno">📓 Caderno</button>
+              <button type="button" data-g="alimento">🥫 Alimento</button>
               <button type="button" data-g="livro">📚 Livro</button>
-              <button type="button" data-g="fruta">🍎 Fruta</button>
+              <button type="button" data-g="roupa">👕 Roupa</button>
               <button type="button" data-g="brinquedo">🧸 Brinquedo</button>
+              <button type="button" data-g="higiene">🧴 Higiene</button>
+              <button type="button" data-g="arte">🎨 Arte</button>
               <button type="button" data-g="carinho">💛 Acolhimento</button>
             </div>
-            <div class="wix-game__box" id="gameBox">Seu kit aparece aqui</div>
-            <button type="button" class="wix-btn wix-btn--ghost wix-btn--sm" id="gameReset">Reiniciar</button>
+            <div class="wix-game__box" id="gameBox" aria-live="polite">
+              <span>Seu kit aparece aqui</span>
+            </div>
+            <button type="button" class="wix-btn wix-btn--ghost wix-btn--sm" id="gameReset">
+              Reiniciar kit
+            </button>
           </div>
 
+          <!-- FORMULÁRIO -->
           <form class="wix-form reveal" id="wixForm" novalidate>
             <h3>Inscrição voluntária</h3>
-            <label>Nome completo<input name="nome" id="fNome" required minlength="3" autocomplete="name"></label>
+
+            <label for="fNome">Nome completo</label>
+            <input id="fNome" name="nome" required minlength="3" autocomplete="name"
+                   placeholder="Seu nome completo">
             <span class="wix-err" id="eNome"></span>
+
             <div class="wix-form__row">
               <div>
-                <label>Idade<input type="number" name="idade" id="fIdade" min="14" max="120" required></label>
+                <label for="fIdade">Idade</label>
+                <input type="number" id="fIdade" name="idade" min="14" max="120" required
+                       placeholder="Mín. 14 anos">
                 <span class="wix-err" id="eIdade"></span>
               </div>
               <div>
-                <label>E-mail<input type="email" name="email" id="fEmail" required autocomplete="email"></label>
+                <label for="fEmail">E-mail</label>
+                <input type="email" id="fEmail" name="email" required autocomplete="email"
+                       placeholder="seu@email.com">
                 <span class="wix-err" id="eEmail"></span>
               </div>
             </div>
-            <label>Por que deseja participar?<textarea name="motivo" id="fMotivo" rows="3" required minlength="20"></textarea></label>
+
+            <label for="fMotivo">Por que deseja participar?</label>
+            <textarea id="fMotivo" name="motivo" rows="4" required minlength="20"
+                      placeholder="Conte sua motivação para fazer parte desta conexão..."></textarea>
             <span class="wix-err" id="eMotivo"></span>
-            <button type="submit" class="wix-btn wix-btn--primary wix-btn--full">Confirmar inscrição</button>
-            <p class="wix-form__msg" id="fMsg" role="status"></p>
+
+            <button type="submit" class="wix-btn wix-btn--primary wix-btn--full" id="fSubmit">
+              Confirmar inscrição
+            </button>
+            <p class="wix-form__msg" id="fMsg" role="status" aria-live="polite"></p>
           </form>
+
         </div>
 
-        <div class="wix-success is-hidden" id="wixSuccess" role="status">
-          <div class="wix-success__icon">✓</div>
+        <!-- SUCESSO -->
+        <div class="wix-success is-hidden" id="wixSuccess" role="status" aria-live="polite">
+          <div class="wix-success__icon" aria-hidden="true">✓</div>
           <h3>Inscrição confirmada!</h3>
           <p id="wixSuccessText"></p>
         </div>
+
       </div>
     </section>
 
-    <!-- COMO FUNCIONA (WIX STEPS) -->
-    <section class="wix-steps">
+    <!-- ═══════════ PASSOS ═══════════ -->
+    <section class="wix-steps" aria-labelledby="h2-passos">
       <div class="container">
-        <h2 class="wix-center reveal">Como participar em 4 passos</h2>
+        <h2 class="wix-center reveal" id="h2-passos">Como funciona a participação</h2>
         <div class="wix-steps__grid">
           <article class="wix-step reveal">
-            <span>1</span>
+            <span aria-hidden="true">1</span>
             <h3>Inscreva-se</h3>
-            <p>Preencha o formulário com seus dados.</p>
+            <p>Preencha o formulário acima com seus dados e motivação.</p>
           </article>
           <article class="wix-step reveal" data-d="1">
-            <span>2</span>
-            <h3>Monte o kit</h3>
-            <p>Experimente o jogo e entenda o impacto.</p>
+            <span aria-hidden="true">2</span>
+            <h3>Prepare-se</h3>
+            <p>Participe das orientações com professores e monitores do projeto.</p>
           </article>
           <article class="wix-step reveal" data-d="2">
-            <span>3</span>
-            <h3>Compareça</h3>
-            <p>17/10/2026 · 08h às 13h · Esperança Viva.</p>
+            <span aria-hidden="true">3</span>
+            <h3>Visite</h3>
+            <p>Compareça na data marcada · 08h às 13h · escola parceira.</p>
           </article>
           <article class="wix-step reveal" data-d="3">
-            <span>4</span>
-            <h3>Transforme</h3>
-            <p>Aja com propósito ao lado da comunidade.</p>
+            <span aria-hidden="true">4</span>
+            <h3>Continue</h3>
+            <p>Apoie as campanhas de arrecadação mensais ou trimestrais.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="wix-faq">
+    <!-- ═══════════ FAQ ═══════════ -->
+    <section class="wix-faq" aria-labelledby="h2-faq">
       <div class="container wix-faq__wrap">
-        <h2 class="reveal">Perguntas frequentes</h2>
+        <h2 class="reveal" id="h2-faq">Perguntas frequentes</h2>
+
         <details class="wix-faq__item reveal">
-          <summary>Quem pode participar?</summary>
-          <p>Voluntários a partir de 14 anos, especialmente da comunidade escolar e convidados.</p>
+          <summary>Quem pode participar como voluntário?</summary>
+          <p>Alunos do 9º ano do Ensino Fundamental II ao 3º ano do Ensino Médio do Colégio Paulo
+          de Tarso, com participação permitida a partir de 14 anos, juntamente com professores
+          e orientadores.</p>
         </details>
+
         <details class="wix-faq__item reveal">
-          <summary>Preciso de experiência prévia?</summary>
-          <p>Não. O acolhimento e as orientações serão feitos no dia do evento.</p>
+          <summary>O projeto é só uma visita?</summary>
+          <p>Não. O projeto propõe uma <strong>parceria contínua</strong> com visitas anuais e
+          suporte mensal ou trimestral por meio de campanhas solidárias de arrecadação. O objetivo
+          é construir vínculos duradouros, não apenas ações pontuais.</p>
         </details>
+
         <details class="wix-faq__item reveal">
-          <summary>Os dados da inscrição são salvos?</summary>
-          <p>Sim — no servidor do projeto (ou localmente se estiver em modo estático).</p>
+          <summary>O que acontece durante as visitas?</summary>
+          <p>As visitas acontecem das 08h às 13h e incluem: jogos em grupo, dinâmicas, oficinas
+          recreativas e educativas, atividades artísticas, rodas de conversa e momentos de
+          integração e acolhimento.</p>
         </details>
+
+        <details class="wix-faq__item reveal">
+          <summary>Quais itens são arrecadados nas campanhas?</summary>
+          <p>Materiais escolares (cadernos, lápis, estojos, mochilas, materiais de arte),
+          alimentos, roupas, produtos de higiene pessoal, brinquedos, livros didáticos e
+          livros infantis.</p>
+        </details>
+
+        <details class="wix-faq__item reveal">
+          <summary>Preciso de experiência para participar?</summary>
+          <p>Não. Todas as atividades são orientadas por professores e monitores. O mais importante
+          é vir com disposição, empatia e vontade genuína de fazer a diferença.</p>
+        </details>
+
       </div>
     </section>
 
-    <!-- CTA FINAL -->
+    <!-- ═══════════ CTA FINAL ═══════════ -->
     <section class="wix-cta-band">
       <div class="container wix-cta-band__inner reveal">
-        <img src="assets/logo-colegio.png" alt="" class="wix-cta-band__logo" width="140" height="140">
-        <h2>É assim que se transforma uma comunidade.</h2>
-        <a href="#participe" class="wix-btn wix-btn--white wix-btn--xl">Quero participar</a>
+        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso"
+             class="wix-cta-band__logo" width="140" height="140">
+        <div class="wix-cta-band__text">
+          <h2>É assim que se transforma uma escola inteira.</h2>
+          <p>Cada visita, cada doação, cada conversa — tudo constrói uma rede de apoio real.</p>
+        </div>
+        <a href="#participe" class="wix-btn wix-btn--white wix-btn--xl">
+          Quero participar
+        </a>
       </div>
     </section>
 
-    <!-- DEV -->
-    <section class="wix-dev" id="desenvolvedora">
+    <!-- ═══════════ DESENVOLVEDORA ═══════════ -->
+    <section class="wix-dev" id="desenvolvedora" aria-labelledby="h2-dev">
       <div class="container wix-dev__inner reveal">
         <div class="wix-dev__avatar" id="devAv">AF</div>
         <div>
-          <h2>Ana Flávia</h2>
-          <p class="wix-dev__role">Desenvolvedora · Projeto Acadêmico</p>
-          <p>Site premium em HTML, CSS, JavaScript e Node.js — UI inspirada em builders modernos, com narrativa, jogo e API de inscrições.</p>
+          <h2 id="h2-dev">Ana Flávia</h2>
+          <p class="wix-dev__role">Desenvolvedora · Projeto Acadêmico · Colégio Paulo de Tarso</p>
+          <p>
+            Este site foi criado como parte do projeto Conexão Solidária, utilizando HTML5, CSS3,
+            JavaScript e Node.js. A proposta visual foi inspirada em builders modernos de alto padrão,
+            com foco em autenticidade, acessibilidade e impacto emocional.
+          </p>
           <div class="wix-dev__links">
-            <a href="https://github.com/hzy1kk" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://github.com/hzy1kk/ana-clone" target="_blank" rel="noopener">Repositório</a>
+            <a href="https://github.com/hzy1kk" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://github.com/hzy1kk/ana-clone" target="_blank" rel="noopener noreferrer">Repositório</a>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <footer class="wix-footer">
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="wix-footer" role="contentinfo">
     <div class="container wix-footer__grid">
-      <div>
+      <div class="wix-footer__brand">
         <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" width="88" height="88">
-        <p>Conexão Solidária · Escola Paulo de Tarso</p>
+        <p><strong>Conexão Solidária</strong></p>
+        <p>Colégio Paulo de Tarso</p>
+        <p class="wix-footer__tagline">"Vínculos reais que transformam vidas."</p>
       </div>
-      <div>
+      <nav class="wix-footer__nav" aria-label="Links do projeto">
+        <h4>Projeto</h4>
+        <a href="#contexto">Contexto</a>
+        <a href="#desafio">Desafio</a>
+        <a href="#solucao">Solução</a>
+        <a href="#impacto">Impacto</a>
+        <a href="#suporte">Suporte Contínuo</a>
+        <a href="#participe">Participar</a>
+      </nav>
+      <div class="wix-footer__contact">
         <h4>Contato</h4>
-        <a href="https://colegiopaulodetarso.com.br/" target="_blank" rel="noopener">colegiopaulodetarso.com.br</a>
+        <a href="https://colegiopaulodetarso.com.br/" target="_blank" rel="noopener noreferrer">
+          colegiopaulodetarso.com.br
+        </a>
         <a href="tel:+551137297060">(11) 3729-7060</a>
-        <a href="https://api.whatsapp.com/send/?phone=5511975750697" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://api.whatsapp.com/send/?phone=5511975750697&text=Ol%C3%A1%2C+gostaria+de+informa%C3%A7%C3%B5es+sobre+o+Col%C3%A9gio"
+           target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
-      <p class="wix-footer__copy">&copy; <span id="yr"></span> Todos os direitos reservados.</p>
+      <p class="wix-footer__copy">
+        &copy; <span id="yr"></span> Conexão Solidária · Colégio Paulo de Tarso.
+        Projeto acadêmico.
+      </p>
     </div>
   </footer>
 
-  <dialog class="wix-modal" id="wixModal">
+  <!-- MODAL: já inscrito -->
+  <dialog class="wix-modal" id="wixModal" aria-labelledby="modalTitle">
     <div class="wix-modal__box">
-      <h3>Você já está inscrito(a)</h3>
-      <p>Você já está inscrito(a) nesta ação voluntária.</p>
-      <button type="button" class="wix-btn wix-btn--primary" id="wixModalClose">Entendi</button>
+      <h3 id="modalTitle">Você já está inscrito(a)</h3>
+      <p>Sua inscrição no Conexão Solidária já foi registrada. Até a próxima visita!</p>
+      <button type="button" class="wix-btn wix-btn--primary" id="wixModalClose">Entendido</button>
     </div>
   </dialog>
 

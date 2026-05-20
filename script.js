@@ -32,7 +32,10 @@ function init() {
   initForm();
   initDevImg();
   syncCount();
-  $$('.wix-hero .reveal').forEach((el, i) => setTimeout(() => el.classList.add('is-visible'), 100 + i * 80));
+  $$('.wix-hero .reveal, .wix-hero .reveal[data-d]').forEach((el) => {
+    const d = Number(el.dataset.d || 0) * 100;
+    setTimeout(() => el.classList.add('is-visible'), 150 + d);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -217,17 +220,26 @@ async function syncCount() {
 /* Game */
 function initGame() {
   const picked = new Set();
-  const labels = { arroz: '🍚', feijao: '🫘', livro: '📚', fruta: '🍎', brinquedo: '🧸', carinho: '💛' };
+  const labels = {
+    caderno: '📓 Caderno',
+    alimento: '🥫 Alimento',
+    livro: '📚 Livro',
+    roupa: '👕 Roupa',
+    brinquedo: '🧸 Brinquedo',
+    higiene: '🧴 Higiene',
+    arte: '🎨 Arte',
+    carinho: '💛 Acolhimento',
+  };
   const box = $('#gameBox');
   const pct = $('#gamePct');
 
   const render = () => {
     const n = picked.size;
-    pct.textContent = `${Math.min(100, Math.round((n / 5) * 100))}%`;
+    pct.textContent = `${Math.min(100, Math.round((n / 6) * 100))}%`;
     box.innerHTML = n
       ? [...picked].map((k) => `<span class="wix-game__chip">${labels[k]} ${k}</span>`).join('')
       : 'Seu kit aparece aqui';
-    if (n >= 5) box.innerHTML += '<p class="wix-game__win">Kit completo! 🎉</p>';
+    if (n >= 6) box.innerHTML += '<p class="wix-game__win">Kit completo! Você está pronto para a visita! 🎉</p>';
   };
 
   $$('.wix-game__items button').forEach((btn) => {
@@ -252,9 +264,16 @@ function initForm() {
 
   const f = { nome: $('#fNome'), idade: $('#fIdade'), email: $('#fEmail'), motivo: $('#fMotivo') };
 
+  const submitBtn = $('#fSubmit');
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!validateAll(f)) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+    }
 
     const payload = {
       nome: f.nome.value.trim(),
@@ -281,7 +300,7 @@ function initForm() {
         localStorage.setItem(LS.reg, JSON.stringify(payload));
         $('#liveCount').textContent = data.contador;
         $('#heroStat').textContent = data.contador;
-        $('#fMsg').textContent = data.message;
+        $('#fMsg').textContent = data.message || 'Inscrição confirmada!';
         showOk(payload);
       } else {
         if (localStorage.getItem(LS.reg)) {
@@ -298,6 +317,11 @@ function initForm() {
       }
     } catch (err) {
       $('#fMsg').textContent = err.message || 'Erro ao enviar.';
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Confirmar inscrição';
+      }
     }
   });
 
@@ -331,7 +355,7 @@ function showOk(data, scroll = true) {
   $('#wixGame')?.classList.add('is-hidden');
   const panel = $('#wixSuccess');
   panel?.classList.remove('is-hidden');
-  $('#wixSuccessText').textContent = `Obrigado, ${data.nome.split(' ')[0]}! Nos vemos em 17/10/2026.`;
+  $('#wixSuccessText').textContent = `Obrigado, ${data.nome.split(' ')[0]}! Sua inscrição foi registrada. Em breve você receberá mais informações sobre a próxima visita. Juntos vamos transformar!`;
   if (scroll) panel?.scrollIntoView({ behavior: 'smooth' });
 }
 

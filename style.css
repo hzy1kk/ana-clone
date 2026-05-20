@@ -2103,6 +2103,388 @@ button {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Kinetic bar                                                                */
+/* -------------------------------------------------------------------------- */
+.kinetic-bar {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-subtle);
+  padding: 0.8rem 0;
+  white-space: nowrap;
+}
+
+.kinetic-bar__track {
+  display: inline-flex;
+  gap: 2rem;
+  animation: marqueeScroll 28s linear infinite;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.kinetic-bar__track span:nth-child(even) {
+  color: var(--orange);
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Browser mock upgrades                                                      */
+/* -------------------------------------------------------------------------- */
+.dot { border-radius: 50%; display: inline-block; width: 10px; height: 10px; }
+.dot--red    { background: #ff5f57; }
+.dot--yellow { background: #febc2e; }
+.dot--green  { background: #28c840; }
+
+.browser-mock__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: var(--orange-soft);
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.mock-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.mock-pills span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+[data-theme="dark"] .mock-pills span {
+  color: #7ba7d4;
+}
+
+.mock-quote {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--text-muted);
+  border-left: 3px solid var(--orange);
+  padding-left: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Activities grid                                                             */
+/* -------------------------------------------------------------------------- */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 860px) {
+  .activities-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .activities-grid { grid-template-columns: 1fr; }
+}
+
+.activity-card {
+  padding: 2rem 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  cursor: default;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+}
+
+.activity-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.activity-card__icon {
+  font-size: 2.25rem;
+  display: block;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+.activity-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.activity-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Impact split                                                                */
+/* -------------------------------------------------------------------------- */
+.impact-split {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin: 3rem 0 2.5rem;
+  padding: 2.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .impact-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+  .impact-divider { display: none; }
+}
+
+.impact-divider {
+  background: var(--border);
+  align-self: stretch;
+}
+
+.impact-side h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid;
+}
+
+.impact-side--blue h3 {
+  color: var(--blue);
+  border-color: var(--blue-soft);
+}
+
+.impact-side--orange h3 {
+  color: var(--orange);
+  border-color: var(--orange-soft);
+}
+
+.impact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  list-style: none;
+}
+
+.impact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.impact-list li > span:first-child {
+  flex-shrink: 0;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-top: 0.05em;
+}
+
+.impact-side--blue .impact-list li > span:first-child {
+  color: var(--blue);
+}
+
+.impact-side--orange .impact-list li > span:first-child {
+  color: var(--orange);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Project quote                                                               */
+/* -------------------------------------------------------------------------- */
+.project-quote {
+  margin: 2.5rem 0;
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, var(--blue-soft), var(--orange-soft));
+  border-left: 4px solid var(--orange);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.project-quote p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.project-quote cite {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Donations grid                                                              */
+/* -------------------------------------------------------------------------- */
+.donations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 860px) {
+  .donations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .donations-grid { grid-template-columns: 1fr; }
+}
+
+.donation-card {
+  padding: 1.75rem 1.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.donation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.donation-card > span {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.85rem;
+}
+
+.donation-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.donation-card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Feature card dots                                                           */
+/* -------------------------------------------------------------------------- */
+.feature-card__dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 1.5rem;
+}
+
+.feature-card__dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.feature-card__dots span:first-child {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Form improvements                                                          */
+/* -------------------------------------------------------------------------- */
+.wix-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.wix-form input,
+.wix-form textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  background: var(--bg-subtle);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+  margin-bottom: 0.25rem;
+}
+
+.wix-form input:focus,
+.wix-form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: var(--bg-elevated);
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+
+.wix-form input.is-bad,
+.wix-form textarea.is-bad {
+  border-color: var(--error, #c0392b);
+}
+
+.wix-form input::placeholder,
+.wix-form textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.wix-form > label,
+.wix-form .wix-form__row > div > label {
+  margin-top: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* CTA band text                                                               */
+/* -------------------------------------------------------------------------- */
+.wix-cta-band__text {
+  flex: 1;
+}
+
+.wix-cta-band__text p {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Footer extras                                                               */
+/* -------------------------------------------------------------------------- */
+.wix-footer__brand { display: flex; flex-direction: column; gap: 0.35rem; }
+.wix-footer__tagline { font-style: italic; opacity: 0.65; font-size: 0.85rem; margin-top: 0.25rem; }
+.wix-footer__nav { display: flex; flex-direction: column; gap: 0.5rem; }
+.wix-footer__nav h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; color: rgba(255,255,255,0.55); }
+.wix-footer__contact { display: flex; flex-direction: column; gap: 0.5rem; }
+.wix-footer__contact h4 { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; color: rgba(255,255,255,0.55); }
+
+/* -------------------------------------------------------------------------- */
 /* Reduced motion                                                             */
 /* -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
