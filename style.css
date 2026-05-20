@@ -18,14 +18,14 @@
 /* -------------------------------------------------------------------------- */
 :root {
   /* Cores oficiais Colégio Paulo de Tarso */
-  --orange: #d97b30;
-  --orange-hover: #c26a24;
-  --orange-soft: rgba(217, 123, 48, 0.1);
-  --orange-glow: rgba(217, 123, 48, 0.28);
-  --blue: #002080;
-  --blue-deep: #001454;
-  --blue-hover: #002999;
-  --blue-soft: rgba(0, 32, 128, 0.08);
+  --orange: #c56b30;
+  --orange-hover: #ad5c28;
+  --orange-soft: rgba(197, 107, 48, 0.1);
+  --orange-glow: rgba(197, 107, 48, 0.28);
+  --blue: #002060;
+  --blue-deep: #001440;
+  --blue-hover: #002a7a;
+  --blue-soft: rgba(0, 32, 96, 0.08);
   --white: #ffffff;
   --black: #0a0f14;
 

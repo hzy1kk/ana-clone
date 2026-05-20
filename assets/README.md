@@ -4,8 +4,8 @@
 Arquivo: `assets/logo-colegio.png`
 
 Cores da marca:
-- Azul `#002080`
-- Laranja `#D97B30`
+- Azul `#002060`
+- Laranja `#C56B30`
 
 Substitua o PNG mantendo o mesmo nome para atualizar em todo o site.
 

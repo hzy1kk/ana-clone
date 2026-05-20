@@ -51,7 +51,7 @@ function initTheme() {
 function applyTheme(theme, anim) {
   const go = () => {
     html.dataset.theme = theme;
-    $('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0a0e14' : '#002080');
+    $('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0a0e14' : '#002060');
   };
   if (!anim || matchMedia('(prefers-reduced-motion: reduce)').matches) {
     go();
