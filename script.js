@@ -11,7 +11,6 @@ const GAME_GOAL = 6;
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const html = document.documentElement;
-const body = document.body;
 
 /* ─── INIT ─── */
 function init() {
@@ -205,13 +204,15 @@ function initReveal() {
 
 /* ─── HERO ENTRY ANIMATION ─── */
 function initHeroTitle() {
+  // Elementos com data-reveal no hero (badge, desc, cta, meta)
   $$('[data-reveal]', $('.hero')).forEach((el) => {
     const d = Number(el.dataset.delay || 0);
     setTimeout(() => el.classList.add('is-revealed'), 200 + d);
   });
-  // Line masks
+  // Animate t-inner line masks — sem dependência de opacity do wrapper
+  // Os .t-line não têm mais data-reveal, então não ficam opacity:0
   $$('.t-inner').forEach((el, i) => {
-    setTimeout(() => el.classList.add('is-revealed'), 250 + i * 140);
+    setTimeout(() => el.classList.add('is-revealed'), 280 + i * 150);
   });
 }
 
@@ -349,7 +350,9 @@ function initHeroCanvas() {
     pts.forEach((p) => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.c.replace(')', `,${p.a})`).replace('rgb', 'rgba').replace('#4888ff', `rgba(72,136,255,${p.a})`).replace('#c56b30', `rgba(197,107,48,${p.a})`);
+      ctx.fillStyle = p.c === '#4888ff'
+        ? `rgba(72,136,255,${p.a})`
+        : `rgba(197,107,48,${p.a})`;
       ctx.fill();
       p.y -= p.vy;
       p.x += p.vx;
