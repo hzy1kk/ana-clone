@@ -1,7 +1,7 @@
 # Assets — Conexão Solidária
 
 ## Logo oficial do colégio
-Arquivo: `assets/logo-colegio.png`
+Arquivo: `assets/colpaulotarso-logo-og.png`
 
 Cores da marca:
 - Azul `#002060`

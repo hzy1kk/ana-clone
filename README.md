@@ -23,6 +23,6 @@ python3 -m http.server 8080
 
 ## Assets
 
-- `assets/logo-colegio.png` — logo oficial (grande no hero)
+- `assets/colpaulotarso-logo-og.png` — logo oficial (grande no hero)
 - `assets/images/gallery/foto-1.jpg` … `foto-3.jpg`
 - `assets/dev-ana.jpg` — foto da desenvolvedora (opcional)
