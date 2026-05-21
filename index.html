@@ -1,549 +1,668 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Conexão Solidária — Parceria contínua entre o Colégio Paulo de Tarso e escolas em vulnerabilidade social.">
+  <meta name="description" content="Conexão Solidária — parceria contínua entre o Colégio Paulo de Tarso e escolas em vulnerabilidade social. Apoio educacional, emocional e humano que transforma crianças.">
   <title>Conexão Solidária | Colégio Paulo de Tarso</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/logo-colegio.png">
   <link rel="preload" href="assets/logo-colegio.png" as="image">
-  <meta name="theme-color" content="#060810">
 </head>
 <body>
 
-  <!-- Cursor premium -->
+  <!-- Cursor customizado (desktop) -->
   <div class="cursor" id="cursor" aria-hidden="true">
     <div class="cursor__dot"></div>
-    <div class="cursor__ring"></div>
+    <div class="cursor__halo"></div>
   </div>
 
-  <!-- Noise overlay -->
-  <div class="noise" aria-hidden="true"></div>
+  <!-- Barra de progresso de scroll -->
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 
-  <!-- Scroll progress -->
-  <div class="scroll-bar" id="scrollBar" aria-hidden="true"></div>
+  <!-- Flash de transição de tema -->
+  <div class="theme-flash" id="themeFlash" aria-hidden="true"></div>
 
-  <!-- Theme flash -->
-  <div class="flash" id="flash" aria-hidden="true"></div>
+  <!-- ════════════════ HEADER ════════════════ -->
+  <header class="header" id="header">
+    <div class="container header__row">
 
-  <!-- ══════════ NAVBAR ══════════ -->
-  <header class="nav" id="nav">
-    <div class="nav__inner wrap">
-      <a href="#hero" class="nav__brand" aria-label="Início">
-        <div class="nav__logo-wrap">
-          <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" class="nav__logo" width="64" height="64">
-          <div class="nav__logo-glow" aria-hidden="true"></div>
+      <a href="#hero" class="header__brand" aria-label="Conexão Solidária — início">
+        <div class="header__logo-wrap" aria-hidden="true">
+          <img src="assets/logo-colegio.png"
+               alt="Colégio Paulo de Tarso"
+               class="header__logo"
+               width="60" height="60">
         </div>
-        <span class="nav__title">
-          <strong>Conexão Solidária</strong>
-          <em>Colégio Paulo de Tarso</em>
-        </span>
+        <div class="header__identity">
+          <span class="header__name">Conexão Solidária</span>
+          <span class="header__school">Colégio Paulo de Tarso</span>
+        </div>
       </a>
 
-      <nav class="nav__links" id="navLinks" aria-label="Navegação principal">
-        <a class="nav__link" href="#contexto" data-nav>Contexto</a>
-        <a class="nav__link" href="#desafio" data-nav>Desafio</a>
-        <a class="nav__link" href="#solucao" data-nav>Solução</a>
-        <a class="nav__link" href="#impacto" data-nav>Impacto</a>
-        <a class="nav__link" href="#suporte" data-nav>Suporte</a>
-        <a class="nav__link" href="#participe" data-nav>Participe</a>
-        <span class="nav__underline" id="navUnderline" aria-hidden="true"></span>
+      <nav class="header__nav" id="headerNav" aria-label="Navegação principal">
+        <a href="#contexto"  class="header__link" data-section="contexto">Contexto</a>
+        <a href="#desafio"   class="header__link" data-section="desafio">Desafio</a>
+        <a href="#solucao"   class="header__link" data-section="solucao">Solução</a>
+        <a href="#impacto"   class="header__link" data-section="impacto">Impacto</a>
+        <a href="#suporte"   class="header__link" data-section="suporte">Suporte</a>
+        <a href="#participe" class="header__link" data-section="participe">Participe</a>
+        <span class="header__nav-line" id="navLine" aria-hidden="true"></span>
       </nav>
 
-      <div class="nav__actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
-          <span class="theme-toggle__track">
-            <span class="theme-toggle__thumb"></span>
-          </span>
+      <div class="header__tools">
+        <button type="button" class="theme-switch" id="themeSwitch" aria-label="Alternar tema">
+          <span class="theme-switch__slider"></span>
+          <svg class="theme-switch__icon theme-switch__icon--sun" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="currentColor"/>
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="theme-switch__icon theme-switch__icon--moon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/>
+          </svg>
         </button>
-        <a href="#participe" class="btn btn--fill btn--sm">Inscrever-se</a>
-        <button class="nav__burger" id="navBurger" aria-expanded="false" aria-label="Menu">
+        <a href="#participe" class="btn btn--primary btn--sm header__cta">Inscrever-se</a>
+        <button type="button" class="header__burger" id="headerBurger" aria-expanded="false" aria-label="Abrir menu" aria-controls="headerNav">
           <span></span><span></span><span></span>
         </button>
       </div>
+
     </div>
   </header>
 
   <main>
 
-    <!-- ══════════ HERO ══════════ -->
-    <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <!-- ════════════════ HERO ════════════════ -->
+    <section class="hero" id="hero" aria-labelledby="heroHeading">
 
-      <!-- Cena 3D de fundo -->
-      <div class="hero__scene" id="heroScene" aria-hidden="true">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__orb hero__orb--a"></div>
+        <div class="hero__orb hero__orb--b"></div>
         <canvas id="heroCanvas" class="hero__canvas"></canvas>
-        <div class="hero__orb hero__orb--1"></div>
-        <div class="hero__orb hero__orb--2"></div>
-        <div class="hero__orb hero__orb--3"></div>
-        <div class="hero__grid"></div>
       </div>
 
-      <div class="wrap hero__wrap">
-        <!-- Coluna esquerda -->
+      <div class="container hero__layout">
+
+        <!-- Lado esquerdo: copy -->
         <div class="hero__copy">
-          <div class="hero__badge" data-reveal="fade-up" data-delay="0">
-            <img src="assets/logo-colegio.png" alt="" class="hero__badge-logo" width="32" height="32">
-            <span>Projeto de Voluntariado · 2026</span>
+          <div class="hero__label v-fade" data-delay="0">
+            <img src="assets/logo-colegio.png" alt="" class="hero__label-logo" width="28" height="28" aria-hidden="true">
+            <span>Projeto de Voluntariado &middot; 2026</span>
           </div>
 
-          <h1 class="hero__title" id="heroTitle">
-            <span class="t-line">
-              <span class="t-inner">Conexão</span>
-            </span>
-            <span class="t-line">
-              <span class="t-inner t-inner--gradient">Solidária</span>
-            </span>
-            <span class="t-line t-line--sub">
-              <span class="t-inner">que transforma</span>
-            </span>
+          <h1 class="hero__heading v-fade" id="heroHeading" data-delay="120">
+            <span class="line-clip"><em class="line-text">Conexão</em></span>
+            <span class="line-clip"><em class="line-text line-text--grad">Solidária</em></span>
+            <span class="line-clip line-clip--sub"><em class="line-text">que transforma</em></span>
           </h1>
 
-          <p class="hero__desc" data-reveal="fade-up" data-delay="480">
-            Uma <strong>parceria contínua</strong> entre o Colégio Paulo de Tarso e escolas em
-            vulnerabilidade social — vínculos reais que mudam crianças inteiras.
+          <p class="hero__desc v-fade" data-delay="380">
+            Uma <strong>parceria contínua</strong> entre o Colégio Paulo de Tarso e escolas
+            em vulnerabilidade social — vínculos reais que mudam vidas inteiras.
           </p>
 
-          <div class="hero__cta" data-reveal="fade-up" data-delay="600">
-            <a href="#participe" class="btn btn--fill btn--lg" data-magnetic>
-              <span>Quero participar</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="hero__actions v-fade" data-delay="500">
+            <a href="#participe" class="btn btn--primary btn--lg" data-magnetic>
+              Quero participar
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </a>
-            <a href="#contexto" class="btn btn--line btn--lg" data-magnetic>Entender o projeto</a>
+            <a href="#contexto" class="btn btn--ghost btn--lg" data-magnetic>Entender o projeto</a>
           </div>
 
-          <ul class="hero__meta" data-reveal="fade-up" data-delay="720">
-            <li>
-              <span class="hero__meta-label">Público</span>
-              <strong>9º Ano → 3º Médio</strong>
-            </li>
-            <li>
-              <span class="hero__meta-label">Idade</span>
-              <strong>14+ anos</strong>
-            </li>
-            <li>
-              <span class="hero__meta-label">Horário</span>
-              <strong>08h – 13h</strong>
-            </li>
+          <ul class="hero__pills v-fade" data-delay="640" aria-label="Informações rápidas">
+            <li><span>9º Ano → 3º Médio</span></li>
+            <li><span>A partir de 14 anos</span></li>
+            <li><span>08h às 13h</span></li>
           </ul>
         </div>
 
-        <!-- Coluna direita — card 3D flutuante -->
-        <div class="hero__stage" data-reveal="fade-in" data-delay="400">
-          <div class="hero__card-3d" id="heroCard" aria-hidden="true">
-            <div class="hero__card-face hero__card-face--front">
-              <div class="hero__card-logo">
-                <img src="assets/logo-colegio.png" alt="" width="100" height="100">
+        <!-- Lado direito: card flutuante -->
+        <div class="hero__visual v-fade" data-delay="200" aria-hidden="true">
+          <div class="float-card" id="floatCard">
+            <div class="float-card__inner">
+              <div class="float-card__logo">
+                <img src="assets/logo-colegio.png" alt="" width="88" height="88">
               </div>
-              <div class="hero__card-body">
-                <div class="hero__card-counter">
-                  <span id="heroCounter" class="counter-num">0</span>
-                  <small>voluntários</small>
-                </div>
-                <div class="hero__card-tags">
-                  <span>Educação</span>
-                  <span>Empatia</span>
-                  <span>Acolhimento</span>
-                </div>
-                <p class="hero__card-quote">"Crianças vistas acreditam em si mesmas."</p>
+              <div class="float-card__stat">
+                <span class="float-card__n" id="heroCount">0</span>
+                <small>voluntários inscritos</small>
               </div>
-              <div class="hero__card-shine" aria-hidden="true"></div>
+              <div class="float-card__tags">
+                <span>Educação</span>
+                <span>Empatia</span>
+                <span>Acolhimento</span>
+              </div>
+              <p class="float-card__quote">
+                "Crianças vistas acreditam em si mesmas."
+              </p>
+              <div class="float-card__shine" aria-hidden="true"></div>
             </div>
           </div>
-          <!-- Floating badges -->
-          <div class="float-badge float-badge--a" aria-hidden="true">
-            <span>💛</span> Acolhimento
-          </div>
-          <div class="float-badge float-badge--b" aria-hidden="true">
-            <span>📚</span> Educação
-          </div>
-          <div class="float-badge float-badge--c" aria-hidden="true">
-            <span>🤝</span> Conexão
-          </div>
+
+          <div class="hero-badge hero-badge--a">💛 Acolhimento</div>
+          <div class="hero-badge hero-badge--b">📚 Educação</div>
+          <div class="hero-badge hero-badge--c">🤝 Conexão</div>
         </div>
+
       </div>
 
-      <!-- Fita cinética -->
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker__track">
-          <span>CONEXÃO SOLIDÁRIA</span><span>·</span><span>PARCERIA CONTÍNUA</span><span>·</span><span>COLÉGIO PAULO DE TARSO</span><span>·</span><span>EDUCAÇÃO &amp; EMPATIA</span><span>·</span>
-          <span>CONEXÃO SOLIDÁRIA</span><span>·</span><span>PARCERIA CONTÍNUA</span><span>·</span><span>COLÉGIO PAULO DE TARSO</span><span>·</span><span>EDUCAÇÃO &amp; EMPATIA</span><span>·</span>
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>CONEXÃO SOLIDÁRIA</span><span aria-hidden="true">·</span>
+          <span>PARCERIA CONTÍNUA</span><span aria-hidden="true">·</span>
+          <span>COLÉGIO PAULO DE TARSO</span><span aria-hidden="true">·</span>
+          <span>EDUCAÇÃO &amp; EMPATIA</span><span aria-hidden="true">·</span>
+          <span>CONEXÃO SOLIDÁRIA</span><span aria-hidden="true">·</span>
+          <span>PARCERIA CONTÍNUA</span><span aria-hidden="true">·</span>
+          <span>COLÉGIO PAULO DE TARSO</span><span aria-hidden="true">·</span>
+          <span>EDUCAÇÃO &amp; EMPATIA</span><span aria-hidden="true">·</span>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ FAIXA ══════════ -->
-    <section class="band">
-      <div class="wrap">
-        <p class="band__text" data-reveal="fade-up">
-          Não é doação. É <em>conexão.</em> Uma rede humana que transforma
-          os dois lados — estudantes voluntários <strong>&amp;</strong> crianças atendidas.
+    <!-- ════════════════ DESTAQUE ════════════════ -->
+    <section class="highlight-band">
+      <div class="container">
+        <p class="highlight-band__text" data-reveal="fade-up">
+          Não é caridade. É <em>conexão genuína.</em><br>
+          Uma rede humana que transforma os dois lados.
         </p>
       </div>
     </section>
 
-    <!-- ══════════ 01 CONTEXTO ══════════ -->
-    <section class="section section--01" id="contexto">
-      <div class="wrap section__grid">
-        <div class="section__visual" data-reveal="fade-right">
-          <div class="s-card s-card--blue" data-tilt>
-            <div class="s-card__num">01</div>
-            <h3 class="s-card__title">Contexto</h3>
-            <p class="s-card__desc">Parceria real e contínua, não caridade momentânea.</p>
-            <div class="s-card__glow" aria-hidden="true"></div>
+    <!-- ════════════════ 01 CONTEXTO ════════════════ -->
+    <section class="sec" id="contexto" aria-labelledby="h2-contexto">
+      <div class="container sec__split">
+
+        <figure class="sec__visual" data-reveal="fade-right">
+          <div class="brand-card brand-card--blue" data-tilt>
+            <span class="brand-card__n">01</span>
+            <h3>Contexto</h3>
+            <p>Parceria contínua, não caridade momentânea.</p>
+            <div class="brand-card__glow" aria-hidden="true"></div>
           </div>
-        </div>
-        <div class="section__copy" data-reveal="fade-left">
-          <span class="tag">Capítulo 01</span>
-          <h2 class="section__h2" data-split>Uma parceria que vai além de uma visita</h2>
-          <p class="section__lead">
-            O Conexão Solidária propõe uma <strong>parceria contínua</strong> entre o Colégio
-            Paulo de Tarso e escolas públicas em vulnerabilidade social — construída com presença,
-            afeto e compromisso real, não ações pontuais de caridade.
+        </figure>
+
+        <div class="sec__body" data-reveal="fade-left">
+          <span class="eyebrow">Capítulo 01</span>
+          <h2 class="sec__h2" id="h2-contexto" data-split>Uma parceria além de uma visita</h2>
+          <p class="sec__lead">
+            O Conexão Solidária propõe uma <strong>parceria contínua</strong> entre o
+            Colégio Paulo de Tarso e escolas públicas em vulnerabilidade — construída
+            com presença, afeto e compromisso real.
           </p>
           <p>
             Alunos do <strong>9º ano do Ensino Fundamental II ao 3º ano do Ensino Médio</strong>,
-            juntamente com professores e orientadores, realizam visitas anuais às escolas parceiras,
-            com atividades que criam vínculos humanos genuínos.
+            juntamente com professores e orientadores, realizam visitas anuais com atividades
+            que criam vínculos humanos genuínos.
           </p>
-          <div class="metric-row" data-reveal="stagger">
-            <div class="metric">
-              <span class="metric__n" data-count="14">0</span>
-              <span class="metric__label">anos — idade mínima</span>
+
+          <div class="stat-row" data-reveal="stagger">
+            <div class="stat">
+              <strong class="stat__n" data-count="14">0</strong>
+              <span>anos — mínimo</span>
             </div>
-            <div class="metric">
-              <span class="metric__n" data-count="5">0</span>
-              <span class="metric__label">horas por visita</span>
+            <div class="stat">
+              <strong class="stat__n" data-count="5">0</strong>
+              <span>horas por visita</span>
             </div>
-            <div class="metric">
-              <span class="metric__n" data-count="6">0</span>
-              <span class="metric__label">tipos de atividades</span>
+            <div class="stat">
+              <strong class="stat__n" data-count="6">0</strong>
+              <span>atividades por encontro</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ══════════ 02 DESAFIO ══════════ -->
-    <section class="section section--02 section--dark" id="desafio">
-      <div class="wrap section__grid section__grid--rev">
-        <div class="section__copy" data-reveal="fade-right">
-          <span class="tag">Capítulo 02</span>
-          <h2 class="section__h2" data-split>O que essas crianças enfrentam</h2>
-          <p class="section__lead">
-            Além das dificuldades materiais, essas crianças convivem com a <strong>invisibilidade</strong> —
-            a sensação dolorosa de que ninguém as vê ou se importa.
+    <!-- ════════════════ 02 DESAFIO ════════════════ -->
+    <section class="sec sec--alt" id="desafio" aria-labelledby="h2-desafio">
+      <div class="container sec__split sec__split--rev">
+
+        <div class="sec__body" data-reveal="fade-right">
+          <span class="eyebrow">Capítulo 02</span>
+          <h2 class="sec__h2" id="h2-desafio" data-split>O que essas crianças enfrentam</h2>
+          <p class="sec__lead">
+            Além das dificuldades materiais, essas crianças convivem com a
+            <strong>invisibilidade</strong> — a sensação dolorosa de que ninguém as
+            vê ou se importa.
           </p>
-          <div class="challenge-row" data-reveal="stagger">
-            <article class="c-card" data-tilt>
-              <div class="c-card__icon" aria-hidden="true">👁</div>
+
+          <div class="challenge-grid" data-reveal="stagger">
+            <article class="challenge-card" data-tilt>
+              <span aria-hidden="true">👁</span>
               <h3>Invisibilidade</h3>
               <p>A sensação de não pertencer, de não ser visto nem valorizado.</p>
             </article>
-            <article class="c-card" data-tilt>
-              <div class="c-card__icon" aria-hidden="true">💔</div>
+            <article class="challenge-card" data-tilt>
+              <span aria-hidden="true">💔</span>
               <h3>Baixa autoestima</h3>
               <p>Crianças que acreditam não ser importantes ou capazes de sonhar.</p>
             </article>
-            <article class="c-card" data-tilt>
-              <div class="c-card__icon" aria-hidden="true">🔗</div>
+            <article class="challenge-card" data-tilt>
+              <span aria-hidden="true">🔗</span>
               <h3>Falta de vínculos</h3>
               <p>Ausência de relações positivas que protegem, inspiram e motivam.</p>
             </article>
           </div>
         </div>
-        <div class="section__visual" data-reveal="fade-left">
-          <div class="s-card s-card--orange" data-tilt>
-            <div class="s-card__num">02</div>
-            <h3 class="s-card__title">Desafio</h3>
-            <p class="s-card__desc">Invisibilidade · Exclusão · Falta de pertencimento</p>
-            <div class="s-card__glow" aria-hidden="true"></div>
+
+        <figure class="sec__visual" data-reveal="fade-left">
+          <div class="brand-card brand-card--orange" data-tilt>
+            <span class="brand-card__n">02</span>
+            <h3>Desafio</h3>
+            <p>Invisibilidade · Exclusão · Falta de pertencimento</p>
+            <div class="brand-card__glow" aria-hidden="true"></div>
           </div>
-        </div>
+        </figure>
+
       </div>
     </section>
 
-    <!-- ══════════ 03 SOLUÇÃO ══════════ -->
-    <section class="section section--03" id="solucao">
-      <div class="wrap">
-        <div class="section__center" data-reveal="fade-up">
-          <span class="tag">Capítulo 03</span>
-          <h2 class="section__h2" data-split>Como funciona na prática</h2>
-          <p class="section__lead section__lead--c">
-            Visitas anuais das 08h às 13h, organizadas com atividades que unem,
-            ensinam e deixam marcas positivas duradouras.
-          </p>
-        </div>
+    <!-- ════════════════ 03 SOLUÇÃO ════════════════ -->
+    <section class="sec" id="solucao" aria-labelledby="h2-solucao">
+      <div class="container">
 
-        <div class="act-grid" data-reveal="stagger">
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">🎲</span>
+        <header class="sec__center" data-reveal="fade-up">
+          <span class="eyebrow">Capítulo 03</span>
+          <h2 class="sec__h2" id="h2-solucao" data-split>Como funciona na prática</h2>
+          <p class="sec__lead sec__lead--center">
+            Visitas anuais das 08h às 13h, organizadas com atividades que unem,
+            ensinam e deixam marcas positivas para sempre.
+          </p>
+        </header>
+
+        <div class="activity-grid" data-reveal="stagger">
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">🎲</span>
             <h3>Jogos em grupo</h3>
             <p>Raciocínio lógico, trabalho em equipe e criatividade em movimento.</p>
           </article>
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">🎨</span>
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">🎨</span>
             <h3>Atividades artísticas</h3>
-            <p>Expressão livre por meio de arte, criatividade e construção coletiva.</p>
+            <p>Expressão livre por meio de arte e construção coletiva.</p>
           </article>
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">💬</span>
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">💬</span>
             <h3>Rodas de conversa</h3>
-            <p>Espaço seguro para expressão emocional, escuta e vínculos.</p>
+            <p>Espaço seguro para expressão emocional e vínculos genuínos.</p>
           </article>
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">📚</span>
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">📚</span>
             <h3>Oficinas educativas</h3>
-            <p>Aprendizado lúdico que desperta curiosidade e motivação escolar.</p>
+            <p>Aprendizado lúdico que desperta curiosidade e motivação.</p>
           </article>
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">🤸</span>
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">🤸</span>
             <h3>Atividades recreativas</h3>
             <p>Alegria, integração e expressão corporal pedagógica.</p>
           </article>
-          <article class="act-card" data-tilt>
-            <span class="act-card__emoji" aria-hidden="true">💛</span>
+          <article class="activity" data-tilt>
+            <span class="activity__icon" aria-hidden="true">💛</span>
             <h3>Acolhimento</h3>
             <p>Presença humana genuína que diz: <em>você importa.</em></p>
           </article>
         </div>
 
-        <div class="chips-row" data-reveal="fade-up">
-          <span class="chip">9º Ano → 3º Médio + professores</span>
-          <span class="chip">14+ anos</span>
-          <span class="chip">Visitas anuais</span>
-          <span class="chip">08h às 13h</span>
+        <div class="chips" data-reveal="fade-up">
+          <span class="chip"><b>Quem</b> 9º Ano ao 3º Médio + professores</span>
+          <span class="chip"><b>Idade</b> 14+ anos</span>
+          <span class="chip"><b>Frequência</b> Visitas anuais</span>
+          <span class="chip"><b>Horário</b> 08h às 13h</span>
         </div>
+
       </div>
     </section>
 
-    <!-- ══════════ 04 IMPACTO ══════════ -->
-    <section class="section section--04" id="impacto">
-      <div class="wrap">
-        <div class="section__center" data-reveal="fade-up">
-          <span class="tag">Capítulo 04</span>
-          <h2 class="section__h2" data-split>O impacto acontece nos dois lados</h2>
-          <p class="section__lead section__lead--c">
-            O projeto transforma tanto as crianças atendidas quanto os estudantes voluntários —
-            cada lado aprende algo que nenhuma sala de aula ensina sozinha.
+    <!-- ════════════════ 04 IMPACTO ════════════════ -->
+    <section class="sec sec--alt" id="impacto" aria-labelledby="h2-impacto">
+      <div class="container">
+
+        <header class="sec__center" data-reveal="fade-up">
+          <span class="eyebrow">Capítulo 04</span>
+          <h2 class="sec__h2" id="h2-impacto" data-split>O impacto nos dois lados</h2>
+          <p class="sec__lead sec__lead--center">
+            O projeto transforma tanto as crianças atendidas quanto os estudantes
+            voluntários — cada grupo aprende o que sala de aula nenhuma ensina.
           </p>
-        </div>
+        </header>
 
-        <div class="impact-dual" data-reveal="stagger">
-          <div class="impact-panel impact-panel--blue">
+        <div class="impact-grid" data-reveal="stagger">
+          <div class="impact-card impact-card--blue">
             <h3>Para os alunos do Paulo de Tarso</h3>
-            <ul class="impact-ul">
-              <li><span aria-hidden="true">↗</span>Desenvolvimento da empatia e consciência social</li>
-              <li><span aria-hidden="true">↗</span>Compreensão prática das desigualdades</li>
-              <li><span aria-hidden="true">↗</span>Senso de responsabilidade coletiva</li>
-              <li><span aria-hidden="true">↗</span>Valorização de solidariedade e respeito</li>
-              <li><span aria-hidden="true">↗</span>Formação cidadã além do currículo</li>
+            <ul>
+              <li>Desenvolvimento da empatia e consciência social</li>
+              <li>Compreensão prática das desigualdades</li>
+              <li>Senso de responsabilidade coletiva</li>
+              <li>Valorização de solidariedade e respeito</li>
+              <li>Formação cidadã além do currículo</li>
             </ul>
           </div>
-          <div class="impact-panel impact-panel--orange">
+          <div class="impact-card impact-card--orange">
             <h3>Para as crianças atendidas</h3>
-            <ul class="impact-ul">
-              <li><span aria-hidden="true">✦</span>Sensação real de reconhecimento e acolhimento</li>
-              <li><span aria-hidden="true">✦</span>Fortalecimento emocional e autoestima</li>
-              <li><span aria-hidden="true">✦</span>Maior motivação e engajamento escolar</li>
-              <li><span aria-hidden="true">✦</span>Confiança desenvolvida em si mesmas</li>
-              <li><span aria-hidden="true">✦</span>Memórias positivas e afetivas duradouras</li>
+            <ul>
+              <li>Sensação real de reconhecimento e acolhimento</li>
+              <li>Fortalecimento emocional e autoestima</li>
+              <li>Maior motivação e engajamento escolar</li>
+              <li>Confiança desenvolvida em si mesmas</li>
+              <li>Memórias positivas e afetivas duradouras</li>
             </ul>
           </div>
         </div>
 
-        <blockquote class="big-quote" data-reveal="fade-up">
-          <p>"O diferencial é criar vínculos reais — mostrando que elas são <em>importantes, valorizadas e capazes.</em>"</p>
-          <cite>— Proposta Conexão Solidária · Colégio Paulo de Tarso</cite>
+        <blockquote class="pull-quote" data-reveal="fade-up">
+          <p>"O diferencial é criar vínculos reais — mostrando que elas são
+          <em>importantes, valorizadas e capazes.</em>"</p>
+          <cite>Proposta Conexão Solidária · Colégio Paulo de Tarso</cite>
         </blockquote>
 
-        <!-- Galeria -->
+        <!-- Galeria clean -->
         <div class="gallery" data-reveal="stagger">
-          <figure class="gallery__item">
-            <img src="assets/images/gallery/foto-1.jpg" alt="Crianças em atividade educativa" loading="lazy" decoding="async">
+          <figure class="gallery__fig">
+            <img src="assets/images/gallery/foto-1.jpg"
+                 alt="Crianças em atividade educativa com voluntários"
+                 loading="lazy" decoding="async">
             <figcaption>Educação</figcaption>
           </figure>
-          <figure class="gallery__item gallery__item--tall">
-            <img src="assets/images/gallery/foto-2.jpg" alt="Momento de acolhimento humano" loading="lazy" decoding="async">
+          <figure class="gallery__fig gallery__fig--tall">
+            <img src="assets/images/gallery/foto-2.jpg"
+                 alt="Momento de acolhimento e conexão humana"
+                 loading="lazy" decoding="async">
             <figcaption>Conexão</figcaption>
           </figure>
-          <figure class="gallery__item">
-            <img src="assets/images/gallery/foto-3.jpg" alt="Distribuição de materiais" loading="lazy" decoding="async">
+          <figure class="gallery__fig">
+            <img src="assets/images/gallery/foto-3.jpg"
+                 alt="Apoio contínuo e entrega de materiais"
+                 loading="lazy" decoding="async">
             <figcaption>Suporte</figcaption>
           </figure>
         </div>
 
-        <!-- Contador -->
-        <div class="counter-block" data-reveal="fade-up">
-          <span class="counter-num" id="liveCount">0</span>
-          <span class="counter-label">voluntários inscritos</span>
+        <div class="counter-ring" data-reveal="fade-up">
+          <strong class="counter-ring__n" id="liveCount">0</strong>
+          <span>voluntários inscritos até agora</span>
         </div>
+
       </div>
     </section>
 
-    <!-- ══════════ 05 SUPORTE ══════════ -->
-    <section class="section section--05 section--dark" id="suporte">
-      <div class="wrap">
-        <div class="section__center" data-reveal="fade-up">
-          <span class="tag">Capítulo 05</span>
-          <h2 class="section__h2" data-split>Suporte contínuo além das visitas</h2>
-          <p class="section__lead section__lead--c">
-            Mensal ou trimestralmente, campanhas solidárias de arrecadação mantêm
-            as escolas parceiras apoiadas o ano inteiro.
+    <!-- ════════════════ 05 SUPORTE ════════════════ -->
+    <section class="sec" id="suporte" aria-labelledby="h2-suporte">
+      <div class="container">
+
+        <header class="sec__center" data-reveal="fade-up">
+          <span class="eyebrow">Capítulo 05</span>
+          <h2 class="sec__h2" id="h2-suporte" data-split>Suporte contínuo ao longo do ano</h2>
+          <p class="sec__lead sec__lead--center">
+            Campanhas mensais ou trimestrais mantêm as escolas parceiras apoiadas
+            muito além das visitas presenciais.
           </p>
+        </header>
+
+        <div class="donation-grid" data-reveal="stagger">
+          <article class="donation">
+            <span aria-hidden="true">📓</span>
+            <div>
+              <h3>Materiais escolares</h3>
+              <p>Cadernos, lápis, estojos, mochilas e materiais de arte.</p>
+            </div>
+          </article>
+          <article class="donation">
+            <span aria-hidden="true">🥫</span>
+            <div>
+              <h3>Alimentos</h3>
+              <p>Cestas básicas e itens para nutrição e bem-estar.</p>
+            </div>
+          </article>
+          <article class="donation">
+            <span aria-hidden="true">👕</span>
+            <div>
+              <h3>Roupas</h3>
+              <p>Peças em bom estado para crianças e famílias.</p>
+            </div>
+          </article>
+          <article class="donation">
+            <span aria-hidden="true">🧴</span>
+            <div>
+              <h3>Higiene pessoal</h3>
+              <p>Itens essenciais para dignidade e saúde das crianças.</p>
+            </div>
+          </article>
+          <article class="donation">
+            <span aria-hidden="true">🧸</span>
+            <div>
+              <h3>Brinquedos</h3>
+              <p>Estimulam criatividade, alegria e desenvolvimento.</p>
+            </div>
+          </article>
+          <article class="donation">
+            <span aria-hidden="true">📖</span>
+            <div>
+              <h3>Livros</h3>
+              <p>Didáticos e infantis que abrem portas ao conhecimento.</p>
+            </div>
+          </article>
         </div>
-        <div class="donate-grid" data-reveal="stagger">
-          <article class="d-card"><span aria-hidden="true">📓</span><h3>Materiais escolares</h3><p>Cadernos, lápis, estojos, mochilas e materiais de arte.</p></article>
-          <article class="d-card"><span aria-hidden="true">🥫</span><h3>Alimentos</h3><p>Cestas básicas e itens essenciais para nutrição e bem-estar.</p></article>
-          <article class="d-card"><span aria-hidden="true">👕</span><h3>Roupas</h3><p>Peças em bom estado para crianças e famílias vulneráveis.</p></article>
-          <article class="d-card"><span aria-hidden="true">🧴</span><h3>Higiene pessoal</h3><p>Itens essenciais para a dignidade e saúde das crianças.</p></article>
-          <article class="d-card"><span aria-hidden="true">🧸</span><h3>Brinquedos</h3><p>Estimulam criatividade, alegria e desenvolvimento infantil.</p></article>
-          <article class="d-card"><span aria-hidden="true">📖</span><h3>Livros</h3><p>Didáticos e infantis que abrem portas para o conhecimento.</p></article>
-        </div>
+
       </div>
     </section>
 
-    <!-- ══════════ 06 PARTICIPE ══════════ -->
-    <section class="section section--06" id="participe">
-      <div class="wrap">
-        <div class="section__center" data-reveal="fade-up">
-          <span class="tag">Capítulo 06 · Convite</span>
-          <h2 class="section__h2" data-split>Faça parte dessa conexão</h2>
-          <p class="section__lead section__lead--c">Monte seu kit, inscreva-se e ajude a construir uma rede de apoio real.</p>
-        </div>
+    <!-- ════════════════ 06 PARTICIPE ════════════════ -->
+    <section class="sec sec--cta-bg" id="participe" aria-labelledby="h2-participe">
+      <div class="container">
 
-        <div class="form-game-grid">
-          <!-- JOGO -->
-          <div class="game-box" id="gameBox" data-reveal="fade-right">
+        <header class="sec__center" data-reveal="fade-up">
+          <span class="eyebrow">Capítulo 06 &middot; Convite</span>
+          <h2 class="sec__h2" id="h2-participe" data-split>Faça parte dessa conexão</h2>
+          <p class="sec__lead sec__lead--center">
+            Monte seu kit solidário, inscreva-se e ajude a construir uma rede de apoio real.
+          </p>
+        </header>
+
+        <div class="cta-grid">
+
+          <!-- Jogo -->
+          <div class="kit-game" id="kitGame" data-reveal="fade-right">
             <h3>Monte o Kit Solidário</h3>
-            <p class="game-box__sub">Selecione 6 itens · Impacto: <strong id="gamePct">0%</strong></p>
-            <div class="game-items" id="gameItems" role="group" aria-label="Itens do kit">
-              <button type="button" data-g="caderno">📓 Caderno</button>
-              <button type="button" data-g="alimento">🥫 Alimento</button>
-              <button type="button" data-g="livro">📚 Livro</button>
-              <button type="button" data-g="roupa">👕 Roupa</button>
-              <button type="button" data-g="brinquedo">🧸 Brinquedo</button>
-              <button type="button" data-g="higiene">🧴 Higiene</button>
-              <button type="button" data-g="arte">🎨 Arte</button>
-              <button type="button" data-g="carinho">💛 Acolhimento</button>
+            <p class="kit-game__sub">Selecione 6 itens &middot; Impacto: <strong id="kitPct">0%</strong></p>
+
+            <div class="kit-items" id="kitItems" role="group" aria-label="Itens do kit">
+              <button type="button" data-item="caderno">📓 Caderno</button>
+              <button type="button" data-item="alimento">🥫 Alimento</button>
+              <button type="button" data-item="livro">📚 Livro</button>
+              <button type="button" data-item="roupa">👕 Roupa</button>
+              <button type="button" data-item="brinquedo">🧸 Brinquedo</button>
+              <button type="button" data-item="higiene">🧴 Higiene</button>
+              <button type="button" data-item="arte">🎨 Arte</button>
+              <button type="button" data-item="carinho">💛 Acolhimento</button>
             </div>
-            <div class="game-drop" id="gameDrop" aria-live="polite"><span>Seu kit aparece aqui</span></div>
-            <button type="button" class="btn btn--line btn--sm" id="gameReset">Reiniciar</button>
+
+            <div class="kit-drop" id="kitDrop" aria-live="polite">
+              <span class="kit-drop__empty">Seu kit aparece aqui</span>
+            </div>
+
+            <button type="button" class="btn btn--ghost btn--sm" id="kitReset">
+              Reiniciar kit
+            </button>
           </div>
 
-          <!-- FORMULÁRIO -->
-          <form class="form-prem" id="regForm" novalidate data-reveal="fade-left">
+          <!-- Formulário -->
+          <form class="signup-form" id="signupForm" novalidate data-reveal="fade-left">
             <h3>Inscrição voluntária</h3>
 
-            <div class="form-field">
+            <div class="field">
               <label for="fNome">Nome completo</label>
-              <input type="text" id="fNome" name="nome" required minlength="3" autocomplete="name" placeholder="Seu nome completo">
-              <span class="form-field__err" id="eNome"></span>
+              <input type="text" id="fNome" name="nome" required minlength="3"
+                     autocomplete="name" placeholder="Seu nome completo">
+              <span class="field__err" id="errNome" role="alert"></span>
             </div>
 
-            <div class="form-row">
-              <div class="form-field">
+            <div class="field-row">
+              <div class="field">
                 <label for="fIdade">Idade</label>
-                <input type="number" id="fIdade" name="idade" min="14" max="120" required placeholder="14+">
-                <span class="form-field__err" id="eIdade"></span>
+                <input type="number" id="fIdade" name="idade" min="14" max="120"
+                       required placeholder="Mín. 14">
+                <span class="field__err" id="errIdade" role="alert"></span>
               </div>
-              <div class="form-field">
+              <div class="field">
                 <label for="fEmail">E-mail</label>
-                <input type="email" id="fEmail" name="email" required autocomplete="email" placeholder="seu@email.com">
-                <span class="form-field__err" id="eEmail"></span>
+                <input type="email" id="fEmail" name="email" required
+                       autocomplete="email" placeholder="seu@email.com">
+                <span class="field__err" id="errEmail" role="alert"></span>
               </div>
             </div>
 
-            <div class="form-field">
+            <div class="field">
               <label for="fMotivo">Por que deseja participar?</label>
-              <textarea id="fMotivo" name="motivo" rows="4" required minlength="20" placeholder="Conte sua motivação..."></textarea>
-              <span class="form-field__err" id="eMotivo"></span>
+              <textarea id="fMotivo" name="motivo" rows="4" required minlength="20"
+                        placeholder="Conte sua motivação para fazer parte desta conexão..."></textarea>
+              <span class="field__err" id="errMotivo" role="alert"></span>
             </div>
 
-            <button type="submit" class="btn btn--fill btn--full" id="fSubmit">
-              <span id="fBtnText">Confirmar inscrição</span>
+            <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
+              <span id="submitText">Confirmar inscrição</span>
             </button>
-            <p class="form-msg" id="fMsg" role="status" aria-live="polite"></p>
+
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
+
         </div>
 
-        <div class="success-panel is-hidden" id="successPanel" role="status" aria-live="polite">
-          <div class="success-panel__icon" aria-hidden="true">
-            <svg viewBox="0 0 52 52" width="52" height="52"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 26l8 8 16-16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <!-- Painel de sucesso -->
+        <div class="success-pane is-gone" id="successPane" role="status" aria-live="polite">
+          <div class="success-pane__icon" aria-hidden="true">
+            <svg viewBox="0 0 56 56" width="56" height="56">
+              <circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="2.5"/>
+              <path d="M16 28l8 8 16-16" fill="none" stroke="currentColor"
+                    stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
           <h3>Inscrição confirmada!</h3>
-          <p id="successText"></p>
+          <p id="successMsg"></p>
         </div>
+
       </div>
     </section>
 
-    <!-- ══════════ PASSOS ══════════ -->
-    <section class="section section--steps">
-      <div class="wrap">
-        <h2 class="section__h2 section__h2--center" data-reveal="fade-up" data-split>Como participar</h2>
-        <div class="steps-row" data-reveal="stagger">
-          <article class="step"><span>1</span><h3>Inscreva-se</h3><p>Preencha o formulário com seus dados e motivação.</p></article>
-          <article class="step"><span>2</span><h3>Prepare-se</h3><p>Orientações com professores e monitores do projeto.</p></article>
-          <article class="step"><span>3</span><h3>Visite</h3><p>08h às 13h na escola parceira na data marcada.</p></article>
-          <article class="step"><span>4</span><h3>Continue</h3><p>Apoie campanhas de arrecadação mensais ou trimestrais.</p></article>
-        </div>
+    <!-- ════════════════ PASSOS ════════════════ -->
+    <section class="sec sec--steps" aria-labelledby="h2-steps">
+      <div class="container">
+        <h2 class="sec__h2 sec__h2--center" id="h2-steps" data-reveal="fade-up" data-split>
+          Como participar
+        </h2>
+        <ol class="steps" data-reveal="stagger">
+          <li class="step">
+            <span aria-hidden="true">1</span>
+            <h3>Inscreva-se</h3>
+            <p>Preencha o formulário com seus dados e motivação.</p>
+          </li>
+          <li class="step">
+            <span aria-hidden="true">2</span>
+            <h3>Prepare-se</h3>
+            <p>Orientações com professores e monitores do projeto.</p>
+          </li>
+          <li class="step">
+            <span aria-hidden="true">3</span>
+            <h3>Visite</h3>
+            <p>Das 08h às 13h na escola parceira na data marcada.</p>
+          </li>
+          <li class="step">
+            <span aria-hidden="true">4</span>
+            <h3>Continue</h3>
+            <p>Apoie campanhas de arrecadação mensais ou trimestrais.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <!-- ══════════ FAQ ══════════ -->
-    <section class="section section--faq">
-      <div class="wrap faq-wrap">
-        <h2 class="section__h2" data-reveal="fade-up" data-split>Perguntas frequentes</h2>
-        <details class="faq" data-reveal="fade-up"><summary>Quem pode participar como voluntário?</summary><p>Alunos do 9º ano do Ensino Fundamental II ao 3º ano do Ensino Médio do Colégio Paulo de Tarso, com participação permitida a partir de 14 anos, juntamente com professores e orientadores.</p></details>
-        <details class="faq" data-reveal="fade-up"><summary>O projeto é só uma visita?</summary><p>Não. O projeto propõe uma <strong>parceria contínua</strong> com visitas anuais e suporte mensal ou trimestral por meio de campanhas solidárias. O objetivo é construir vínculos duradouros.</p></details>
-        <details class="faq" data-reveal="fade-up"><summary>O que acontece durante as visitas?</summary><p>Visitas das 08h às 13h incluem: jogos em grupo, dinâmicas, oficinas recreativas e educativas, atividades artísticas, rodas de conversa e momentos de acolhimento.</p></details>
-        <details class="faq" data-reveal="fade-up"><summary>Quais itens são arrecadados nas campanhas?</summary><p>Materiais escolares, alimentos, roupas, produtos de higiene pessoal, brinquedos, livros didáticos e livros infantis.</p></details>
-        <details class="faq" data-reveal="fade-up"><summary>Preciso de experiência para participar?</summary><p>Não. Todas as atividades são orientadas por professores e monitores. O mais importante é empatia e vontade genuína de fazer a diferença.</p></details>
+    <!-- ════════════════ FAQ ════════════════ -->
+    <section class="sec" aria-labelledby="h2-faq">
+      <div class="container faq-wrap">
+        <h2 class="sec__h2" id="h2-faq" data-reveal="fade-up" data-split>Perguntas frequentes</h2>
+
+        <details class="faq" data-reveal="fade-up">
+          <summary>Quem pode participar como voluntário?</summary>
+          <p>Alunos do 9º ano do Ensino Fundamental II ao 3º ano do Ensino Médio do Colégio Paulo de Tarso, a partir de 14 anos, juntamente com professores e orientadores.</p>
+        </details>
+
+        <details class="faq" data-reveal="fade-up">
+          <summary>O projeto é só uma visita?</summary>
+          <p>Não. O projeto propõe uma <strong>parceria contínua</strong> com visitas anuais e suporte mensal ou trimestral por campanhas solidárias — o objetivo é construir vínculos duradouros, não ações pontuais.</p>
+        </details>
+
+        <details class="faq" data-reveal="fade-up">
+          <summary>O que acontece durante as visitas?</summary>
+          <p>Visitas das 08h às 13h incluem: jogos em grupo, dinâmicas, oficinas recreativas e educativas, atividades artísticas, rodas de conversa e momentos de acolhimento.</p>
+        </details>
+
+        <details class="faq" data-reveal="fade-up">
+          <summary>Quais itens são arrecadados nas campanhas?</summary>
+          <p>Materiais escolares, alimentos, roupas, produtos de higiene pessoal, brinquedos, livros didáticos e livros infantis.</p>
+        </details>
+
+        <details class="faq" data-reveal="fade-up">
+          <summary>Preciso de experiência prévia?</summary>
+          <p>Não. Todas as atividades são orientadas por professores e monitores. O mais importante é empatia e vontade genuína de fazer a diferença.</p>
+        </details>
+
       </div>
     </section>
 
-    <!-- ══════════ CTA FINAL ══════════ -->
-    <section class="cta-final">
-      <div class="wrap cta-final__inner" data-reveal="fade-up">
-        <div class="cta-final__logo-wrap" aria-hidden="true">
-          <img src="assets/logo-colegio.png" alt="" class="cta-final__logo" width="140" height="140">
-          <div class="cta-final__logo-ring"></div>
+    <!-- ════════════════ CTA FINAL ════════════════ -->
+    <section class="cta-band" aria-labelledby="h2-cta">
+      <div class="container cta-band__inner" data-reveal="fade-up">
+        <div class="cta-band__logo-wrap" aria-hidden="true">
+          <img src="assets/logo-colegio.png" alt="" class="cta-band__logo" width="120" height="120">
+          <div class="cta-band__ring" aria-hidden="true"></div>
         </div>
-        <div class="cta-final__text">
-          <h2 data-split>É assim que se transforma uma escola inteira.</h2>
-          <p>Cada visita, cada doação, cada conversa — uma rede de apoio real que dura anos.</p>
+        <div class="cta-band__text">
+          <h2 id="h2-cta" data-split>É assim que se transforma uma escola inteira.</h2>
+          <p>Cada visita, cada conversa, cada doação — uma rede que dura anos.</p>
         </div>
-        <a href="#participe" class="btn btn--fill btn--xl" data-magnetic>Quero participar</a>
+        <a href="#participe" class="btn btn--white btn--lg" data-magnetic>Quero participar</a>
       </div>
     </section>
 
-    <!-- ══════════ DEV ══════════ -->
-    <section class="dev-section" id="desenvolvedora">
-      <div class="wrap dev-section__inner" data-reveal="fade-up">
+    <!-- ════════════════ DESENVOLVEDORA ════════════════ -->
+    <section class="sec" id="desenvolvedora" aria-labelledby="h2-dev">
+      <div class="container dev-row" data-reveal="fade-up">
         <div class="dev-avatar" id="devAvatar">AF</div>
-        <div class="dev-section__copy">
-          <h2>Ana Flávia</h2>
-          <p class="dev-section__role">Desenvolvedora · Projeto Acadêmico · Colégio Paulo de Tarso</p>
-          <p>Site premium em HTML5, CSS3, JavaScript e Node.js — animações 3D, cursor personalizado, split text e API de inscrições.</p>
-          <div class="dev-section__links">
-            <a href="https://github.com/hzy1kk" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://github.com/hzy1kk/ana-clone" target="_blank" rel="noopener noreferrer">Repositório</a>
+        <div class="dev-copy">
+          <span class="eyebrow">Desenvolvedora</span>
+          <h2 id="h2-dev">Ana Flávia</h2>
+          <p class="dev-role">Projeto Acadêmico · Colégio Paulo de Tarso</p>
+          <p>Site desenvolvido em HTML5, CSS3, JavaScript e Node.js — com animações 3D,
+             cursor personalizado, split-text e API de inscrições.</p>
+          <div class="dev-links">
+            <a href="https://github.com/hzy1kk" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            <a href="https://github.com/hzy1kk/ana-clone" target="_blank" rel="noopener noreferrer">
+              Repositório
+            </a>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
-  <!-- ══════════ FOOTER ══════════ -->
-  <footer class="footer">
-    <div class="wrap footer__grid">
+  <!-- ════════════════ FOOTER ════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__grid">
+
       <div class="footer__brand">
-        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" width="80" height="80">
+        <img src="assets/logo-colegio.png" alt="Colégio Paulo de Tarso" width="72" height="72">
         <strong>Conexão Solidária</strong>
         <span>Colégio Paulo de Tarso</span>
-        <em>"Vínculos reais que transformam vidas."</em>
+        <em>"Vínculos que transformam vidas."</em>
       </div>
-      <nav aria-label="Seções do projeto">
+
+      <nav aria-label="Links do projeto">
         <h4>Projeto</h4>
         <a href="#contexto">Contexto</a>
         <a href="#desafio">Desafio</a>
@@ -552,23 +671,30 @@
         <a href="#suporte">Suporte</a>
         <a href="#participe">Participar</a>
       </nav>
+
       <div>
-        <h4>Contato</h4>
-        <a href="https://colegiopaulodetarso.com.br/" target="_blank" rel="noopener noreferrer">colegiopaulodetarso.com.br</a>
+        <h4>Colégio Paulo de Tarso</h4>
+        <a href="https://colegiopaulodetarso.com.br/" target="_blank" rel="noopener noreferrer">
+          colegiopaulodetarso.com.br
+        </a>
         <a href="tel:+551137297060">(11) 3729-7060</a>
-        <a href="https://api.whatsapp.com/send/?phone=5511975750697" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://api.whatsapp.com/send/?phone=5511975750697&text=Ol%C3%A1%2C+gostaria+de+informa%C3%A7%C3%B5es+sobre+o+Col%C3%A9gio"
+           target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
-      <p class="footer__copy">&copy; <span id="yr"></span> Conexão Solidária · Projeto Acadêmico</p>
+
+      <p class="footer__copy">
+        &copy; <span id="yr"></span> Conexão Solidária &middot; Projeto Acadêmico
+      </p>
     </div>
   </footer>
 
-  <!-- Modal dupla inscrição -->
-  <dialog class="modal" id="dupModal" aria-labelledby="dupTitle">
-    <div class="modal__box">
-      <button class="modal__close" id="dupClose" aria-label="Fechar">&times;</button>
-      <h3 id="dupTitle">Você já está inscrito(a)</h3>
+  <!-- Modal: inscrição duplicada -->
+  <dialog class="modal" id="dupModal" aria-labelledby="dupModalTitle">
+    <div class="modal__inner">
+      <button type="button" class="modal__close" id="dupClose" aria-label="Fechar">&times;</button>
+      <h3 id="dupModalTitle">Você já está inscrito(a)</h3>
       <p>Sua inscrição no Conexão Solidária já foi registrada com sucesso!</p>
-      <button class="btn btn--fill" id="dupOk">Entendido</button>
+      <button type="button" class="btn btn--primary" id="dupOk">Entendido</button>
     </div>
   </dialog>
 
