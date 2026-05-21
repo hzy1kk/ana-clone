@@ -190,7 +190,8 @@ body:has([data-tilt]:hover) .cursor__ring { width:56px; height:56px; border-colo
 .nav__burger { display:none; flex-direction:column; gap:5px; padding:6px; }
 .nav__burger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:transform .3s, opacity .3s; }
 .nav__burger[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity:0; }
+.nav__burger[aria-expanded="true"] span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.nav__burger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
 /* Theme toggle */
 .theme-toggle { width:48px; height:26px; padding:0; }
@@ -251,16 +252,19 @@ body:has([data-tilt]:hover) .cursor__ring { width:56px; height:56px; border-colo
 
 /* Hero 3D card */
 .hero__stage { display:flex; align-items:center; justify-content:center; position:relative; }
+/* Separamos o float num wrapper filho para não conflitar com o tilt do JS */
 .hero__card-3d {
   width:clamp(260px,28vw,340px); aspect-ratio:2/3;
-  perspective:1000px; cursor:pointer;
+  cursor:pointer;
   --tilt-x:0deg; --tilt-y:0deg; --shine-x:50%; --shine-y:50%;
   transform:perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
   transition:transform .1s linear;
   transform-style:preserve-3d;
+}
+.hero__card-face--front {
   animation:cardFloat 8s ease-in-out infinite;
 }
-@keyframes cardFloat { 0%,100%{transform:perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(0)} 50%{transform:perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-18px)} }
+@keyframes cardFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
 .hero__card-face {
   position:absolute; inset:0; border-radius:24px; padding:2rem;
   background:linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
@@ -565,7 +569,12 @@ body:has([data-tilt]:hover) .cursor__ring { width:56px; height:56px; border-colo
 [data-theme="light"] .hero__card-face { background:rgba(0,32,96,.06); border-color:rgba(0,32,96,.12); color:var(--text); }
 [data-theme="light"] .float-badge { background:var(--bg-2); }
 [data-theme="light"] .band__text em { color:#e07a38; }
-[data-theme="light"] .t-inner--gradient { background:linear-gradient(110deg,var(--blue) 0%,var(--blue-mid) 40%,var(--orange) 100%); -webkit-background-clip:text; background-clip:text; }
+[data-theme="light"] .t-inner--gradient {
+  background:linear-gradient(110deg,var(--blue) 0%,var(--blue-mid) 40%,var(--orange) 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent;
+}
 [data-theme="light"] .big-quote { background:rgba(0,32,96,.04); }
 [data-theme="light"] .impact-panel--blue { background:rgba(0,32,96,.06); }
 [data-theme="light"] .impact-panel--orange { background:rgba(197,107,48,.06); }
@@ -621,7 +630,8 @@ body:has([data-tilt]:hover) .cursor__ring { width:56px; height:56px; border-colo
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior:auto; }
   *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
-  .noise, .hero__orb, .float-badge, .kinetic-bar__track, .ticker__track, .hero__card-3d, .hero__card-shine, .t-inner { animation:none; }
+  .hero__orb, .float-badge, .ticker__track, .hero__card-face--front, .s-card__glow,
+  .cta-final__logo-ring, .noise { animation:none; }
   .t-inner { transform:none; opacity:1; }
   [data-reveal] { opacity:1; transform:none; }
   [data-reveal="stagger"] > * { opacity:1; transform:none; }
