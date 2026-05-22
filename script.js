@@ -1,260 +1,238 @@
 /**
- * Conexão Solidária
- * Premium interactions: spring cursor, split text, 3D tilt/card,
- * magnetic buttons, parallax, canvas particles, counters, game, form.
+ * Conexão Solidária — script.js (v2 · do zero)
+ * Vanilla ES Modules · sem bibliotecas externas
  */
 
-/* ─── Config ─── */
-const API  = { health: '/api/health', stats: '/api/stats', register: '/api/inscricao' };
-const LS   = { theme: 'cs_theme_v5', reg: 'cs_reg_v5' };
-const GOAL = 6;
+const API = {
+  health: '/api/health',
+  stats: '/api/stats',
+  register: '/api/inscricao',
+};
 
-/* ─── Utils ─── */
-const $  = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const html = document.documentElement;
+const LS = {
+  theme: 'cs_theme',
+  user: 'cs_user',
+  count: 'cs_count',
+};
 
-/* ──────────────────────────────────── INIT ─── */
-function init() {
-  $('#yr').textContent = new Date().getFullYear();
+const MIN_AGE = 14;
+const KIT_GOAL = 6;
 
-  initTheme();
-  initCursor();
-  initHeader();
-  initProgressBar();
-  initHeroEntry();
-  initSplitText();
-  initReveal();
-  initTilt3D();
-  initMagnetic();
-  initParallax();
-  initHeroCard();
-  initCanvas();
-  initCounters();
-  initGame();
-  initForm();
-  initDevPhoto();
-  loadCounter();
-}
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+const KIT_LABELS = {
+  caderno: '📓 Caderno',
+  alimento: '🥫 Alimento',
+  livro: '📚 Livro',
+  roupa: '👕 Roupa',
+  brinquedo: '🧸 Brinquedo',
+  higiene: '🧴 Higiene',
+  arte: '🎨 Arte',
+  carinho: '💛 Acolhimento',
+};
+
+/* ── Init ── */
 document.addEventListener('DOMContentLoaded', init);
 
-/* ──────────────────────────────────── THEME ─── */
-function initTheme() {
-  const saved = localStorage.getItem(LS.theme)
-    || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  applyTheme(saved, false);
+function init() {
+  $('#year').textContent = new Date().getFullYear();
+  initTheme();
+  initCursor();
+  initTopbar();
+  initScrollProgress();
+  initReveal();
+  initSplitText();
+  initTilt();
+  initMagnetic();
+  initParallax();
+  initSceneCard();
+  initParticles();
+  initCounters();
+  initRipple();
+  initKitGame();
+  initForm();
+  initDevPhoto();
+  loadStats();
+}
 
-  $('#themeSwitch')?.addEventListener('click', () => {
-    const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
-    applyTheme(next, true);
-    localStorage.setItem(LS.theme, next);
+/* ── Theme ── */
+function initTheme() {
+  const saved = localStorage.getItem(LS.theme);
+  applyTheme(saved || 'light', false);
+
+  $('#themeBtn')?.addEventListener('click', (e) => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    const overlay = $('#themeOverlay');
+    if (overlay) {
+      overlay.style.setProperty('--tx', `${(e.clientX / innerWidth) * 100}%`);
+      overlay.style.setProperty('--ty', `${(e.clientY / innerHeight) * 100}%`);
+      overlay.classList.add('is-active');
+      setTimeout(() => overlay.classList.remove('is-active'), 450);
+    }
+    if (document.startViewTransition) {
+      document.startViewTransition(() => applyTheme(next));
+    } else {
+      applyTheme(next);
+    }
   });
 }
 
-function applyTheme(theme, animate) {
-  const apply = () => {
-    html.dataset.theme = theme;
-  };
-
-  if (!animate || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    apply(); return;
-  }
-
-  if (typeof document.startViewTransition === 'function') {
-    document.startViewTransition(apply);
-    return;
-  }
-
-  const flash = $('#themeFlash');
-  flash?.classList.add('is-on');
-  setTimeout(() => {
-    apply();
-    setTimeout(() => flash?.classList.remove('is-on'), 260);
-  }, 160);
+function applyTheme(mode, save = true) {
+  document.documentElement.dataset.theme = mode;
+  const meta = $('meta[name="theme-color"]');
+  if (meta) meta.content = mode === 'dark' ? '#0a0e18' : '#003082';
+  if (save) localStorage.setItem(LS.theme, mode);
 }
 
-/* ──────────────────────────────────── CURSOR ─── */
+/* ── Cursor ── */
 function initCursor() {
-  if (matchMedia('(pointer: coarse)').matches) {
-    $('#cursor')?.remove();
-    return;
-  }
-
   const cursor = $('#cursor');
-  const dot  = cursor?.querySelector('.cursor__dot');
-  const halo = cursor?.querySelector('.cursor__halo');
-  if (!cursor || !dot || !halo) return;
+  if (!cursor || matchMedia('(pointer: coarse)').matches) return;
 
-  let mx = -300, my = -300, hx = -300, hy = -300;
+  let mx = 0, my = 0, rx = 0, ry = 0;
 
   document.addEventListener('mousemove', (e) => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = `${mx}px`; dot.style.top = `${my}px`;
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.transform = `translate(${mx}px, ${my}px)`;
   });
 
-  (function loop() {
-    hx += (mx - hx) * 0.1;
-    hy += (my - hy) * 0.1;
-    halo.style.left = `${hx}px`;
-    halo.style.top  = `${hy}px`;
+  const loop = () => {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    const ring = $('.cursor__ring', cursor);
+    if (ring) ring.style.transform = `translate(calc(-50% + ${rx - mx}px), calc(-50% + ${ry - my}px))`;
     requestAnimationFrame(loop);
-  })();
+  };
+  loop();
 
-  document.addEventListener('mousedown', () => {
-    dot.style.width  = dot.style.height  = '12px';
-    halo.style.width = halo.style.height = '28px';
+  document.addEventListener('mousedown', () => cursor.classList.add('is-down'));
+  document.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
+
+  $$('a, button, input, textarea, summary, [data-magnetic]').forEach((el) => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
   });
-  document.addEventListener('mouseup', () => {
-    dot.style.width  = dot.style.height  = '';
-    halo.style.width = halo.style.height = '';
-  });
-  document.addEventListener('mouseleave', () => { mx = my = -300; });
 }
 
-/* ──────────────────────────────────── HEADER ─── */
-function initHeader() {
-  const header  = $('#header');
-  const nav     = $('#headerNav');
-  const burger  = $('#headerBurger');
-  const navLine = $('#navLine');
-  const links   = $$('.header__link');
-  const sections = ['contexto','desafio','solucao','impacto','suporte','participe'];
+/* ── Topbar ── */
+function initTopbar() {
+  const topbar = $('#topbar');
+  const nav = $('#topNav');
+  const indicator = $('#navIndicator');
+  const menuBtn = $('#menuBtn');
+  const links = $$('.topbar__link');
+  const sections = links.map((l) => $(`#${l.dataset.nav}`)).filter(Boolean);
 
-  /* Scroll solid + spy */
   const onScroll = () => {
-    header?.classList.toggle('is-solid', scrollY > 24);
+    topbar?.classList.toggle('is-solid', scrollY > 40);
 
-    const pos = scrollY + 110;
-    let cur = sections[0];
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= pos) cur = id;
+    let current = sections[0]?.id;
+    for (const sec of sections) {
+      if (sec.getBoundingClientRect().top <= 120) current = sec.id;
+    }
+
+    links.forEach((link) => {
+      const active = link.dataset.nav === current;
+      link.classList.toggle('is-active', active);
+      if (active && indicator && nav) {
+        const navRect = nav.getBoundingClientRect();
+        const linkRect = link.getBoundingClientRect();
+        indicator.style.width = `${linkRect.width}px`;
+        indicator.style.left = `${linkRect.left - navRect.left}px`;
+      }
     });
-    links.forEach((l) => l.classList.toggle('is-current', l.dataset.section === cur));
-    slideLine($('.header__link.is-current'));
   };
-  addEventListener('scroll', onScroll, { passive: true });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* Underline pill */
-  function slideLine(target) {
-    if (!navLine || !target || !nav) {
-      if (navLine) navLine.style.opacity = '0';
-      return;
-    }
-    if (innerWidth < 769) { navLine.style.opacity = '0'; return; }
-    const nr = nav.getBoundingClientRect();
-    const tr = target.getBoundingClientRect();
-    navLine.style.opacity   = '1';
-    navLine.style.width     = `${tr.width}px`;
-    navLine.style.transform = `translateX(${tr.left - nr.left}px)`;
-  }
-
-  links.forEach((l) => {
-    l.addEventListener('mouseenter', () => slideLine(l));
-    l.addEventListener('click', (e) => {
-      const href = l.getAttribute('href');
-      if (!href?.startsWith('#')) return;
-      e.preventDefault();
-      document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth' });
-      nav.classList.remove('is-open');
-      burger?.setAttribute('aria-expanded', 'false');
-    });
-  });
-  nav?.addEventListener('mouseleave', () => slideLine($('.header__link.is-current')));
-  addEventListener('resize', () => slideLine($('.header__link.is-current')));
-
-  /* Burger */
-  burger?.addEventListener('click', () => {
-    const open = nav.classList.toggle('is-open');
-    burger.setAttribute('aria-expanded', String(open));
+  menuBtn?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('is-open');
+    menuBtn.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(!!open));
   });
 
-  /* Smooth anchors everywhere */
   $$('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
+      const id = a.getAttribute('href');
+      if (id === '#') return;
+      const target = $(id);
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-      nav.classList.remove('is-open');
+      nav?.classList.remove('is-open');
+      menuBtn?.classList.remove('is-open');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
 
-/* ──────────────────────────────────── PROGRESS BAR ─── */
-function initProgressBar() {
-  const bar = $('#progressBar');
+/* ── Scroll progress ── */
+function initScrollProgress() {
+  const bar = $('#scrollProgress');
   if (!bar) return;
-  addEventListener('scroll', () => {
+  window.addEventListener('scroll', () => {
     const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = `${max > 0 ? (scrollY / max) * 100 : 0}%`;
+    bar.style.width = max > 0 ? `${(scrollY / max) * 100}%` : '0%';
   }, { passive: true });
 }
 
-/* ──────────────────────────────────── HERO ENTRY ─── */
-function initHeroEntry() {
-  /* Stagger v-fade elements in hero */
-  $$('.v-fade').forEach((el) => {
-    const delay = Number(el.dataset.delay || 0);
-    setTimeout(() => el.classList.add('is-in'), 150 + delay);
-  });
-  /* Line-clip titles */
-  $$('.line-text').forEach((el, i) => {
-    setTimeout(() => el.classList.add('is-in'), 260 + i * 150);
-  });
+/* ── Reveal on scroll ── */
+function initReveal() {
+  const els = $$('.reveal');
+  if (!els.length) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach((el) => io.observe(el));
 }
 
-/* ──────────────────────────────────── SPLIT TEXT ─── */
+/* ── Split text ── */
 function initSplitText() {
   $$('[data-split]').forEach((el) => {
-    const text = el.textContent.trim();
-    el.setAttribute('aria-label', text);
-    el.innerHTML = text.split('').map((ch) =>
-      `<span class="char-wrap" aria-hidden="true"><span>${ch === ' ' ? '\u00A0' : ch}</span></span>`
-    ).join('');
-
-    const io = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      $$('.char-wrap', el).forEach((w, i) => {
-        setTimeout(() => w.classList.add('is-in'), i * 25);
-      });
-      io.disconnect();
-    }, { threshold: 0.3 });
-    io.observe(el);
-  });
-}
-
-/* ──────────────────────────────────── REVEAL ─── */
-function initReveal() {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const delay = Number(e.target.dataset.delay || 0);
-      setTimeout(() => e.target.classList.add('is-in'), delay);
-      io.unobserve(e.target);
+    const text = el.textContent;
+    el.textContent = '';
+    [...text].forEach((char, i) => {
+      const span = document.createElement('span');
+      span.className = 'split-char';
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.transitionDelay = `${i * 0.025}s`;
+      el.appendChild(span);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
-
-  $$('[data-reveal]').forEach((el) => {
-    if (el.closest('.hero')) return; // hero handled separately
-    io.observe(el);
   });
+
+  const chars = $$('.split-char');
+  if (!chars.length) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  $$('[data-split]').forEach((el) => io.observe(el));
 }
 
-/* ──────────────────────────────────── 3D TILT ─── */
-function initTilt3D() {
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+/* ── 3D Tilt ── */
+function initTilt() {
   $$('[data-tilt]').forEach((el) => {
     el.addEventListener('mousemove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      el.style.setProperty('--rx', `${-y * 9}deg`);
-      el.style.setProperty('--ry', `${x * 9}deg`);
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      el.style.setProperty('--ry', `${x * 12}deg`);
+      el.style.setProperty('--rx', `${-y * 12}deg`);
     });
     el.addEventListener('mouseleave', () => {
       el.style.setProperty('--rx', '0deg');
@@ -263,14 +241,15 @@ function initTilt3D() {
   });
 }
 
-/* ──────────────────────────────────── MAGNETIC ─── */
+/* ── Magnetic buttons ── */
 function initMagnetic() {
-  if (matchMedia('(pointer: coarse)').matches) return;
   $$('[data-magnetic]').forEach((btn) => {
     btn.addEventListener('mousemove', (e) => {
-      const r = btn.getBoundingClientRect();
-      btn.style.setProperty('--mx', `${(e.clientX - r.left - r.width  / 2) * 0.13}px`);
-      btn.style.setProperty('--my', `${(e.clientY - r.top  - r.height / 2) * 0.13}px`);
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.setProperty('--mx', `${x * 0.2}px`);
+      btn.style.setProperty('--my', `${y * 0.2}px`);
     });
     btn.addEventListener('mouseleave', () => {
       btn.style.setProperty('--mx', '0px');
@@ -279,337 +258,371 @@ function initMagnetic() {
   });
 }
 
-/* ──────────────────────────────────── PARALLAX ─── */
+/* ── Parallax orbs ── */
 function initParallax() {
-  const a = $('.hero__orb--a');
-  const b = $('.hero__orb--b');
-  if (!a && !b) return;
-
-  addEventListener('scroll', () => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const y = scrollY;
-    if (a) a.style.transform = `translate(0, ${y * 0.1}px)`;
-    if (b) b.style.transform = `translate(0, ${y * 0.06}px)`;
+  const orbs = $$('.intro__orb');
+  if (!orbs.length) return;
+  window.addEventListener('scroll', () => {
+    const y = scrollY * 0.15;
+    orbs.forEach((orb, i) => {
+      orb.style.transform = `translateY(${y * (i + 1) * 0.3}px)`;
+    });
   }, { passive: true });
 }
 
-/* ──────────────────────────────────── HERO CARD 3D + SHINE ─── */
-function initHeroCard() {
-  const card  = $('.float-card');
-  const shine = card?.querySelector('.float-card__shine');
-  if (!card || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  addEventListener('mousemove', (e) => {
-    const r = card.getBoundingClientRect();
-    if (r.top > innerHeight || r.bottom < 0) return;
-    const x = (e.clientX - r.left - r.width  / 2) / r.width;
-    const y = (e.clientY - r.top  - r.height / 2) / r.height;
-    card.style.setProperty('--rx', `${-y * 16}deg`);
-    card.style.setProperty('--ry', `${x * 16}deg`);
-    if (shine) {
-      shine.style.setProperty('--sx', `${(x + 0.5) * 100}%`);
-      shine.style.setProperty('--sy', `${(y + 0.5) * 100}%`);
-    }
+/* ── Scene card shine ── */
+function initSceneCard() {
+  const card = $('#sceneCard');
+  if (!card) return;
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const sx = ((e.clientX - rect.left) / rect.width) * 100;
+    const sy = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--sx', `${sx}%`);
+    card.style.setProperty('--sy', `${sy}%`);
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.setProperty('--ry', `${x * 10}deg`);
+    card.style.setProperty('--rx', `${-y * 10}deg`);
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--rx', '0deg');
+    card.style.setProperty('--ry', '0deg');
   });
 }
 
-/* ──────────────────────────────────── CANVAS PARTICLES ─── */
-function initCanvas() {
-  const canvas = $('#heroCanvas');
+/* ── Canvas particles ── */
+function initParticles() {
+  const canvas = $('#particleCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let pts = [], rafId;
+  let w, h, particles;
 
   const resize = () => {
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    const n = Math.min(80, Math.floor(canvas.width / 18));
-    pts = Array.from({ length: n }, () => ({
-      x:  Math.random() * canvas.width,
-      y:  Math.random() * canvas.height,
-      r:  Math.random() * 1.8 + 0.4,
-      vy: Math.random() * 0.35 + 0.07,
-      vx: (Math.random() - 0.5) * 0.18,
-      a:  Math.random() * 0.45 + 0.06,
-      blue: Math.random() > 0.65,
+    w = canvas.width = canvas.offsetWidth * devicePixelRatio;
+    h = canvas.height = canvas.offsetHeight * devicePixelRatio;
+    particles = Array.from({ length: 50 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 2 + 1,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      color: Math.random() > 0.5 ? 'rgba(0,48,130,0.35)' : 'rgba(197,107,48,0.3)',
     }));
   };
 
   const draw = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pts.forEach((p) => {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.blue
-        ? `rgba(40, 100, 220, ${p.a})`
-        : `rgba(200, 100, 40, ${p.a})`;
+      ctx.fillStyle = p.color;
       ctx.fill();
-      p.y -= p.vy; p.x += p.vx;
-      if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
     });
-    rafId = requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
   };
 
   resize();
   draw();
-  addEventListener('resize', resize);
-  return () => cancelAnimationFrame(rafId);
+  window.addEventListener('resize', resize);
 }
 
-/* ──────────────────────────────────── COUNTERS ─── */
+/* ── Counters ── */
 function initCounters() {
-  $$('[data-count]').forEach((el) => {
-    const target = Number(el.dataset.count);
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      animNum(el, 0, target, 1500);
-      io.disconnect();
-    }, { threshold: 0.5 });
-    io.observe(el);
+  const els = $$('[data-count]');
+  if (!els.length) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        animNum(entry.target, Number(entry.target.dataset.count));
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  els.forEach((el) => io.observe(el));
+}
+
+function animNum(el, target) {
+  const start = performance.now();
+  const dur = 1200;
+  const tick = (now) => {
+    const t = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(eased * target);
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function setCounterValue(id, val) {
+  const el = $(id);
+  if (el) animNum(el, val);
+}
+
+/* ── Ripple ── */
+function initRipple() {
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
   });
 }
 
-function animNum(el, from, to, ms) {
-  if (!el) return;
-  const t0 = performance.now();
-  const step = (now) => {
-    const p = Math.min((now - t0) / ms, 1);
-    const v = Math.floor(from + (to - from) * (1 - (1 - p) ** 3));
-    el.textContent = v;
-    if (p < 1) requestAnimationFrame(step);
-    else el.textContent = to;
-  };
-  requestAnimationFrame(step);
-}
+/* ── Kit game ── */
+function initKitGame() {
+  const items = $('#kitItems');
+  const drop = $('#kitDrop');
+  const score = $('#kitScore');
+  const reset = $('#kitReset');
+  if (!items || !drop) return;
 
-/* ──────────────────────────────────── GAME ─── */
-function initGame() {
   const picked = new Set();
-  const drop   = $('#kitDrop');
-  const pct    = $('#kitPct');
-
-  const ITEMS = {
-    caderno: '📓 Caderno', alimento: '🥫 Alimento', livro: '📚 Livro',
-    roupa:   '👕 Roupa',   brinquedo:'🧸 Brinquedo', higiene: '🧴 Higiene',
-    arte:    '🎨 Arte',    carinho:  '💛 Acolhimento',
-  };
 
   const render = () => {
-    const n = picked.size;
-    if (pct) pct.textContent = `${Math.min(100, Math.round(n / GOAL * 100))}%`;
-    if (!drop) return;
     drop.innerHTML = '';
-    if (n === 0) {
-      drop.innerHTML = '<span class="kit-drop__empty">Seu kit aparece aqui</span>';
-      return;
+    if (!picked.size) {
+      drop.innerHTML = '<span class="game__empty">Seu kit aparece aqui</span>';
+    } else {
+      picked.forEach((key) => {
+        const chip = document.createElement('span');
+        chip.className = 'game__chip';
+        chip.textContent = KIT_LABELS[key];
+        drop.appendChild(chip);
+      });
     }
-    [...picked].forEach((k) => {
-      const chip = document.createElement('span');
-      chip.className = 'kit-chip';
-      chip.textContent = ITEMS[k];
-      drop.appendChild(chip);
-    });
-    if (n >= GOAL) {
-      const win = document.createElement('p');
-      win.className = 'kit-win';
-      win.textContent = '🎉 Kit completo! Você está pronto para a visita!';
-      drop.appendChild(win);
-    }
+    const pct = Math.min(100, Math.round((picked.size / KIT_GOAL) * 100));
+    if (score) score.textContent = `${pct}%`;
   };
 
-  $$('#kitItems button').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const k = btn.dataset.item;
-      picked.has(k) ? (picked.delete(k), btn.classList.remove('is-on'))
-                    : (picked.add(k),    btn.classList.add('is-on'));
-      render();
-    });
+  items.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-kit]');
+    if (!btn) return;
+    const key = btn.dataset.kit;
+    if (picked.has(key)) {
+      picked.delete(key);
+      btn.classList.remove('is-on');
+    } else if (picked.size < KIT_GOAL) {
+      picked.add(key);
+      btn.classList.add('is-on');
+    }
+    render();
   });
 
-  $('#kitReset')?.addEventListener('click', () => {
+  reset?.addEventListener('click', () => {
     picked.clear();
-    $$('#kitItems button').forEach((b) => b.classList.remove('is-on'));
+    $$('.game__items button', items).forEach((b) => b.classList.remove('is-on'));
     render();
   });
 }
 
-/* ──────────────────────────────────── API ─── */
+/* ── API & stats ── */
 async function apiUp() {
-  try { return (await fetch(API.health)).ok; } catch { return false; }
+  try {
+    const res = await fetch(API.health, { signal: AbortSignal.timeout(3000) });
+    return res.ok;
+  } catch {
+    return false;
+  }
 }
 
-async function loadCounter() {
-  let n = 0;
+async function loadStats() {
+  let count = Number(localStorage.getItem(LS.count)) || 0;
 
   if (await apiUp()) {
-    try { n = (await (await fetch(API.stats)).json()).contador ?? 0; } catch { /* */ }
-  }
-  if (!n) {
-    n = Number(localStorage.getItem('conexaoSolidaria_contador') || 0);
-    if (localStorage.getItem(LS.reg)) n = Math.max(n, 1);
+    try {
+      const res = await fetch(API.stats);
+      const data = await res.json();
+      count = data.contador ?? count;
+      localStorage.setItem(LS.count, count);
+    } catch { /* fallback */ }
   }
 
-  $$('#heroCount, #liveCount').forEach((el) => animNum(el, 0, n, 1200));
+  setCounterValue('#heroCounter', count);
+  setCounterValue('#liveCounter', count);
 
-  /* Restore previous registration */
-  const saved = localStorage.getItem(LS.reg);
+  const saved = localStorage.getItem(LS.user);
   if (saved) {
-    try { showSuccess(JSON.parse(saved), false); } catch { /* */ }
+    try {
+      const user = JSON.parse(saved);
+      showSuccess(user.nome);
+    } catch { /* ignore */ }
   }
 }
 
-/* ──────────────────────────────────── FORM ─── */
+/* ── Form ── */
 function initForm() {
   const form = $('#signupForm');
   if (!form) return;
 
   const fields = {
-    nome:   $('#fNome'),
-    idade:  $('#fIdade'),
-    email:  $('#fEmail'),
-    motivo: $('#fMotivo'),
+    nome: { el: $('#nome'), err: $('#errNome') },
+    idade: { el: $('#idade'), err: $('#errIdade') },
+    email: { el: $('#email'), err: $('#errEmail') },
+    motivo: { el: $('#motivo'), err: $('#errMotivo') },
   };
 
-  /* Live validation on blur / fix-on-type */
-  Object.entries(fields).forEach(([key, inp]) => {
-    inp?.addEventListener('blur',  () => validate(key, inp));
-    inp?.addEventListener('input', () => { if (inp.classList.contains('is-bad')) validate(key, inp); });
-  });
-
-  /* Ripple on primary button click */
-  form.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn--primary');
-    if (!btn) return;
-    const r = btn.getBoundingClientRect();
-    const rip = document.createElement('span');
-    rip.className = 'ripple';
-    rip.style.left   = `${e.clientX - r.left}px`;
-    rip.style.top    = `${e.clientY - r.top}px`;
-    btn.appendChild(rip);
-    setTimeout(() => rip.remove(), 600);
+  Object.entries(fields).forEach(([name, { el }]) => {
+    el?.addEventListener('blur', () => validateField(name, fields));
+    el?.addEventListener('input', () => {
+      if (el.closest('.form__field')?.classList.contains('is-bad')) {
+        validateField(name, fields);
+      }
+    });
   });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    const allOk = Object.entries(fields).every(([k, inp]) => validate(k, inp));
-    if (!allOk) { setStatus('Revise os campos destacados.', false); return; }
+    const valid = Object.keys(fields).every((k) => validateField(k, fields));
+    if (!valid) return setStatus('Corrija os campos destacados.', 'bad');
 
     const payload = {
-      nome:   fields.nome.value.trim(),
-      idade:  Number(fields.idade.value),
-      email:  fields.email.value.trim().toLowerCase(),
-      motivo: fields.motivo.value.trim(),
+      nome: fields.nome.el.value.trim(),
+      idade: Number(fields.idade.el.value),
+      email: fields.email.el.value.trim(),
+      motivo: fields.motivo.el.value.trim(),
     };
 
-    const btn     = $('#submitBtn');
-    const btnText = $('#submitText');
-    if (btn) btn.disabled = true;
-    if (btnText) btnText.textContent = 'Enviando…';
-    setStatus('', true);
+    const btn = $('#submitBtn');
+    const label = $('#submitLabel');
+    btn.disabled = true;
+    if (label) label.textContent = 'Enviando...';
 
     try {
       if (await apiUp()) {
-        const res  = await fetch(API.register, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
+        const res = await fetch(API.register, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
         const data = await res.json();
-        if (res.status === 409) { openDupModal(); return; }
-        if (!res.ok) throw new Error(data.error || 'Erro ao enviar.');
-        localStorage.setItem(LS.reg, JSON.stringify(payload));
-        $$('#heroCount, #liveCount').forEach((el) => animNum(el, 0, data.contador, 600));
-        setStatus(data.message || 'Inscrição confirmada!', true);
-        showSuccess(payload);
+        if (res.status === 409) {
+          openDupDialog();
+          return;
+        }
+        if (!res.ok) throw new Error(data.error || 'Erro ao inscrever.');
+        localStorage.setItem(LS.user, JSON.stringify({ nome: payload.nome, email: payload.email }));
+        localStorage.setItem(LS.count, data.contador);
+        setCounterValue('#heroCounter', data.contador);
+        setCounterValue('#liveCounter', data.contador);
+        showSuccess(payload.nome);
+        setStatus('', '');
       } else {
-        if (localStorage.getItem(LS.reg)) { openDupModal(); return; }
-        localStorage.setItem(LS.reg, JSON.stringify(payload));
-        const c = Number(localStorage.getItem('conexaoSolidaria_contador') || 0) + 1;
-        localStorage.setItem('conexaoSolidaria_contador', String(c));
-        $$('#heroCount, #liveCount').forEach((el) => animNum(el, 0, c, 600));
-        setStatus('Inscrição salva localmente (use npm start para API completa).', true);
-        showSuccess(payload);
+        saveLocal(payload);
+        showSuccess(payload.nome);
       }
     } catch (err) {
-      setStatus(err.message || 'Falha ao enviar. Tente novamente.', false);
+      if (err.message.includes('inscrito')) {
+        openDupDialog();
+      } else {
+        setStatus(err.message || 'Erro ao enviar. Tente novamente.', 'bad');
+      }
     } finally {
-      if (btn) btn.disabled = false;
-      if (btnText) btnText.textContent = 'Confirmar inscrição';
+      btn.disabled = false;
+      if (label) label.textContent = 'Confirmar inscrição';
     }
   });
 
-  /* Dup modal */
-  $('#dupClose')?.addEventListener('click',  () => $('#dupModal')?.close());
-  $('#dupOk')   ?.addEventListener('click',  () => $('#dupModal')?.close());
-  $('#dupModal') ?.addEventListener('click', (e) => { if (e.target === $('#dupModal')) $('#dupModal')?.close(); });
+  $('#dupOk')?.addEventListener('click', closeDupDialog);
+  $('#dupClose')?.addEventListener('click', closeDupDialog);
 }
 
-function validate(key, inp) {
-  if (!inp) return false;
-  const v   = inp.value.trim();
-  const err = $(`#err${key.charAt(0).toUpperCase() + key.slice(1)}`);
-  let   msg = '';
+function validateField(name, fields) {
+  const { el, err } = fields[name];
+  const wrap = el?.closest('.form__field');
+  if (!el || !wrap) return false;
 
-  switch (key) {
+  let msg = '';
+  const val = el.value.trim();
+
+  switch (name) {
     case 'nome':
-      if (v.length < 3) msg = 'Nome obrigatório (mín. 3 caracteres).';
+      if (val.length < 3) msg = 'Nome deve ter ao menos 3 caracteres.';
       break;
     case 'idade': {
-      const n = Number(v);
-      if (!v || isNaN(n))    msg = 'Informe a idade.';
-      else if (n < 14)       msg = 'Mínimo 14 anos para participar.';
-      else if (n > 120)      msg = 'Idade inválida.';
+      const age = Number(val);
+      if (!Number.isInteger(age) || age < MIN_AGE) msg = `Idade mínima: ${MIN_AGE} anos.`;
+      else if (age > 120) msg = 'Idade inválida.';
       break;
     }
     case 'email':
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) msg = 'E-mail inválido.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) msg = 'E-mail inválido.';
       break;
     case 'motivo':
-      if (v.length < 20) msg = 'Conte um pouco mais (mín. 20 caracteres).';
+      if (val.length < 20) msg = 'Motivação muito curta (mín. 20 caracteres).';
+      break;
+    default:
       break;
   }
 
-  inp.classList.toggle('is-bad', !!msg);
-  inp.classList.toggle('is-ok',  !msg && v.length > 0);
+  wrap.classList.toggle('is-bad', !!msg);
+  wrap.classList.toggle('is-ok', !msg && val.length > 0);
   if (err) err.textContent = msg;
   return !msg;
 }
 
-function setStatus(text, ok) {
+function setStatus(msg, type) {
   const el = $('#formStatus');
   if (!el) return;
-  el.textContent = text;
-  el.className   = `form-status${ok && text ? ' ok' : ''}`;
+  el.textContent = msg;
+  el.classList.toggle('is-ok', type === 'ok');
+  el.classList.toggle('is-bad', type === 'bad');
 }
 
-function showSuccess(data, scroll = true) {
-  const pane = $('#successPane');
-  const form = $('#signupForm');
-  const game = $('#kitGame');
-
-  form?.classList.add('is-gone');
-  game?.classList.add('is-gone');
-  pane?.classList.remove('is-gone');
-
-  const name = data.nome?.split(' ')[0] || 'Voluntário(a)';
-  const msg  = $('#successMsg');
-  if (msg) msg.textContent = `Obrigado, ${name}! Sua inscrição foi registrada. Nos vemos na próxima visita! 💛`;
-
-  if (scroll) pane?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function saveLocal(payload) {
+  const prev = localStorage.getItem(LS.user);
+  if (prev) {
+    try {
+      if (JSON.parse(prev).email === payload.email) {
+        openDupDialog();
+        return;
+      }
+    } catch { /* ignore */ }
+  }
+  localStorage.setItem(LS.user, JSON.stringify({ nome: payload.nome, email: payload.email }));
+  const count = Number(localStorage.getItem(LS.count) || 0) + 1;
+  localStorage.setItem(LS.count, count);
+  setCounterValue('#heroCounter', count);
+  setCounterValue('#liveCounter', count);
 }
 
-function openDupModal() {
-  const m = $('#dupModal');
-  if (m?.showModal) m.showModal();
-  else m?.setAttribute('open', '');
+function showSuccess(nome) {
+  $('#joinGrid')?.classList.add('hidden');
+  const panel = $('#successPanel');
+  const text = $('#successText');
+  if (text) text.textContent = `${nome}, sua inscrição no Conexão Solidária foi registrada. Obrigado por fazer parte dessa rede de apoio!`;
+  panel?.classList.remove('hidden');
 }
 
-/* ──────────────────────────────────── DEV PHOTO ─── */
+function openDupDialog() {
+  $('#dupDialog')?.showModal();
+}
+
+function closeDupDialog() {
+  $('#dupDialog')?.close();
+}
+
+/* ── Dev photo ── */
 function initDevPhoto() {
-  const av = $('#devAvatar');
-  if (!av) return;
+  const avatar = $('#devAvatar');
+  if (!avatar) return;
   const img = new Image();
+  img.onload = () => {
+    avatar.textContent = '';
+    avatar.appendChild(img);
+  };
   img.src = 'assets/dev-ana.jpg';
-  img.alt = 'Ana Flávia';
-  img.onload = () => { av.textContent = ''; av.appendChild(img); };
 }

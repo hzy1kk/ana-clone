@@ -1,8 +1,10 @@
 # Conexão Solidária
 
-Landing premium inspirada no **Wix AI Website Builder** — projeto Escola Paulo de Tarso.
+Landing page institucional premium do projeto **Conexão Solidária** — parceria contínua entre o Colégio Paulo de Tarso e escolas em vulnerabilidade social.
 
-## Rodar (recomendado — com API)
+Reconstruído do zero com HTML5, CSS3 e JavaScript Vanilla + API Node.js.
+
+## Executar
 
 ```bash
 npm install
@@ -11,18 +13,32 @@ npm start
 
 Abra **http://localhost:3000**
 
-## Só estático
+## Estrutura
 
-```bash
-python3 -m http.server 8080
-```
+| Arquivo | Descrição |
+|---------|-----------|
+| `index.html` | Página principal |
+| `style.css` | Estilos, temas e animações |
+| `script.js` | Interações, formulário e efeitos |
+| `server.js` | API de inscrições (Express) |
+| `assets/` | Logo e imagens |
 
-## Estrutura da apresentação
+## Seções
 
-1. Contexto · 2. Desafio · 3. Solução · 4. Resultado · 5. Convite (+ jogo e formulário)
+1. Contexto — parceria contínua
+2. Desafio — invisibilidade e exclusão
+3. Solução — atividades práticas
+4. Impacto — transformação mútua
+5. Suporte — campanhas de arrecadação
+6. Participe — kit solidário + inscrição
 
 ## Assets
 
-- `assets/colpaulotarso-logo-og.png` — logo oficial (grande no hero)
-- `assets/images/gallery/foto-1.jpg` … `foto-3.jpg`
-- `assets/dev-ana.jpg` — foto da desenvolvedora (opcional)
+- Logo: `assets/logo-colegio.png`
+- Galeria: `assets/images/gallery/foto-*.jpg`
+- Foto dev (opcional): `assets/dev-ana.jpg`
+
+## Links
+
+- [Colégio Paulo de Tarso](https://colegiopaulodetarso.com.br/)
+- [Repositório GitHub](https://github.com/hzy1kk/ana-clone)
